@@ -1,778 +1,996 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growth Merchandiser Portfolio: Kim Dongjin</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dongjin Kim — Portfolio | 상품기획 MD</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#15211F',
+          paper: '#FAF9F5',
+          accent: { DEFAULT: '#0F766E', light: '#14B8A6', soft: '#E6F5F2', dark: '#0B4A45' },
+          coral: { DEFAULT: '#E2725B', soft: '#FBEAE5' },
+          line: '#E7E4DD'
+        },
+        fontFamily: { sans: ["'Noto Sans KR'", 'sans-serif'] }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Noto Sans KR', sans-serif; background-color: #FAF9F5; color: #15211F; word-break: keep-all; overflow-wrap: break-word; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #F1F0EB; }
+  ::-webkit-scrollbar-thumb { background: #C9C5BA; border-radius: 3px; }
 
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #F8FAFC;
-            color: #0F172A;
-            word-break: keep-all;
-            overflow-wrap: break-word;
-        }
+  .eyebrow { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: #0F766E; }
+  .section-pad { padding-top: 6.5rem; padding-bottom: 6.5rem; }
+  @media (max-width: 768px) { .section-pad { padding-top: 4.5rem; padding-bottom: 4.5rem; } }
 
-        /* Chart Container Styles */
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 100%; 
-            height: 320px;    
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        @media (min-width: 1024px) {
-            .chart-container {
-                height: 360px; 
-            }
-        }
+  /* Floating side nav */
+  #sideNav { position: fixed; left: 2rem; top: 50%; transform: translateY(-50%); z-index: 50; }
+  #sideNav .rail { position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: #DAD6CB; }
+  #sideNav .nav-dot { position: relative; width: 11px; height: 11px; border-radius: 999px; border: 2px solid #C9C5BA; background: #FAF9F5; transition: all .35s ease; cursor: pointer; }
+  #sideNav a { display: flex; align-items: center; gap: .85rem; margin-bottom: 1.4rem; }
+  #sideNav a:last-child { margin-bottom: 0; }
+  #sideNav .nav-label { font-size: .72rem; font-weight: 700; letter-spacing: .03em; color: #8A8578; opacity: 0; transform: translateX(-6px); transition: all .3s ease; white-space: nowrap; }
+  #sideNav a:hover .nav-label { opacity: 1; transform: translateX(0); }
+  #sideNav a.active .nav-dot { border-color: #0F766E; background: #0F766E; transform: scale(1.25); }
+  #sideNav a.active .nav-label { opacity: 1; transform: translateX(0); color: #0F766E; }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #F1F5F9;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #94A3B8;
-            border-radius: 3px;
-        }
+  /* Mobile nav */
+  #mobileOverlay { position: fixed; inset: 0; background: #15211F; z-index: 100; display: flex; flex-direction: column; justify-content: center; padding: 2.5rem; transform: translateY(-100%); transition: transform .4s ease; }
+  #mobileOverlay.open { transform: translateY(0); }
+  #mobileOverlay a { font-size: 1.6rem; font-weight: 900; color: #F1F0EB; padding: .55rem 0; display: flex; align-items: baseline; gap: .75rem; }
+  #mobileOverlay a span.num { font-size: .85rem; color: #14B8A6; font-weight: 700; }
 
-        /* Card Hover Effects */
-        .stat-card {
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
-        .stat-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-left-color: #1E40AF;
-        }
+  .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+  .fade-up.in-view { opacity: 1; transform: translateY(0); }
 
-        /* Resume Section Styles */
-        .resume-section {
-            background-color: #fff;
-            border-radius: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .profile-sticky {
-            position: sticky;
-            top: 6rem; /* 네비게이션 높이 고려 */
-        }
-        .profile-img-container {
-            width: 70%; 
-            margin: 0 auto;
-        }
-        .profile-img {
-            width: 100%;
-            height: auto;
-            border-radius: 0.5rem;
-            object-fit: cover;
-            aspect-ratio: 3/4; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .timeline-item {
-            position: relative;
-            padding-left: 1.5rem;
-            border-left: 2px solid #E2E8F0;
-            padding-bottom: 2.5rem;
-        }
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: -0.35rem;
-            top: 0.25rem;
-            width: 0.75rem;
-            height: 0.75rem;
-            border-radius: 50%;
-            background-color: #3B82F6;
-            border: 2px solid #fff;
-        }
-        .timeline-item:last-child {
-            border-left: none;
-            padding-bottom: 0;
-        }
-        
-        /* Skills Badge Enhanced */
-        .skill-badge {
-            transition: transform 0.2s;
-            display: inline-flex;
-            align-items: center;
-        }
-        .skill-badge:hover {
-            transform: scale(1.05);
-        }
+  .stat-card { transition: all .3s ease; border-top: 3px solid transparent; }
+  .stat-card:hover { transform: translateY(-4px); border-top-color: #0F766E; box-shadow: 0 14px 30px -12px rgba(15,118,110,.25); }
 
-        /* Funnel Visualization */
-        .funnel-bar {
-            transition: width 1s ease-in-out;
-        }
-    </style>
+  .timeline-item { position: relative; padding-left: 1.75rem; border-left: 2px solid #E7E4DD; padding-bottom: 3rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -0.4rem; top: .3rem; width: .85rem; height: .85rem; border-radius: 50%; background: #0F766E; border: 3px solid #FAF9F5; }
+  .timeline-item:last-child { border-left: none; padding-bottom: 0; }
+
+  .skill-badge { transition: transform .2s; display: inline-flex; align-items: center; }
+  .skill-badge:hover { transform: scale(1.05); }
+
+  .chart-container { position: relative; width: 100%; height: 300px; }
+  @media (min-width: 1024px) { .chart-container { height: 340px; } }
+
+  .img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; width: 100%; height: 100%; min-height: 220px; border: 2px dashed #D6D2C6; border-radius: .9rem; color: #A8A398; font-size: .72rem; text-align: center; padding: 1.25rem; background: repeating-linear-gradient(45deg, #FFFFFF, #FFFFFF 10px, #F5F4EF 10px, #F5F4EF 20px); }
+  .img-placeholder i { font-size: 1.4rem; color: #C9C5BA; }
+
+  .progress-track { width: 100%; height: 10px; border-radius: 999px; background: #ECEAE3; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 999px; width: 0%; transition: width 1.3s cubic-bezier(.2,.8,.2,1); }
+
+  .blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: .9; }
+</style>
 </head>
 <body class="antialiased">
 
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur shadow-sm border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center gap-2">
-                    <span class="bg-blue-800 text-white font-black px-2 py-1 text-lg rounded">MD</span>
-                    <span class="font-bold text-xl tracking-tight text-gray-900">Kim Dongjin</span>
-                </div>
-                <div class="hidden md:flex space-x-8 text-sm font-medium">
-                    <a href="#resume" class="text-gray-500 hover:text-blue-800 transition"><i class="far fa-file-alt mr-1"></i>이력서</a>
-                    <a href="#dashboard" class="text-gray-500 hover:text-blue-800 transition"><i class="fas fa-chart-line mr-1"></i>핵심 성과</a>
-                    <a href="#rebranding" class="text-gray-500 hover:text-blue-800 transition"><i class="fas fa-search-dollar mr-1"></i>브랜드 전략</a>
-                    <a href="#engineering" class="text-gray-500 hover:text-blue-800 transition"><i class="fas fa-cogs mr-1"></i>상품 설계</a>
-                    <a href="#field-research" class="text-gray-500 hover:text-blue-800 transition"><i class="fas fa-shoe-prints mr-1"></i>디지털 전환</a>
-                </div>
-            </div>
+  <!-- Floating side nav (desktop) -->
+  <nav id="sideNav" class="hidden lg:block">
+    <div class="rail"></div>
+    <a href="#hero" data-target="hero" class="active"><span class="nav-dot"></span><span class="nav-label">Intro</span></a>
+    <a href="#skills" data-target="skills"><span class="nav-dot"></span><span class="nav-label">Skills</span></a>
+    <a href="#about" data-target="about"><span class="nav-dot"></span><span class="nav-label">About</span></a>
+    <a href="#highlights" data-target="highlights"><span class="nav-dot"></span><span class="nav-label">Highlights</span></a>
+    <a href="#case01" data-target="case01"><span class="nav-dot"></span><span class="nav-label">Case 01 · O2O</span></a>
+    <a href="#case02" data-target="case02"><span class="nav-dot"></span><span class="nav-label">Case 02 · S-FIT</span></a>
+    <a href="#case03" data-target="case03"><span class="nav-dot"></span><span class="nav-label">Case 03 · 리포지셔닝</span></a>
+    <a href="#dataproject" data-target="dataproject"><span class="nav-dot"></span><span class="nav-label">Data Project</span></a>
+    <a href="#career" data-target="career"><span class="nav-dot"></span><span class="nav-label">Career</span></a>
+    <a href="#contact" data-target="contact"><span class="nav-dot"></span><span class="nav-label">Contact</span></a>
+  </nav>
+
+  <!-- Mobile top bar -->
+  <div class="lg:hidden fixed top-0 inset-x-0 z-50 bg-paper/95 backdrop-blur border-b border-line">
+    <div class="flex items-center justify-between px-5 py-4">
+      <div class="flex items-center gap-2">
+        <span class="bg-accent text-white font-black px-2 py-1 text-sm rounded">MD</span>
+        <span class="font-bold text-gray-900">Kim Dongjin</span>
+      </div>
+      <button id="menuBtn" class="text-xl text-ink"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+  <div id="mobileOverlay">
+    <button id="closeBtn" class="absolute top-6 right-6 text-2xl text-white"><i class="fas fa-times"></i></button>
+    <a href="#hero"><span class="num">01</span>Intro</a>
+    <a href="#skills"><span class="num">02</span>Skills</a>
+    <a href="#about"><span class="num">03</span>About</a>
+    <a href="#highlights"><span class="num">04</span>Highlights</a>
+    <a href="#case01"><span class="num">05</span>Case 01</a>
+    <a href="#case02"><span class="num">06</span>Case 02</a>
+    <a href="#case03"><span class="num">07</span>Case 03</a>
+    <a href="#dataproject"><span class="num">08</span>Data Project</a>
+    <a href="#career"><span class="num">09</span>Career</a>
+    <a href="#contact"><span class="num">10</span>Contact</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero" class="relative overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-20">
+    <div class="blob w-[26rem] h-[26rem] bg-accent-light/25 -top-24 right-[-6rem]"></div>
+    <div class="blob w-[20rem] h-[20rem] bg-coral/15 bottom-[-4rem] right-40"></div>
+    <div class="max-w-7xl mx-auto px-6 lg:px-24 relative z-10 w-full">
+      <p class="eyebrow mb-6">Portfolio · 2026 · Product Merchandiser</p>
+      <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-[1.15] max-w-4xl">
+        문제를 기회로 바꾸는<br><span class="text-accent">상품기획 MD,</span> 김동진입니다
+      </h1>
+      <p class="mt-8 text-base sm:text-lg text-gray-600 max-w-2xl leading-relaxed">
+        체형 계측 데이터와 CRM 분석을 결합해 여성 언더웨어 브랜드의 시즌 상품기획부터 물량 운영까지
+        전 사이클을 담당합니다. 데이터에서 문제를 발견하고, 구조로 해결합니다.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-8 sm:gap-12">
+        <div><div class="text-3xl sm:text-4xl font-black text-accent">169.9<span class="text-lg">%</span></div><div class="text-xs text-gray-500 mt-1">S-FIT 출시 3개월 YoY 성장</div></div>
+        <div><div class="text-3xl sm:text-4xl font-black text-accent">96<span class="text-lg">억</span></div><div class="text-xs text-gray-500 mt-1">스캔바이미 운영 상품군 연매출</div></div>
+        <div><div class="text-3xl sm:text-4xl font-black text-accent">35.86<span class="text-lg">%</span></div><div class="text-xs text-gray-500 mt-1">신소재 광고군 시장점유율</div></div>
+      </div>
+
+      <!-- Infographic quick-nav -->
+      <div class="mt-14">
+        <p class="text-[11px] font-bold tracking-[.14em] uppercase text-gray-400 mb-3">바로가기 · Quick Navigation</p>
+        <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-2.5">
+          <a href="#skills" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">01</span>
+            <i class="fas fa-screwdriver-wrench text-accent text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Skills</span>
+          </a>
+          <a href="#about" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">02</span>
+            <i class="fas fa-id-card text-accent text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">About</span>
+          </a>
+          <a href="#highlights" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">03</span>
+            <i class="fas fa-chart-simple text-accent text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Highlights</span>
+          </a>
+          <a href="#case01" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-coral hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-coral">04</span>
+            <i class="fas fa-shoe-prints text-coral text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-coral">Case 01 · O2O</span>
+          </a>
+          <a href="#case02" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">05</span>
+            <i class="fas fa-layer-group text-accent text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Case 02 · S-FIT</span>
+          </a>
+          <a href="#case03" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-coral hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-coral">06</span>
+            <i class="fas fa-flask text-coral text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-coral">Case 03 · 신소재</span>
+          </a>
+          <a href="#dataproject" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">07</span>
+            <i class="fas fa-chart-line text-accent text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Data Project</span>
+          </a>
+          <a href="#career" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">08</span>
+            <i class="fas fa-briefcase text-accent text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Career</span>
+          </a>
+          <a href="#contact" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
+            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">09</span>
+            <i class="fas fa-envelope text-accent text-base"></i>
+            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Contact</span>
+          </a>
         </div>
-    </nav>
+      </div>
+    </div>
+  </section>
 
-    <section id="resume" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-black text-gray-900">About Me</h2>
-                <p class="text-gray-500 mt-2">데이터로 고객의 의도를 읽고, 구조적 개선으로 이익을 만드는 Technical MD</p>
-            </div>
-            
-            <div class="resume-section p-8">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                    <!-- Left Column: Profile & Info (Sticky) -->
-                    <div class="lg:col-span-4 relative">
-                        <div class="profile-sticky space-y-8">
-                            <div class="profile-img-container relative shadow-lg rounded-lg overflow-hidden border border-gray-100">
-                                <!-- Placeholder image -->
-                                 <img src="./profile.png" alt="Kim Dongjin Profile" class="profile-img">
-                            </div>
-
-                            <div class="space-y-3 text-sm">
-                                <div class="flex items-center gap-3 text-gray-700">
-                                    <i class="fas fa-envelope text-blue-600 w-5 text-center"></i>
-                                    <span>rlaehdwls96@gmail.com</span>
-                                </div>
-                                <div class="flex items-center gap-3 text-gray-700">
-                                    <i class="fas fa-phone text-blue-600 w-5 text-center"></i>
-                                    <span>010-3234-4911</span>
-                                </div>
-                                <div class="flex items-center gap-3 text-gray-700">
-                                    <i class="fas fa-map-marker-alt text-blue-600 w-5 text-center"></i>
-                                    <span>경기도 고양시 일산서구</span>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 class="font-bold text-gray-900 text-lg mb-4 border-b pb-2"><i class="fas fa-graduation-cap mr-2 text-blue-600"></i>학력 (Education)</h3>
-                                <div class="space-y-5">
-                                    <div>
-                                        <div class="flex justify-between items-baseline">
-                                            <div class="font-bold text-gray-800">서울사이버대학교</div>
-                                            <span class="text-xs text-gray-400">20.03 ~ 21.07</span>
-                                        </div>
-                                        <div class="text-sm text-gray-600">온라인커머스 학사 (졸업)</div>
-                                    </div>
-                                    <div>
-                                        <div class="flex justify-between items-baseline">
-                                            <div class="font-bold text-gray-800">두원공과대학교</div>
-                                            <span class="text-xs text-gray-400">15.03 ~ 19.02</span>
-                                        </div>
-                                        <div class="text-sm text-gray-600">컴퓨터공학 전문학사 (졸업)</div>
-                                        <div class="text-xs text-blue-600 mt-1">CS 기초 및 데이터베이스 활용</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <h3 class="font-bold text-gray-900 text-lg mb-4 border-b pb-2"><i class="fas fa-certificate mr-2 text-blue-600"></i>자격 및 대외활동</h3>
-                                <ul class="space-y-3 text-sm text-gray-600">
-                                    <li class="flex flex-col">
-                                        <div class="font-bold text-gray-800">• INNER CIRCLE</div>
-                                        <span class="text-xs text-gray-500 ml-3">Business Analyst Course (2025.11 - 2026.03) — 팀 프로젝트 2회 전원 1위, 80명 중 우수수료생 5인 선발</span>
-                                    </li>
-                                    <li class="flex flex-col">
-                                        <div class="font-bold text-gray-800">• 유통관리사 2급</div>
-                                        <span class="text-xs text-gray-500 ml-3">대한상공회의소 (2026.06)</span>
-                                    </li>
-                                    <li class="flex flex-col">
-                                        <div class="font-bold text-gray-800">• 정보처리산업기사</div>
-                                        <span class="text-xs text-gray-500 ml-3">한국산업인력공단 (2019.05)</span>
-                                    </li>
-                                    <li class="flex flex-col">
-                                        <div class="font-bold text-gray-800">• SW/IT 빅데이터 전문인재 양성</div>
-                                        <span class="text-xs text-gray-500 ml-3">빅데이터 과정 1,400시간 수료(2018.07 - 2019.01)</span>
-                                    </li>
-                                    <li class="flex flex-col">
-                                        <div class="font-bold text-gray-800">• 자동차운전면허 1종 보통</div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right Column: Experience & Skills -->
-                    <div class="lg:col-span-8 space-y-10">
-                        
-                        <!-- Professional Summary / Core Competencies (MD 내용 기반 수정) -->
-                        <div class="bg-blue-50/50 p-6 rounded-xl border border-blue-100">
-                            <h3 class="font-bold text-gray-900 text-xl mb-3">"경험과 데이터로 본질을 꿰뚫고, 유연하게 문제를 해결하는 MD"</h3>
-                            <div class="space-y-3">
-                                <p class="text-sm text-gray-700 leading-relaxed">
-                                    <span class="font-bold text-blue-800">1. 데이터 기반의 문제 해결:</span> 반복적인 실무를 통해 축적한 경험과 <span class="bg-yellow-100 px-1 font-bold">데이터</span>를 바탕으로 문제 상황의 핵심을 빠르게 파악하고, 안정적이고 유연한 대응책을 도출합니다.
-                                </p>
-                                <p class="text-sm text-gray-700 leading-relaxed">
-                                    <span class="font-bold text-blue-800">2. 본질 중심의 사고:</span> 전례 없는 새로운 문제에 직면했을 때, 우선적으로 문제의 본질을 명확히 정의하고 기존 경험과의 접점을 찾아 해결의 방향성을 설정합니다.
-                                </p>
-                                <p class="text-sm text-gray-700 leading-relaxed">
-                                    <span class="font-bold text-blue-800">3. 기민한 실행력:</span> 완벽한 해결만을 기다리기보다는 빠른 방향 설정을 우선시하며, 실행 과정에서 지속적으로 피드백을 검토하고 수정해 나가는 태도를 지향합니다.
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Experience Timeline (MD 경력기술 기반 수정) -->
-                        <div>
-                            <h3 class="font-bold text-gray-900 text-lg mb-6 border-b pb-2 flex items-center">
-                                <i class="fas fa-briefcase mr-2 text-blue-600"></i>경력 사항 (Work Experience)
-                            </h3>
-                            <div class="ml-2">
-                                <!-- Company 1: Venus -->
-                                <div class="timeline-item">
-                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1">
-                                        <div class="font-bold text-xl text-gray-900">신영와코루 (VENUS) <span class="text-sm text-gray-500 font-normal ml-2">| 국내사업부 영업1부1과 기획MD (계장)</span></div>
-                                        <div class="text-sm text-blue-600 font-bold bg-blue-50 px-2 py-1 rounded">2022.05 ~ 재직중</div>
-                                    </div>
-                                    <div class="mb-4 text-sm text-gray-500">시즌 상품 기획, 데이터 기반 트렌드 분석, 원가 관리 및 생산 프로세스 운영</div>
-
-                                    <!-- Achievement Block 1 (MD Q4 최고 성과) -->
-                                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm mb-4">
-                                        <h4 class="font-bold text-gray-800 text-sm mb-2 flex items-center">
-                                            <span class="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
-                                            소비자 체형 데이터 기반 '3단계 핏' 상품군 기획
-                                        </h4>
-                                        <div class="text-sm text-gray-600 space-y-1.5 pl-3.5 border-l-2 border-gray-100 ml-0.5">
-                                            <p><strong>[배경]</strong> 스포츠웨어와 언더웨어의 경계가 허물어지며 '착용감'과 '핏'이 중요해졌으나, 기존 시장은 소재 중심의 단일 라인에 정체됨</p>
-                                            <p><strong>[실행]</strong> 데일리·소프트·서포트 3단계 핏 큐레이션 전략 논의에 공동 참여하고, 확정된 방향에 따라 소진율 기반 리피트 로직을 재설계해 SKU를 5개→16개로 확장</p>
-                                            <p class="text-blue-700 font-medium">👉 성과: 3개월 시점 전년 대비 169.9%(2.78억) 매출 성장, 단계별 소진율 54.3/54.0/39% 달성</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Achievement Block 2 (MD 경력기술: 트렌드 분석 및 시즌 기획) -->
-                                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm mb-4">
-                                        <h4 class="font-bold text-gray-800 text-sm mb-2 flex items-center">
-                                            <span class="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
-                                            데이터 기반 판매 최적화 및 시즌 기획
-                                        </h4>
-                                        <div class="text-sm text-gray-600 space-y-1.5 pl-3.5 border-l-2 border-gray-100 ml-0.5">
-                                            <p><strong>[실행]</strong> CRM 데이터를 활용해 판매 사이클 및 재고 소진율을 분석하고, 이를 리오더 물량 및 상품 구성에 즉각 반영</p>
-                                            <p><strong>[실행]</strong> 분기별 경쟁 브랜드 및 시장 트렌드 조사, 월 3회 마켓 센싱 보고서 작성 및 유통채널별 상품 포트폴리오 세분화 기획</p>
-                                            <p class="text-blue-700 font-medium">👉 성과: 매장 등급별 적정 재고 기준 수립 및 채널 맞춤형 행사(대표가/균일가) 아이템 차별화 운영</p>
-                                        </div>
-                                    </div>
-
-                                    <!-- Achievement Block 3 (MD 경력기술: 생산 및 원가 관리) -->
-                                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
-                                        <h4 class="font-bold text-gray-800 text-sm mb-2 flex items-center">
-                                            <span class="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"></span>
-                                            BOM 기반 원가 구조 분석 및 생산 효율화
-                                        </h4>
-                                        <div class="text-sm text-gray-600 space-y-1.5 pl-3.5 border-l-2 border-gray-100 ml-0.5">
-                                            <p><strong>[실행]</strong> 자재명세서(BOM)를 바탕으로 소재별 원가 구조를 분석하고 정확한 영업 이익률 산출</p>
-                                            <p><strong>[실행]</strong> 소싱팀과 협업하여 신규 외주업체를 발굴하고, 프로모션 및 벤더 라인별 생산 스케줄을 통합 관리</p>
-                                            <p class="text-blue-700 font-medium">👉 성과: 구조적 원가 절감 달성 및 선행 샘플 검수를 통한 안정적인 생산 납기 및 품질 유지</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Company 2: CJ FreshOne (MD 경력기술 기반 수정) -->
-                                <div class="timeline-item">
-                                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1">
-                                        <div class="font-bold text-xl text-gray-900">CJ 프레시원 <span class="text-sm text-gray-500 font-normal ml-2">| 경영지원팀 (인사/총무/영업관리)</span></div>
-                                        <div class="text-sm text-gray-500 font-bold bg-gray-100 px-2 py-1 rounded">2019.07 ~ 2022.02</div>
-                                    </div>
-                                    <div class="bg-gray-50 p-4 rounded-lg border border-gray-100 mt-3">
-                                        <ul class="list-disc list-outside ml-4 space-y-2 text-sm text-gray-700">
-                                            <li><strong>프로세스 최적화:</strong> 화성지점 신설·프레시웨이 신규 조직 셋업 시 컴퓨터 세팅부터 시스템 이관까지 초기 인프라 구축 지원.</li>
-                                            <li><strong>리스크 관리:</strong> DRM(정보보안 문서관리) 독학·적용으로 문서관리 자동화, 신용채권 관리 체계와 연동해 리스크 대응력 강화.</li>
-                                            <li><strong>신용채권 및 여신관리:</strong> 350~400개 소사장 거래처(건당 50만원~3~5억원) 여신관리, 담당자 공백 3개월간 단독 운영으로 업무 공백 없이 유지.</li>
-                                            <li class="text-gray-500 italic">"거대 조직의 시스템 연동을 이해하고 백오피스 프로세스를 구조화하는 역량 체득"</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Tech & Tools Section (한글화 및 최적화) -->
-                        <div class="bg-gray-900 p-6 rounded-xl shadow-lg text-white">
-                             <h3 class="font-bold text-xl mb-6 border-b border-gray-700 pb-3 flex items-center">
-                                <i class="fas fa-microchip mr-2 text-blue-400"></i> 보유 기술 (Skills & Tech Stack)
-                            </h3>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <!-- Data & Analytics -->
-                                <div class="space-y-3">
-                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">데이터 및 분석</span>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="skill-badge px-3 py-1.5 bg-blue-900/40 border border-blue-500 rounded text-sm text-blue-200">
-                                            <i class="fas fa-file-excel mr-2 text-green-500"></i>Excel (고급)
-                                        </span>
-                                        <span class="skill-badge px-3 py-1.5 bg-blue-900/40 border border-blue-500 rounded text-sm text-blue-200">
-                                            <i class="fab fa-python mr-2 text-yellow-400"></i>Python (Pandas)
-                                        </span>
-                                        <span class="skill-badge px-3 py-1.5 bg-blue-900/40 border border-blue-500 rounded text-sm text-blue-200">
-                                            <i class="fas fa-users-cog mr-2 text-indigo-400"></i>CRM 활용
-                                        </span>
-                                        <span class="skill-badge px-3 py-1.5 bg-blue-900/40 border border-blue-500 rounded text-sm text-blue-200">
-                                            <i class="fab fa-google mr-2 text-orange-400"></i>GA4
-                                        </span>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-1">*CRM 기반 데이터 추출 및 코호트 분석 가능</p>
-                                </div>
-
-                                <!-- Planning & SCM -->
-                                <div class="space-y-3">
-                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">기획 및 공급망 관리</span>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="skill-badge px-3 py-1.5 bg-indigo-900/40 border border-indigo-500 rounded text-sm text-indigo-200">
-                                            <i class="fas fa-chart-pie mr-2 text-blue-300"></i>Tableau
-                                        </span>
-                                        <span class="skill-badge px-3 py-1.5 bg-indigo-900/40 border border-indigo-500 rounded text-sm text-indigo-200">
-                                            <i class="fab fa-salesforce mr-2 text-blue-400"></i>Salesforce
-                                        </span>
-                                        <span class="skill-badge px-3 py-1.5 bg-indigo-900/40 border border-indigo-500 rounded text-sm text-indigo-200">
-                                            <i class="fas fa-server mr-2 text-gray-400"></i>ERP / SAP
-                                        </span>
-                                    </div>
-                                    <p class="text-xs text-gray-500 mt-1">*시즌 기획 및 재고 관리(SCM)</p>
-                                </div>
-
-                                <!-- Collaboration & Dev -->
-                                <div class="col-span-1 md:col-span-2 space-y-3 pt-2 border-t border-gray-800">
-                                    <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">협업 및 업무 도구</span>
-                                    <div class="flex flex-wrap gap-2">
-                                        <span class="skill-badge px-3 py-1.5 bg-gray-800 border border-gray-600 rounded text-sm text-gray-300">
-                                            <i class="fas fa-code mr-2 text-yellow-500"></i>VS Code
-                                        </span>
-                                        <span class="skill-badge px-3 py-1.5 bg-gray-800 border border-gray-600 rounded text-sm text-gray-300">
-                                            <i class="fas fa-robot mr-2 text-green-500"></i>생성형 AI 툴 활용
-                                        </span>
-                                        <span class="skill-badge px-3 py-1.5 bg-gray-800 border border-gray-600 rounded text-sm text-gray-300">
-                                            <i class="fas fa-clipboard-list mr-2 text-gray-200"></i>Notion
-                                        </span>
-                                        <span class="skill-badge px-3 py-1.5 bg-gray-800 border border-gray-600 rounded text-sm text-gray-300">
-                                            <i class="fab fa-slack mr-2 text-purple-400"></i>Slack
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Legend -->
-                            <div class="mt-6 flex justify-end gap-4 text-xs text-gray-500">
-                                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-blue-400 mr-1.5"></span>고급</span>
-                                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-green-400 mr-1.5"></span>중급</span>
-                                <span class="flex items-center"><span class="w-2 h-2 rounded-full bg-gray-400 mr-1.5"></span>기초</span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
+  <!-- SKILLS -->
+  <section id="skills" class="section-pad bg-ink text-white border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="fade-up mb-12">
+        <p class="eyebrow mb-3 text-accent-light">01 · Skills</p>
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">보유 기술 및 툴</h2>
+      </div>
+      <div class="grid md:grid-cols-2 gap-8 fade-up">
+        <div class="space-y-3">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">데이터 및 분석</span>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-file-excel mr-2 text-green-400"></i>Excel (고급)</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fab fa-python mr-2 text-yellow-400"></i>Python (Pandas)</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-database mr-2 text-indigo-300"></i>SQL</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-users-cog mr-2 text-indigo-300"></i>CRM 활용</span>
+          </div>
         </div>
-    </section>
-
-    <!-- 여기서부터 요청하신 Dashboard 및 Case Study 전면 수정 영역입니다 -->
-    <section id="dashboard" class="py-16 bg-white border-t border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-800 text-xs font-bold uppercase tracking-wide mb-4">
-                    Performance Highlights
-                </div>
-                <h2 class="text-3xl md:text-4xl font-black text-gray-900 mb-6 tracking-tight">
-                    "실현 가능한 데이터로 성과를 만듭니다"
-                </h2>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Stat 1: S-FIT 시스템 단기 매출 달성 -->
-                <div class="stat-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm font-bold text-gray-400 uppercase">S-FIT YoY 매출 성장</span>
-                        <span class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-green-600"><i class="fas fa-won-sign"></i></span>
-                    </div>
-                    <div class="text-4xl font-black text-gray-900">169.9<span class="text-2xl text-gray-400">%</span></div>
-                    <p class="text-xs text-green-700 font-medium mt-2 bg-green-50 inline-block px-2 py-1 rounded">
-                        ▲ 3개월 시점 2.78억 매출 증가
-                    </p>
-                    <p class="text-xs text-gray-400 mt-2 border-t pt-2 leading-tight">
-                        *SKU 5→16개 확장, 소진율 기반 리피트 로직 재설계
-                    </p>
-                </div>
-
-                <!-- Stat 2: 브랜드 타겟 확장 -->
-                <div class="stat-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm font-bold text-gray-400 uppercase">주력 광고군 점유율</span>
-                        <span class="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-600"><i class="fas fa-chart-pie"></i></span>
-                    </div>
-                    <div class="text-4xl font-black text-gray-900">35.8<span class="text-2xl text-gray-400">%</span></div>
-                    <p class="text-xs text-pink-700 font-medium mt-2 bg-pink-50 inline-block px-2 py-1 rounded">
-                        Target Expansion
-                    </p>
-                    <p class="text-xs text-gray-400 mt-2 border-t pt-2 leading-tight">
-                        *트와이스 모델 발탁 및 '과학적 아름다움' 리포지셔닝으로 2030 신규 유입 견인
-                    </p>
-                </div>
-
-                <!-- Stat 3: 핵심 세대 점유율 확보 (방어) -->
-                <div class="stat-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm font-bold text-gray-400 uppercase">S-FIT 3040 점유율</span>
-                        <span class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600"><i class="fas fa-users"></i></span>
-                    </div>
-                    <div class="text-4xl font-black text-gray-900">+9.97<span class="text-2xl text-gray-400">%p</span></div>
-                    <p class="text-xs text-blue-700 font-medium mt-2 bg-blue-50 inline-block px-2 py-1 rounded">
-                        Defend & Grow
-                    </p>
-                    <p class="text-xs text-gray-400 mt-2 border-t pt-2 leading-tight">
-                        *S-FIT 리피트 로직 재설계로 3040 핵심 고객층 점유율 방어
-                    </p>
-                </div>
-
-                <!-- Stat 4: O2O 마케팅 기여 효과 -->
-                <div class="stat-card bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-sm font-bold text-gray-400 uppercase">O2O KPI 집계·관리</span>
-                        <span class="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600"><i class="fas fa-mobile-alt"></i></span>
-                    </div>
-                    <div class="text-4xl font-black text-gray-900">96<span class="text-2xl text-gray-400">억</span></div>
-                    <p class="text-xs text-indigo-700 font-medium mt-2 bg-indigo-50 inline-block px-2 py-1 rounded">
-                        1년 실매출 KPI 직접 집계
-                    </p>
-                    <p class="text-xs text-gray-400 mt-2 border-t pt-2 leading-tight">
-                        *'Scan By Me' O2O 재고 SKU·납기 관리 및 KPI 집계 담당, 프로모션 안정 운영에 기여
-                    </p>
-                </div>
-            </div>
+        <div class="space-y-3">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">기획 및 공급망 관리</span>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-chart-pie mr-2 text-teal-300"></i>Tableau</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fab fa-salesforce mr-2 text-blue-300"></i>Salesforce</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-server mr-2 text-gray-300"></i>ERP / SAP</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-ruler-combined mr-2 text-gray-300"></i>BOM 원가 구조 분석</span>
+          </div>
         </div>
-    </section>
-
-    <!-- Case Study 01: 브랜드 리포지셔닝 및 타겟 확장 -->
-    <section id="rebranding" class="py-20 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                <div class="lg:col-span-1">
-                    <span class="text-pink-600 font-bold tracking-widest text-xs uppercase">Case Study 01</span>
-                    <h2 class="text-3xl font-black text-gray-900 mt-2 mb-6"><i class="fas fa-chess-knight mr-2 text-gray-400"></i>브랜드 리포지셔닝 및 타겟 확장</h2>
-                    <div class="text-gray-600 leading-relaxed mb-6 space-y-4">
-                        <p><strong>[배경]</strong> 팬데믹 이후 D2C 브랜드(슬림9,감탄 등)의 '편안함' 공세로 노와이어 시장 내 점유율 위협이 발생했습니다.</p>
-                        <p><strong>[참여]</strong> <strong>'과학적 아름다움(Scientific Beauty)'</strong> 리포지셔닝과 TPE 소재·티타늄 와이어 도입 전략 논의에 아이디어 제안 수준으로 공동 참여했고, 확정된 방향에 따라 원가·생산·납기 등 실행 단계를 담당했습니다.</p>
-                        <p><strong>[성과]</strong> 신소재가 적용된 주력 광고군에서 전체 점유율 <strong>35.86%</strong>를 확보했고, 2030 신규 고객 유입은 <strong>+5.14%p</strong> 늘었습니다.</p>
-                    </div>
-                </div>
-                
-                <div class="lg:col-span-2">
-                    <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 h-full flex flex-col">
-                        <div class="flex items-center justify-between mb-6">
-                            <h3 class="text-lg font-bold text-gray-800">기술 우위 상품군(신소재) 판매 점유율 변화</h3>
-                            <div class="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">Source: Internal CRM Data</div>
-                        </div>
-                        <div class="chart-container flex-grow">
-                            <canvas id="rebrandingChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="md:col-span-2 space-y-3 pt-4 border-t border-white/10">
+          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">협업 및 업무 도구</span>
+          <div class="flex flex-wrap gap-2">
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-white/20 rounded text-sm text-gray-300"><i class="fas fa-code mr-2 text-yellow-400"></i>VS Code</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-white/20 rounded text-sm text-gray-300"><i class="fas fa-robot mr-2 text-green-400"></i>생성형 AI 툴 활용</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-white/20 rounded text-sm text-gray-300"><i class="fas fa-clipboard-list mr-2 text-gray-200"></i>Notion</span>
+            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-white/20 rounded text-sm text-gray-300"><i class="fab fa-slack mr-2 text-purple-300"></i>Slack</span>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Case Study 02: 데이터 기반 큐레이션 설계 -->
-    <section id="engineering" class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-12 text-center max-w-3xl mx-auto">
-                <span class="text-blue-600 font-bold tracking-widest text-xs uppercase">Case Study 02</span>
-                <h2 class="text-3xl font-black text-gray-900 mt-2"><i class="fas fa-layer-group mr-2 text-gray-400"></i>라이프스타일 기반 큐레이션, S-FIT</h2>
-                <p class="text-gray-600 mt-4">
-                    한국 여성의 비만율 급증(38.3%) 등 인구통계학적 변화에 맞춰 빅사이즈 및 체형별 맞춤 라인업이 필요하다고 판단했습니다.<br>
-                    고객이 자신의 활동 강도와 보정 니즈를 직관적으로 선택할 수 있는 <strong>3단계 구조화 시스템(S-FIT)</strong>의 리피트 로직 설계와 실행을 담당했습니다.
-                </p>
+  <!-- ABOUT -->
+  <section id="about" class="section-pad bg-white border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="fade-up mb-14">
+        <p class="eyebrow mb-3">02 · About</p>
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">데이터에서 문제를 발견하고, 구조로 해결하는 MD</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Left: profile & meta -->
+        <div class="lg:col-span-4 fade-up">
+          <div class="sticky top-24 space-y-8">
+            <div class="w-2/3 mx-auto lg:w-full rounded-xl overflow-hidden border border-line shadow-sm aspect-[3/4]">
+              <img src="profile.png" alt="Kim Dongjin" class="w-full h-full object-cover" data-placeholder="프로필 사진 (images/profile.png)" onerror="handleImgError(this)">
             </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-md">
-                    <h3 class="text-lg font-bold text-gray-900 mb-2">S-FIT 단계별 선택 비중</h3>
-                    <p class="text-xs text-gray-500 mb-6">고객 맞춤형 3단계 큐레이션 (Soft / Daily / Support)</p>
-                    <div class="chart-container">
-                        <canvas id="sfitChart"></canvas>
-                    </div>
-                    <div class="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-100 text-sm text-blue-800">
-                        <i class="fas fa-check-circle mr-1"></i> 소진율 기반 로직 재설계로 <strong>3개월 시점 169.9%(2.78억) 매출 성장</strong> 달성
-                    </div>
-                </div>
-
-                <div class="bg-gray-800 p-6 rounded-xl shadow-md text-white">
-                    <h3 class="text-lg font-bold text-white mb-2">핵심 타겟(3040) 시장 점유 방어율</h3>
-                    <p class="text-xs text-gray-400 mb-6">D2C 공세 속 프리미엄 전환(S-FIT) 효과</p>
-                    <div class="chart-container">
-                        <canvas id="defenseChart"></canvas>
-                    </div>
-                    <div class="flex justify-between mt-6 px-4 border-t border-gray-700 pt-4">
-                        <div class="text-center">
-                            <div class="text-xs text-gray-400">S-FIT 매출 비중 상승</div>
-                            <div class="text-xl font-bold text-blue-400">+9.97%p</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-xs text-gray-400">D2C 이탈 방어율</div>
-                            <div class="text-xl font-bold text-amber-400">성공적 방어</div>
-                        </div>
-                    </div>
-                </div>
+            <div class="space-y-3 text-sm">
+              <div class="flex items-center gap-3 text-gray-700"><i class="fas fa-envelope text-accent w-5"></i>rlaehdwls96@gmail.com</div>
+              <div class="flex items-center gap-3 text-gray-700"><i class="fas fa-phone text-accent w-5"></i>010-3234-4911</div>
+              <div class="flex items-center gap-3 text-gray-700"><i class="fas fa-map-marker-alt text-accent w-5"></i>경기도 고양시 일산서구</div>
             </div>
-        </div>
-    </section>
-
-    <!-- Case Study 03 (Field Research 변경): O2O 디지털 전환 및 Funnel -->
-    <section id="field-research" class="py-20 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-                
+            <div>
+              <h3 class="font-bold text-gray-900 mb-4 border-b border-line pb-2"><i class="fas fa-graduation-cap mr-2 text-accent"></i>학력</h3>
+              <div class="space-y-4 text-sm">
                 <div>
-                    <h3 class="text-2xl font-bold text-gray-900 mb-4 flex items-center">
-                        <span class="bg-indigo-100 text-indigo-700 p-2 rounded-lg mr-3">
-                            <i class="fas fa-mobile-alt"></i>
-                        </span>
-                        디지털 전환과 고객 Lock-in
-                    </h3>
-                    <p class="text-gray-600 mb-6 text-sm leading-relaxed">
-                        오프라인 매장의 강점인 '시착 경험'을 온라인 매출로 연계하는 <strong>O2O(Online to Offline) 퍼널</strong> 운영에서 재고 SKU·납기·KPI 집계를 담당했습니다.<br>
-                        <strong>'스캔바이미(Scan By Me)'</strong> 데이터 기반 마케팅 아이디어 제안에도 참여했습니다.
-                    </p>
-                    
-                    <div class="bg-white p-4 rounded-lg border border-gray-200 mb-6">
-                        <h4 class="font-bold text-gray-800 text-sm mb-2"><i class="fas fa-project-diagram mr-2 text-indigo-500"></i>O2O 연계 전략</h4>
-                        <ul class="space-y-2 text-sm text-gray-600">
-                            <li><strong>Step 1:</strong> 오프라인 바디 스캐닝 체험 유도</li>
-                            <li><strong>Step 2:</strong> 추출된 체형 데이터를 온라인 사이즈 추천 로직과 매핑</li>
-                            <li><strong>Step 3:</strong> 온라인 전용 패키지 제안을 통한 추가 매출 창출</li>
-                        </ul>
-                    </div>
-
-                    <ul class="space-y-3 text-sm text-gray-600 mb-8">
-                        <li class="flex items-start">
-                            <span class="text-blue-500 mr-2"><i class="fas fa-chart-line"></i></span>
-                            <span><strong>Value Creation:</strong> 1년 누적 실매출 <strong>96억 규모 O2O 프로젝트의 KPI를 직접 집계·관리</strong>했고, 재고 SKU 분리 운영과 마케팅 아이디어 제안으로 간접 기여했습니다.</span>
-                        </li>
-                    </ul>
+                  <div class="flex justify-between"><span class="font-bold text-gray-800">서울사이버대학교</span><span class="text-xs text-gray-400">20.03–21.07</span></div>
+                  <div class="text-gray-600">온라인커머스 학사 (졸업)</div>
                 </div>
-
-                <div class="bg-white p-6 rounded-xl border border-gray-200 shadow-sm flex flex-col justify-center">
-                    <h3 class="text-lg font-bold text-gray-800 mb-6 text-center"><i class="fas fa-filter mr-2 text-indigo-600"></i>스캔바이미(Scan By Me) 디지털 퍼널</h3>
-                    
-                    <div class="space-y-4 flex flex-col items-center">
-                        <!-- Step 1 -->
-                        <div class="w-full relative group cursor-pointer">
-                            <div class="h-14 bg-indigo-100 rounded-lg flex items-center justify-between px-6 shadow-sm border border-indigo-200 z-10 relative">
-                                <span class="font-bold text-indigo-900 text-sm"><i class="fas fa-store mr-2"></i>오프라인 스캔 체험 (Traffic)</span>
-                                <span class="font-bold text-indigo-900">물리적 접점</span>
-                            </div>
-                        </div>
-                        
-                        <!-- Step 2 -->
-                        <div class="w-[75%] relative group cursor-pointer">
-                             <div class="h-14 bg-indigo-300 rounded-lg flex items-center justify-between px-6 shadow-sm border border-indigo-400 z-10 relative">
-                                <span class="font-bold text-indigo-900 text-sm"><i class="fas fa-laptop mr-2"></i>온라인 연계 추천 (Action)</span>
-                                <span class="font-bold text-indigo-900">디지털화</span>
-                            </div>
-                             <!-- Conversion indicator -->
-                             <div class="absolute -right-12 top-1/2 -translate-y-1/2 text-xs text-indigo-500 font-bold hidden group-hover:block">
-                                 Seamless
-                             </div>
-                        </div>
-
-                        <!-- Step 3 -->
-                        <div class="w-[45%] relative group cursor-pointer">
-                             <div class="h-14 bg-indigo-600 rounded-lg flex items-center justify-between px-6 shadow-lg border border-indigo-700 z-10 relative">
-                                <span class="font-bold text-white text-sm"><i class="fas fa-shopping-cart mr-2"></i>온라인 구매/Lock-in</span>
-                                <span class="font-bold text-white">96억 KPI 관리</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="mt-8 pt-6 border-t border-gray-100 flex justify-center gap-4 text-xs text-gray-500">
-                        <span class="flex items-center"><i class="fas fa-circle text-indigo-100 mr-1"></i> Offline Experience</span>
-                        <span class="flex items-center"><i class="fas fa-circle text-indigo-300 mr-1"></i> Data Sync</span>
-                        <span class="flex items-center"><i class="fas fa-circle text-indigo-600 mr-1"></i> Online Sales</span>
-                    </div>
+                <div>
+                  <div class="flex justify-between"><span class="font-bold text-gray-800">두원공과대학교</span><span class="text-xs text-gray-400">15.03–19.02</span></div>
+                  <div class="text-gray-600">컴퓨터공학 전문학사 (졸업)</div>
                 </div>
+              </div>
             </div>
+            <div>
+              <h3 class="font-bold text-gray-900 mb-4 border-b border-line pb-2"><i class="fas fa-certificate mr-2 text-accent"></i>자격 및 대외활동</h3>
+              <ul class="space-y-3 text-sm text-gray-600">
+                <li><span class="font-bold text-gray-800">INNER CIRCLE</span><br><span class="text-xs">Business Analyst Course (2025.11–2026.03) · 팀 프로젝트 2회 전원 1위, 80명 중 우수수료생 5인 선발</span></li>
+                <li><span class="font-bold text-gray-800">유통관리사 2급</span><br><span class="text-xs">대한상공회의소 (2026.06)</span></li>
+                <li><span class="font-bold text-gray-800">정보처리산업기사</span><br><span class="text-xs">한국산업인력공단 (2019.05)</span></li>
+                <li><span class="font-bold text-gray-800">SW/IT 빅데이터 전문인재 양성</span><br><span class="text-xs">1,400시간 수료 (2018.07–2019.01)</span></li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </section>
 
-    <footer class="bg-gray-900 text-gray-300 py-12 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="text-center md:text-left">
-                <div class="text-white font-black text-2xl mb-1">From Data to Demand</div>
-                <p class="text-sm text-gray-500">
-                    데이터 활용 능력과 현장 실행력을 갖춘 4년 차 MD,<br>
-                    김동진입니다.
-                </p>
+        <!-- Right: summary + timeline preview -->
+        <div class="lg:col-span-8 space-y-10 fade-up">
+          <div class="bg-accent-soft p-7 rounded-2xl border border-accent/10">
+            <h3 class="font-bold text-gray-900 text-xl mb-4">"경험과 데이터로 본질을 꿰뚫고, 유연하게 문제를 해결하는 MD"</h3>
+            <div class="space-y-3 text-sm text-gray-700 leading-relaxed">
+              <p><span class="font-bold text-accent">1. 데이터 기반의 문제 해결</span> — 반복 실무로 축적한 경험과 데이터를 바탕으로 문제의 핵심을 빠르게 파악하고, 유연한 대응책을 도출합니다.</p>
+              <p><span class="font-bold text-accent">2. 본질 중심의 사고</span> — 전례 없는 문제에 직면했을 때 문제의 본질을 먼저 정의하고, 기존 경험과의 접점을 찾아 해결 방향을 설정합니다.</p>
+              <p><span class="font-bold text-accent">3. 기민한 실행력</span> — 완벽한 해결을 기다리기보다 빠른 방향 설정을 우선하고, 실행 중 지속적으로 피드백을 반영합니다.</p>
             </div>
-            <div class="flex flex-col items-center md:items-end gap-1">
-                <span class="text-white font-bold text-lg">김동진 (Dongjin Kim)</span>
-                <span class="text-sm">rlaehdwls96@gmail.com</span>
-                <div class="flex gap-2 mt-2">
-                    <span class="text-xs bg-gray-800 px-2 py-1 rounded border border-gray-700">정보처리산업기사</span>
-                    <span class="text-xs bg-blue-900 text-blue-100 px-2 py-1 rounded border border-blue-800">AI Basic Knowledge</span>
-                </div>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-4">
+            <div class="p-5 rounded-xl border border-line">
+              <div class="text-2xl font-black text-ink">7년 3개월</div>
+              <div class="text-xs text-gray-500 mt-1">총 경력</div>
             </div>
+            <div class="p-5 rounded-xl border border-line">
+              <div class="text-2xl font-black text-ink">4년 3개월</div>
+              <div class="text-xs text-gray-500 mt-1">상품기획 MD 경력</div>
+            </div>
+            <div class="p-5 rounded-xl border border-line">
+              <div class="text-2xl font-black text-ink">3개</div>
+              <div class="text-xs text-gray-500 mt-1">시즌 주도 프로젝트</div>
+            </div>
+          </div>
+
+          <div class="bg-ink p-7 rounded-2xl text-white">
+            <h3 class="font-bold text-lg mb-2 flex items-center"><i class="fas fa-route mr-2 text-accent-light"></i>지금 하는 일</h3>
+            <p class="text-sm text-gray-300 leading-relaxed">신영와코루 VENUS 국내사업부 영업1부1과에서 시즌 상품기획, 데이터 기반 트렌드 분석, BOM 원가 관리와 생산 프로세스 운영을 담당하고 있습니다. 아래 세 프로젝트가 지난 두 시즌 동안 주도한 핵심 사례입니다.</p>
+          </div>
         </div>
-    </footer>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
-        Chart.defaults.color = '#64748B';
-        
-        const commonTooltip = {
-            backgroundColor: 'rgba(15, 23, 42, 0.95)',
-            padding: 12,
-            titleFont: { size: 13 },
-            bodyFont: { size: 12 },
-            cornerRadius: 4,
-            displayColors: false
-        };
+  <!-- HIGHLIGHTS -->
+  <section id="highlights" class="section-pad bg-paper border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="fade-up text-center mb-14">
+        <p class="eyebrow mb-3">03 · Performance Highlights</p>
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">실현 가능한 데이터로 성과를 만듭니다</h2>
+      </div>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-5 fade-up">
+        <div class="stat-card bg-white p-6 rounded-xl border border-line">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">S-FIT YoY 매출성장</span><i class="fas fa-won-sign text-accent"></i></div>
+          <div class="text-3xl sm:text-4xl font-black">169.9<span class="text-lg text-gray-400">%</span></div>
+          <p class="text-xs text-gray-400 mt-2">출시 3개월, 2.78억 매출</p>
+        </div>
+        <div class="stat-card bg-white p-6 rounded-xl border border-line">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">O2O 구매 전환율</span><i class="fas fa-bolt text-accent"></i></div>
+          <div class="text-3xl sm:text-4xl font-black">12→45<span class="text-lg text-gray-400">%</span></div>
+          <p class="text-xs text-gray-400 mt-2">Scan-Recommend-Purchase 퍼널 신설</p>
+        </div>
+        <div class="stat-card bg-white p-6 rounded-xl border border-line">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">신소재 광고군 점유율</span><i class="fas fa-chart-pie text-accent"></i></div>
+          <div class="text-3xl sm:text-4xl font-black">35.86<span class="text-lg text-gray-400">%</span></div>
+          <p class="text-xs text-gray-400 mt-2">2030 신규 유입 +5.14%p</p>
+        </div>
+        <div class="stat-card bg-white p-6 rounded-xl border border-line">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">3040 핵심고객 방어</span><i class="fas fa-users text-accent"></i></div>
+          <div class="text-3xl sm:text-4xl font-black">+9.97<span class="text-lg text-gray-400">%p</span></div>
+          <p class="text-xs text-gray-400 mt-2">S-FIT 리피트 로직 재설계 효과</p>
+        </div>
+        <div class="stat-card bg-white p-6 rounded-xl border border-line">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">O2O 상품군 연매출</span><i class="fas fa-mobile-alt text-accent"></i></div>
+          <div class="text-3xl sm:text-4xl font-black">96<span class="text-lg text-gray-400">억</span></div>
+          <p class="text-xs text-gray-400 mt-2">스캔바이미 KPI 직접 집계·관리</p>
+        </div>
+        <div class="stat-card bg-white p-6 rounded-xl border border-line">
+          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">S-FIT 가중평균 판매율</span><i class="fas fa-layer-group text-accent"></i></div>
+          <div class="text-3xl sm:text-4xl font-black">50.5<span class="text-lg text-gray-400">%</span></div>
+          <p class="text-xs text-gray-400 mt-2">SKU 5종 → 16종 확장 운영</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // 1. Rebranding Chart (주력 광고군 점유율 변화)
-        new Chart(document.getElementById('rebrandingChart'), {
-            type: 'line',
-            data: {
-                labels: ['출시 1분기', '출시 2분기', '출시 3분기', '출시 4분기'],
-                datasets: [
-                    {
-                        label: '일반 노와이어 상품군 점유율',
-                        data: [65, 58, 52, 48], // Declining legacy
-                        borderColor: '#94A3B8',
-                        borderDash: [5, 5],
-                        borderWidth: 2,
-                        pointRadius: 3,
-                        tension: 0.4
-                    },
-                    {
-                        label: '신소재 광고군(TPE 등) 점유율',
-                        data: [15, 22, 28, 35.86], // Rising to 35.86%
-                        borderColor: '#BE185D',
-                        backgroundColor: 'rgba(190, 24, 93, 0.05)',
-                        borderWidth: 3,
-                        pointBackgroundColor: '#BE185D',
-                        pointRadius: 4,
-                        fill: true,
-                        tension: 0.4
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: true, position: 'top', labels: { usePointStyle: true, boxWidth: 6, font: {size: 11} } },
-                    tooltip: {
-                        ...commonTooltip,
-                        callbacks: {
-                            label: function(context) {
-                                return context.dataset.label + ': ' + context.parsed.y + '%';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    x: { grid: { display: false } },
-                    y: { 
-                        display: true,
-                        grid: { borderDash: [2, 4], color: '#F1F5F9' },
-                        min: 0,
-                        max: 80
-                    } 
-                }
-            }
-        });
+  <!-- CASE STUDY 01 -->
+  <section id="case01" class="section-pad bg-white border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="grid lg:grid-cols-12 gap-14">
+        <div class="lg:col-span-4 fade-up">
+          <p class="eyebrow mb-3 text-coral">Case Study 01</p>
+          <h2 class="text-3xl font-black tracking-tight mb-6">매장에 잠들어 있던<br>체형 데이터를 깨우다</h2>
+          <div class="text-sm text-gray-500 mb-6 space-y-1">
+            <div><i class="far fa-calendar mr-2"></i>25SS – 현재</div>
+            <div><i class="fas fa-user-tag mr-2"></i>역할: 상품군 운영 · O2O 연계 기획 설계</div>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-sm">연매출 96억 규모 스캔바이미 상품군을 운영하며, 체험 고객의 구매 전환율이 12%에 그치던 구조를 진단하고 온라인 추천·전용 패키지로 연결하는 퍼널을 설계했습니다.</p>
+        </div>
+        <div class="lg:col-span-8 fade-up">
+          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wide mb-5">문제 발견 — 데이터가 말해준 것</h3>
+          <div class="grid sm:grid-cols-3 gap-4 mb-12">
+            <div class="p-5 rounded-xl bg-gray-50 border border-line">
+              <div class="text-xs font-bold text-accent mb-2">01 · 체험은 성공</div>
+              <p class="text-sm text-gray-600">바디 스캐닝 체험 만족도는 높음 → 그러나 경험이 매장 안에서 종료됨</p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 border border-line">
+              <div class="text-xs font-bold text-coral mb-2">02 · 구매는 미연결</div>
+              <p class="text-sm text-gray-600">체험 고객 구매 전환율 <strong>12%</strong>에 불과 → 체험이 매출로 이어지지 않음</p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 border border-line">
+              <div class="text-xs font-bold text-accent mb-2">03 · 데이터의 잠재력</div>
+              <p class="text-sm text-gray-600">수집된 체형 데이터가 오프라인 시착에만 쓰이고 온라인에서 미활용</p>
+            </div>
+          </div>
 
-        // 2. S-FIT 단계별 비중 차트
-        new Chart(document.getElementById('sfitChart'), {
-            type: 'doughnut',
-            data: {
-                labels: ['Step 1 (Soft)', 'Step 2 (Daily)', 'Step 3 (Support)', '퓨징 라인'],
-                datasets: [{
-                    data: [35, 40, 20, 5],
-                    backgroundColor: [
-                        '#93C5FD', // Soft
-                        '#3B82F6', // Daily
-                        '#1E40AF', // Support
-                        '#E2E8F0'
-                    ],
-                    borderWidth: 0,
-                    hoverOffset: 4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                cutout: '70%',
-                plugins: {
-                    legend: { position: 'right', labels: { usePointStyle: true, boxWidth: 8, font: {size: 11} } },
-                    tooltip: {
-                        ...commonTooltip,
-                        callbacks: {
-                            label: function(context) {
-                                return ' ' + context.label + ': ' + context.parsed + '%';
-                            }
-                        }
-                    }
-                }
-            }
-        });
+          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wide mb-5">HOW — Scan → Recommend → Purchase</h3>
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="space-y-3">
+              <div class="flex items-center gap-4 p-4 rounded-lg bg-accent-soft border border-accent/10"><span class="w-9 h-9 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm">1</span><div><div class="font-bold text-sm">Scan</div><div class="text-xs text-gray-500">매장 스캔바이미 체험으로 신체 데이터 접점 확보</div></div></div>
+              <div class="flex items-center gap-4 p-4 rounded-lg bg-accent-soft border border-accent/10"><span class="w-9 h-9 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm">2</span><div><div class="font-bold text-sm">Recommend</div><div class="text-xs text-gray-500">체형 데이터를 온라인 추천에 매핑, CRM 세그먼트로 유입 경로 추적</div></div></div>
+              <div class="flex items-center gap-4 p-4 rounded-lg bg-accent text-white"><span class="w-9 h-9 rounded-full bg-white text-accent flex items-center justify-center font-bold text-sm">3</span><div><div class="font-bold text-sm">Purchase</div><div class="text-xs text-white/80">CRM으로 확인한 20~30대 온라인 구매 성향에 맞춘 전용 패키지 운영</div></div></div>
+              <p class="text-xs text-gray-400 pt-2">매장 현장과 온라인 운영 조직 간 계측 데이터 활용 기준을 정렬해 채널 간 단절을 해소했습니다.</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-5 border border-line">
+              <div class="text-xs font-bold text-gray-500 mb-3">체험 고객 구매 전환율 — 연계 전 vs 후</div>
+              <div class="chart-container" style="height:220px"><canvas id="conversionChart"></canvas></div>
+              <p class="text-xs text-gray-400 mt-2">같은 체험 고객 기준, 데이터 연결만으로 전환율 3.7배</p>
+            </div>
+          </div>
 
-        // 3. Defense Chart (3040 점유율 상승)
-        new Chart(document.getElementById('defenseChart'), {
-            type: 'bar',
-            data: {
-                labels: ['도입 전', '도입 후 (S-FIT)'],
-                datasets: [
-                    {
-                        label: '3040 핵심 세대 점유율 (%)',
-                        data: [42.1, 52.07], // Roughly +9.97%p increase
-                        backgroundColor: ['#475569', '#3B82F6'],
-                        borderRadius: 4,
-                        barPercentage: 0.5
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        ...commonTooltip,
-                        callbacks: {
-                            label: function(context) {
-                                return ' 점유율: ' + context.parsed.y + '%';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: { 
-                        display: false, 
-                        min: 30
-                    },
-                    x: { grid: { display: false } }
-                }
-            }
-        });
-    </script>
+          <div class="rounded-xl overflow-hidden border border-line bg-white mb-4" style="height:380px">
+            <img src="images/case1-product.png" alt="Perfect S-fit 패키지" data-placeholder="images/case1-product.png — 실제 패키지 운영 사례 사진" onerror="handleImgError(this)" class="w-full h-full object-contain p-3">
+          </div>
+          <div class="grid sm:grid-cols-3 gap-4 mb-8">
+            <div class="rounded-xl overflow-hidden border border-line" style="height:150px">
+              <img src="images/case1-dashboard.jpg" alt="스캔바이미 운영 대시보드" data-placeholder="images/case1-dashboard.jpg — 3D 바디스캐너 운영 실적 대시보드 스크린샷" onerror="handleImgError(this)" class="w-full h-full object-cover">
+            </div>
+            <div class="sm:col-span-2 flex items-center">
+              <p class="text-xs text-gray-500 leading-relaxed">누적 계측 12,568회 · 구매 전환 63.0% · 신규 고객 87.4%를 실시간으로 집계하는 <strong class="text-gray-700">스캔바이미 운영 대시보드</strong>. CRM으로 확인한 20~30대 온라인 구매 성향에 맞춰 <strong class="text-gray-700">Perfect S-fit</strong> 전용 패키지를 상시 운영 체계로 전환했습니다.</p>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-4 gap-4 mb-8 text-center">
+            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-ink">12,568회</div><div class="text-xs text-gray-500">누적 계측</div></div>
+            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-ink">63.0%</div><div class="text-xs text-gray-500">구매 전환 (7,917명)</div></div>
+            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-ink">87.4%</div><div class="text-xs text-gray-500">신규 고객 비중</div></div>
+            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-ink">87.6%</div><div class="text-xs text-gray-500">20~30대 비중</div></div>
+          </div>
+
+          <div class="border-l-4 border-accent pl-5">
+            <p class="text-sm font-bold text-gray-500 mb-1">배움</p>
+            <p class="text-gray-800 italic">"채널을 나누는 대신 데이터로 이었을 때, 고객 경험과 매출이 함께 움직인다는 것을 확인했습니다."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDY 02 -->
+  <section id="case02" class="section-pad bg-ink text-white border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="grid lg:grid-cols-12 gap-14">
+        <div class="lg:col-span-4 fade-up">
+          <p class="eyebrow mb-3 text-accent-light">Case Study 02</p>
+          <h2 class="text-3xl font-black tracking-tight mb-6">데이터 속 '선택 기준의<br>부재'에서 기회를 보다</h2>
+          <div class="text-sm text-gray-400 mb-6 space-y-1">
+            <div><i class="far fa-calendar mr-2"></i>25AW – 26SS</div>
+            <div><i class="fas fa-user-tag mr-2"></i>역할: 기획 주도</div>
+          </div>
+          <p class="text-gray-300 leading-relaxed text-sm">스캔바이미 체형 데이터로 Soft·Daily·Support 3단계 핏 상품군(S-FIT)을 설계했습니다. 소재 중심 단일 라인 5종 구조로는 다양해진 체형 수요를 받아낼 수 없다고 판단해, 선택 기준 설계부터 SKU 구성까지 기획을 주도했습니다.</p>
+        </div>
+        <div class="lg:col-span-8 fade-up">
+          <h3 class="font-bold text-sm text-gray-500 uppercase tracking-wide mb-5">문제 발견 — 데이터가 말해준 것</h3>
+          <div class="grid sm:grid-cols-3 gap-4 mb-12">
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <div class="text-xs font-bold text-accent-light mb-2">고객의 말</div>
+              <p class="text-sm text-gray-300">"다 편하다는데 뭐가 다른지 모르겠다" — 선택 기준을 묻는 VOC 반복 확인</p>
+            </div>
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <div class="text-xs font-bold text-accent-light mb-2">체형의 다양화</div>
+              <p class="text-sm text-gray-300">한국 여성 비만율 <strong class="text-white">38.3%</strong> 급증 — 하나의 표준 핏으로는 담을 수 없는 수요</p>
+            </div>
+            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+              <div class="text-xs font-bold text-accent-light mb-2">공급의 정체</div>
+              <p class="text-sm text-gray-300">소재 중심 단일 라인 <strong class="text-white">5 SKU</strong> — 다양해진 수요를 받아낼 상품 구조 부재</p>
+            </div>
+          </div>
+
+          <h3 class="font-bold text-sm text-gray-500 uppercase tracking-wide mb-5">HOW — 고객이 스스로 고르게 하는 3단계 기준</h3>
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="space-y-4">
+              <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+                <div class="font-bold text-sm mb-1">체형 데이터 → 선택 기준</div>
+                <p class="text-xs text-gray-400">활동 강도·보정 수준 축으로 Soft / Daily / Support 3단계 설계</p>
+              </div>
+              <div class="p-5 rounded-xl bg-white/5 border border-white/10">
+                <div class="font-bold text-sm mb-1">상품군 재편</div>
+                <p class="text-xs text-gray-400">SKU 5→16종 확장, 매장 등급별 재고 기준·행사 아이템 차별화 운영</p>
+              </div>
+              <div class="rounded-xl overflow-hidden border border-white/10" style="height:180px">
+                <img src="images/case2-lineup.jpg" alt="S-FIT 라인업" data-placeholder="images/case2-lineup.jpg — S-FIT 3단계 상품 라인업 사진" onerror="handleImgError(this)" class="w-full h-full object-cover">
+              </div>
+            </div>
+            <div class="bg-white/5 rounded-xl p-5 border border-white/10">
+              <div class="text-xs font-bold text-gray-400 mb-3">S-FIT 단계별 선택 비중</div>
+              <div class="chart-container" style="height:260px"><canvas id="sfitChart"></canvas></div>
+              <p class="text-xs text-gray-400 mt-2 text-center">구매 고객의 95%가 3단계 기준 안에서 선택</p>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-4 mb-8 text-center">
+            <div class="p-4 rounded-lg bg-white/5"><div class="font-black text-2xl text-accent-light">2.78억</div><div class="text-xs text-gray-400 mt-1">출시 3개월 매출</div></div>
+            <div class="p-4 rounded-lg bg-white/5"><div class="font-black text-2xl text-accent-light">169.9%</div><div class="text-xs text-gray-400 mt-1">YoY 성장</div></div>
+            <div class="p-4 rounded-lg bg-white/5"><div class="font-black text-2xl text-accent-light">50.5%</div><div class="text-xs text-gray-400 mt-1">가중평균 판매율</div></div>
+          </div>
+
+          <div class="border-l-4 border-accent-light pl-5">
+            <p class="text-sm font-bold text-gray-400 mb-1">배움</p>
+            <p class="italic">"상품을 늘리는 일보다 고객이 고를 이유를 설계하는 일이 기획의 본질임을 배웠습니다."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDY 03 -->
+  <section id="case03" class="section-pad bg-white border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="grid lg:grid-cols-12 gap-14">
+        <div class="lg:col-span-4 fade-up">
+          <p class="eyebrow mb-3 text-coral">Case Study 03</p>
+          <h2 class="text-3xl font-black tracking-tight mb-6">'편안함' 경쟁의 틈에서<br>기술의 빈자리를 읽다</h2>
+          <div class="text-sm text-gray-500 mb-6 space-y-1">
+            <div><i class="far fa-calendar mr-2"></i>25AW – 26SS</div>
+            <div><i class="fas fa-user-tag mr-2"></i>역할: 상품기획 주도</div>
+          </div>
+          <p class="text-gray-600 leading-relaxed text-sm">D2C 확산으로 노와이어 시장 내 자사 점유율이 65%→48%로 하락하는 흐름을 확인하고, 가격·감성이 아닌 소재 기술 영역을 진입 지점으로 선정했습니다. TPE·티타늄 신소재 도입부터 원가·가격 설계, 자사몰 소구까지 전략 전환을 주도했습니다.</p>
+        </div>
+        <div class="lg:col-span-8 fade-up">
+          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wide mb-5">문제 발견 — 시장이 보내온 신호</h3>
+          <div class="grid sm:grid-cols-3 gap-4 mb-12">
+            <div class="p-5 rounded-xl bg-gray-50 border border-line">
+              <div class="text-xs font-bold text-coral mb-2">시장 분석</div>
+              <p class="text-sm text-gray-600">D2C 확산으로 편안함 중심 노와이어 경쟁 포화 — 가격·감성 차별화의 한계</p>
+            </div>
+            <div class="p-5 rounded-xl bg-gray-50 border border-line">
+              <div class="text-xs font-bold text-coral mb-2">데이터 확인</div>
+              <p class="text-sm text-gray-600">노와이어 전체 카테고리 내 자사 점유율 <strong>65% → 48%</strong> 하락, 같은 방식으론 방어 불가</p>
+            </div>
+            <div class="p-5 rounded-xl bg-accent-soft border border-accent/10">
+              <div class="text-xs font-bold text-accent mb-2">전략 전환</div>
+              <p class="text-sm text-gray-700">"감성이 아니라 기술로 싸울 수는 없을까?" — 경쟁이 못 들어오는 소재 기술 영역에서 승부</p>
+            </div>
+          </div>
+
+          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wide mb-5">HOW — 모방할 수 없는 소재로 판을 바꾸다</h3>
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="space-y-4">
+              <div class="p-5 rounded-xl bg-gray-50 border border-line">
+                <div class="font-bold text-sm mb-1">신소재 도입 · 차별점 시각화</div>
+                <p class="text-xs text-gray-500">TPE 몰드·티타늄 형상기억 와이어로 기술 진입장벽 구축, 보조택·패키징에 소재 정보 표기</p>
+              </div>
+              <div class="p-5 rounded-xl bg-gray-50 border border-line">
+                <div class="font-bold text-sm mb-1">자사몰 소구 · 가격 정당성 전달</div>
+                <p class="text-xs text-gray-500">모델 기용으로 2030 접점 확대, 자사몰에서 소재 차별점을 기술력으로 소구</p>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="rounded-xl overflow-hidden border border-line bg-white" style="height:200px">
+                  <img src="images/case3-material.png" alt="티타늄 형상기억 와이어 실물" data-placeholder="images/case3-material.png — 티타늄 형상기억 와이어 실물 사진" onerror="handleImgError(this)" class="w-full h-full object-contain p-3">
+                </div>
+                <div class="rounded-xl overflow-hidden border border-line bg-white" style="height:200px">
+                  <img src="images/case3-tag.png" alt="TPE 몰드컵" data-placeholder="images/case3-tag.png — TPE 몰드컵 소재 표기" onerror="handleImgError(this)" class="w-full h-full object-contain p-3">
+                </div>
+              </div>
+              <p class="text-xs text-gray-500">경쟁사가 따라오지 못하는 지점 — 감성이 아닌 소재 기술로 만든 진입장벽입니다.</p>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-5 border border-line">
+              <div class="text-xs font-bold text-gray-500 mb-3">기술 우위 상품군 판매 점유율 변화</div>
+              <div class="chart-container" style="height:200px"><canvas id="rebrandingChart"></canvas></div>
+              <div class="mt-4 space-y-3">
+                <div>
+                  <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">2030 신규 유입</span><span class="font-bold text-accent">+5.14%p</span></div>
+                  <div class="progress-track"><div class="progress-fill bg-accent" data-width="51"></div></div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">3040 고객 비중 방어</span><span class="font-bold text-accent">+9.97%p</span></div>
+                  <div class="progress-track"><div class="progress-fill bg-accent-dark" data-width="99"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-3 gap-4 mb-8 text-center">
+            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-2xl text-ink">35.86%</div><div class="text-xs text-gray-500 mt-1">신소재 광고군 내 점유율</div></div>
+            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-2xl text-ink">+5.14%p</div><div class="text-xs text-gray-500 mt-1">2030 신규 유입</div></div>
+            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-2xl text-ink">+9.97%p</div><div class="text-xs text-gray-500 mt-1">3040 고객 비중 방어</div></div>
+          </div>
+
+          <div class="border-l-4 border-accent pl-5">
+            <p class="text-sm font-bold text-gray-500 mb-1">배움</p>
+            <p class="text-gray-800 italic">"가격을 따라가는 대신 경쟁자가 따라올 수 없는 지점을 만드는 것이 차별화임을 배웠습니다."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA PROJECT (SIDE PROJECT) -->
+  <section id="dataproject" class="section-pad bg-white border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="fade-up mb-14">
+        <p class="eyebrow mb-3">04 · Side Project</p>
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight mb-4">데이터로 가설을 검증하는 습관 — Olist 이커머스 분석</h2>
+        <p class="text-gray-600 text-sm max-w-3xl leading-relaxed">ICB 5기 Business Analyst 과정 중 브라질 Olist 공개 이커머스 데이터(2016.09–2018.08, 주문 96,478건·고객 93,358명)로 진행한 <strong>팀 프로젝트</strong> 2건입니다. MD 업무에서 다루기 어려운 통계적 가설 검증(회귀분석, 클러스터링)까지 분석 역량을 넓히기 위해 참여했습니다. 아래 수치·역할 표기는 팀 전체 산출물 중 본인이 직접 담당한 분석 범위를 기준으로 적었습니다.</p>
+      </div>
+
+      <!-- Sub-project A: 물류-벤더 -->
+      <div class="fade-up bg-gray-50 rounded-2xl border border-line p-7 lg:p-9 mb-8">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <span class="text-xs font-bold bg-white border border-line px-2 py-1 rounded">팀 삼삼오오2 · ICB 5기</span>
+          <span class="text-xs font-bold bg-accent-soft text-accent px-2 py-1 rounded">역할: 가설 수립~통계 검증 참여</span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-black text-gray-900 mb-2">물류–리텐션 상관 분석 및 벤더 세그멘테이션</h3>
+        <p class="text-sm text-gray-500 mb-6">OKR — 악성(Toxic) 벤더 비중 10% 이하 축소 · 장거리 배송 지연율 전년 대비 30% 개선</p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+          <div class="bg-white rounded-lg p-3 border border-line text-center"><div class="font-black text-lg text-ink">1,584.4만</div><div class="text-[11px] text-gray-500">총 거래액</div></div>
+          <div class="bg-white rounded-lg p-3 border border-line text-center"><div class="font-black text-lg text-ink">3,095개</div><div class="text-[11px] text-gray-500">총 셀러 수</div></div>
+          <div class="bg-white rounded-lg p-3 border border-line text-center"><div class="font-black text-lg text-ink">95,420명</div><div class="text-[11px] text-gray-500">총 구매 고객</div></div>
+          <div class="bg-white rounded-lg p-3 border border-line text-center"><div class="font-black text-lg text-coral">63.82%</div><div class="text-[11px] text-gray-500">장거리 배송 비율</div></div>
+        </div>
+
+        <div class="space-y-3 mb-8">
+          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
+            <span class="shrink-0 w-7 h-7 rounded-full bg-coral/10 text-coral flex items-center justify-center font-bold text-xs">1</span>
+            <p class="text-sm text-gray-700"><strong class="text-gray-900">구조적 문제 진단</strong> — 공급(셀러)은 상파울루(SP) 지역에 70% 과밀집된 반면 수요(고객)는 브라질 전역에 분산. "파는 곳과 사는 곳이 달라 필연적으로 장거리 지연이 발생"하는 구조로, SP 발 배송은 평균 8.3일인데 RR·AP 등 원거리 지역은 26~27.8일까지 벌어짐</p>
+          </div>
+          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
+            <span class="shrink-0 w-7 h-7 rounded-full bg-coral/10 text-coral flex items-center justify-center font-bold text-xs">2</span>
+            <p class="text-sm text-gray-700"><strong class="text-gray-900">상관관계 확인</strong> — 배송 소요일이 10일을 넘는 순간 고객 평균 평점이 3점 미만으로 급락. 지리적 한계로 인한 배송 페널티가 타 지역 고객에게 부정적 경험을 강제하는 근본 원인으로 규명</p>
+          </div>
+          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
+            <span class="shrink-0 w-7 h-7 rounded-full bg-coral/10 text-coral flex items-center justify-center font-bold text-xs">3</span>
+            <p class="text-sm text-gray-700"><strong class="text-gray-900">벤더 세분화</strong> — 총 3,095개 셀러를 주문 이력·지연율·평점 기준으로 Zombie(1,500)·Active(933)·Newbie(315)·Power(235)·Toxic(112)로 퍼널 분리, Toxic 112개사를 블랙리스트로 특정</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+          <div class="bg-white rounded-lg p-4 border border-line">
+            <div class="text-xs font-bold text-gray-500 mb-2">지역별 평균 배송 소요일 (SP 대비 격차)</div>
+            <div class="chart-container" style="height:190px"><canvas id="regionDelayChart"></canvas></div>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-line">
+            <div class="text-xs font-bold text-gray-500 mb-2">벤더 생존 퍼널 (총 셀러 3,095개)</div>
+            <div class="chart-container" style="height:190px"><canvas id="funnelChart"></canvas></div>
+          </div>
+        </div>
+        <div class="bg-white rounded-lg p-4 border border-line mb-6">
+          <div class="text-xs font-bold text-gray-500 mb-2">플랫폼 리텐션을 견인하는 카테고리 Top 8 (판매건수 · 고객 만족도)</div>
+          <div class="chart-container" style="height:210px"><canvas id="categoryChart"></canvas></div>
+        </div>
+
+        <div class="text-xs text-gray-600 pt-4 border-t border-line">
+          <strong class="text-gray-800">액션 제안:</strong> RICE 스코어링 기반 라스트마일 최적화를 최우선 배치(920점)하고, 지연율 21%→8%·재구매율 1%→5%·BNPL 결제 15%→25% 목표를 OKR로 설정. 배송 신뢰 → 재구매 → 결제 확장 → 수익으로 이어지는 Flywheel 구조를 팀 최종 제안안으로 완성
+        </div>
+      </div>
+
+      <!-- Sub-project B: 리텐션 vs LTV -->
+      <div class="fade-up bg-gray-50 rounded-2xl border border-line p-7 lg:p-9">
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <span class="text-xs font-bold bg-white border border-line px-2 py-1 rounded">팀 3조(6인) · ICB 5기</span>
+          <span class="text-xs font-bold bg-accent-soft text-accent px-2 py-1 rounded">역할: 가설 검증·통계분석 참여</span>
+        </div>
+        <h3 class="text-xl sm:text-2xl font-black text-gray-900 mb-2">"리텐션은 만들어졌지만, LTV는 따라오지 않았다"</h3>
+        <p class="text-sm text-gray-500 mb-6">로지스틱회귀·RFM·K-클러스터링으로 검증한 리텐션 vs LTV 반전 인사이트</p>
+
+        <div class="space-y-3 mb-8">
+          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
+            <span class="shrink-0 w-7 h-7 rounded-full bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">1</span>
+            <p class="text-sm text-gray-700"><strong class="text-gray-900">첫 가설 기각</strong> — "경험이 좋으면 재구매할 것"이라는 가설로 출발했지만, 1개월 내 재구매율은 <strong>1% 미만(이탈 98.83%)</strong>. 재구매가 발생한 소수 중에서도 <strong>52%가 첫 30일 내</strong>에 몰려 있어, 30일이 전략 개입이 가능한 사실상 유일한 구간으로 재정의</p>
+          </div>
+          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
+            <span class="shrink-0 w-7 h-7 rounded-full bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">2</span>
+            <p class="text-sm text-gray-700"><strong class="text-gray-900">경험 변수 검증</strong> — 리뷰 점수별 30일 재구매율은 1~2점 0.51% → 4~5점 0.65%로 차이가 미미했고, 배송 신뢰도를 더해도 저평점·지연배송에도 재구매하는 고객군이 존재해 경험 변수 단독으로는 설명되지 않음을 확인</p>
+          </div>
+          <div class="flex gap-4 p-4 rounded-lg bg-coral-soft border border-coral/20">
+            <span class="shrink-0 w-7 h-7 rounded-full bg-coral/15 text-coral flex items-center justify-center font-bold text-xs">3</span>
+            <p class="text-sm text-gray-700"><strong class="text-gray-900">예상 밖의 반전</strong> — 중저가·정시배송·리뷰 4점 이상을 모두 만족한 'AHA 모먼트' 충족군은 30일 재구매율은 높았지만(Lift 1.13배), 평균 총구매액(LTV)은 오히려 <strong class="text-coral">0.29배(224 → 64)</strong>로 낮았음. "리텐션이 높다고 좋은 고객은 아니다" — 똑똑한 체리피커였을 가능성</p>
+          </div>
+          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
+            <span class="shrink-0 w-7 h-7 rounded-full bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">4</span>
+            <p class="text-sm text-gray-700"><strong class="text-gray-900">진짜 분기점 발견</strong> — 경험이 아니라 <strong>F30(첫 30일 내 2회차 구매 진입)</strong>이 LTV를 가르는 행동 임계점. 90,557명 중 2회차에 도달하는 인원은 2,573명뿐이지만, 이 지점을 넘는 순간 LTV 중앙값이 89 → 189 → 279로 구조적으로 2배 이상 점프하고 RFM·K-클러스터링에서도 고가치 고객군이 별도로 분리됨</p>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4 mb-6">
+          <div class="bg-white rounded-lg p-4 border border-line">
+            <div class="text-xs font-bold text-gray-500 mb-2">AHA 모먼트 충족 여부 · 평균 LTV</div>
+            <div class="chart-container" style="height:170px"><canvas id="ahaLtvChart"></canvas></div>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-line">
+            <div class="text-xs font-bold text-gray-500 mb-2">초기 구매 빈도(F30)별 LTV 중앙값</div>
+            <div class="chart-container" style="height:170px"><canvas id="f30Chart"></canvas></div>
+          </div>
+          <div class="bg-white rounded-lg p-4 border border-line">
+            <div class="text-xs font-bold text-gray-500 mb-2">구매 빈도별 고객 수 (로그 스케일)</div>
+            <div class="chart-container" style="height:170px"><canvas id="frequencyDropChart"></canvas></div>
+          </div>
+        </div>
+
+        <div class="text-xs text-gray-600 pt-4 border-t border-line">
+          <strong class="text-gray-800">액션 제안:</strong> 첫 구매 후 14일 내 미재구매 고객에게 동일 가격대·카테고리 상품을 재노출하고 할인 대신 배송 신뢰 메시지로 유도, 배송지연·저평점에도 재구매한 고객군은 과도한 CS·보상 없이도 유지 가능한 고객으로 분류해 핵심 카테고리×가격대 세그먼트에 자원을 집중
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAREER -->
+  <section id="career" class="section-pad bg-paper border-t border-line">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="fade-up mb-14">
+        <p class="eyebrow mb-3">05 · Career</p>
+        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">경력 사항</h2>
+      </div>
+
+      <div class="max-w-3xl fade-up">
+        <div class="timeline-item">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1">
+            <div class="font-bold text-xl text-gray-900">신영와코루 (VENUS) <span class="text-sm text-gray-500 font-normal ml-2">| 국내사업부 영업1부1과 · 계장</span></div>
+            <div class="text-sm text-accent font-bold bg-accent-soft px-2 py-1 rounded">2022.05 ~ 재직중 · 4년 3개월</div>
+          </div>
+          <p class="text-sm text-gray-500 mb-4">시즌 상품 기획, 데이터 기반 트렌드 분석, BOM 원가 관리 및 생산 프로세스 운영</p>
+          <div class="bg-white p-4 rounded-lg border border-line space-y-3">
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide">주도 프로젝트 3건 — 상세는 위 Case Study 참고</div>
+            <ul class="text-sm text-gray-600 space-y-1.5">
+              <li><i class="fas fa-check text-accent mr-2"></i>스캔바이미 O2O 상품군 운영 — 96억 규모, 구매 전환율 12%→45% 개선 (Case 01)</li>
+              <li><i class="fas fa-check text-accent mr-2"></i>S-FIT 3단계 핏 큐레이션 기획 — SKU 5→16종, YoY 169.9% 성장 (Case 02)</li>
+              <li><i class="fas fa-check text-accent mr-2"></i>신소재 기반 브랜드 리포지셔닝 — 신소재 광고군 점유율 35.86% (Case 03)</li>
+            </ul>
+            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide pt-2 border-t border-line">프로젝트 외 시즌 사이클에서 상시 수행하는 업무</div>
+            <ul class="text-sm text-gray-600 space-y-1.5">
+              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">물량 운영</strong> — 브랜드 전체 판매 사이클·재고 소진율을 주간 분석해 추가 발주 물량과 매장별 상품 구성 결정</li>
+              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">원가·소싱</strong> — BOM 기준 소재별 원가 구조 분석·영업이익률 산출, 소싱팀 협업으로 신규 협력사 발굴</li>
+              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">생산·납기</strong> — 행사·협력사 라인별 생산 일정과 납기를 통합 관리해 시즌 출시 일정 준수</li>
+              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">채널 운영</strong> — 유통 채널별 기획상품을 구성하고 채널 특성에 맞춘 물량·가격 정책 조정</li>
+              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">시장 조사</strong> — 분기별 경쟁사·시장 조사를 수행해 차기 시즌 기획 방향의 근거로 반영</li>
+              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">조직 지원</strong> — 시즌 전략회의 자료 작성·발표, 시즌 품평회 운영, 영업 현장 교육자료 제작</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1">
+            <div class="font-bold text-xl text-gray-900">CJ 프레시원 <span class="text-sm text-gray-500 font-normal ml-2">| 경영지원 · 영업관리 · 채권관리 · 주임</span></div>
+            <div class="text-sm text-gray-500 font-bold bg-gray-100 px-2 py-1 rounded">2019.07 ~ 2022.02 · 2년 8개월</div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-line mt-3 space-y-4">
+            <div>
+              <div class="text-sm font-bold text-gray-800 mb-1">PROJECT 01 · 채권·여신 리스크 관리 운영</div>
+              <p class="text-xs text-gray-500 mb-2">성과 — 연체 거래처 조기 식별 체계 운영으로 대손 리스크 사전 통제</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li><i class="fas fa-check text-gray-400 mr-2"></i>거래처별 여신 한도를 설정하고 채권 현황을 주기 점검해 연체 발생 거래처를 조기 식별</li>
+                <li><i class="fas fa-check text-gray-400 mr-2"></i>영업 현장과 본사 간 업무 조율 창구를 맡아 리스크 발생 시 대응 절차를 신속 가동</li>
+                <li><i class="fas fa-check text-gray-400 mr-2"></i>연체 이력·거래 규모를 반영해 거래처별 여신 기준을 조정하고 영업 담당자와 회수 일정 합의</li>
+              </ul>
+            </div>
+            <div class="pt-3 border-t border-line">
+              <div class="text-sm font-bold text-gray-800 mb-1">PROJECT 02 · 신규 유통센터 ERP 통합 전환 지원</div>
+              <p class="text-xs text-gray-500 mb-2">성과 — 수기 기반 계약·발주 프로세스의 ERP 전환으로 수주–출고–반품 데이터 일원화</p>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li><i class="fas fa-check text-gray-400 mr-2"></i>현장 수기 계약·발주 프로세스를 진단하고 ERP 전환을 지원해 데이터가 시스템에 반영되는 구조 구축</li>
+                <li><i class="fas fa-check text-gray-400 mr-2"></i>DRM 정보보안 도입에 참여해 문서 등급화 기준의 영업 데이터 관리 방식 정립</li>
+                <li><i class="fas fa-check text-gray-400 mr-2"></i>현장 담당자 대상 전환 절차를 안내해 시스템 정착 과정의 운영 혼선 최소화</li>
+              </ul>
+            </div>
+            <div class="pt-3 border-t border-line">
+              <div class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1.5">상시 수행 업무</div>
+              <ul class="text-sm text-gray-600 space-y-1">
+                <li><i class="fas fa-repeat text-gray-400 mr-2"></i>직영점·소매점·차량판매 등 복수 유통 채널 운영 지원, 신규 거래처 코드 개설·변경 전담</li>
+                <li><i class="fas fa-repeat text-gray-400 mr-2"></i>채널별 매출을 집계해 경영진 보고용 통합 실적 보고서를 정기 작성</li>
+                <li><i class="fas fa-repeat text-gray-400 mr-2"></i>채용·근태 등 인사행정 업무 병행 수행</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1">
+            <div class="font-bold text-xl text-gray-900">㈜트리아 <span class="text-sm text-gray-500 font-normal ml-2">| IFRS17 시스템 프로젝트 · 대리</span></div>
+            <div class="text-sm text-gray-500 font-bold bg-gray-100 px-2 py-1 rounded">2019.02 ~ 2019.05 · 4개월</div>
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-line mt-3">
+            <div class="text-sm font-bold text-gray-800 mb-1">IFRS17 시스템 유지보수 · 개발 지원 (금융권 대형 고객사)</div>
+            <p class="text-xs text-gray-500 mb-2">성과 — 금융권 운영 환경의 시스템 검증·개발 지원 실무 수행</p>
+            <ul class="text-sm text-gray-600 space-y-1">
+              <li><i class="fas fa-check text-gray-400 mr-2"></i>현대카드 모기지프라임·산업은행·우리은행 대상 시스템 구동 모니터링과 테스트 데이터 검증 수행</li>
+              <li><i class="fas fa-check text-gray-400 mr-2"></i>처브(Chubb)보험사 개발 지원 업무를 맡아 현업 담당자와 협업하며 개발환경 세팅부터 Java·Spring 기반 개발까지 직접 참여</li>
+              <li><i class="fas fa-check text-gray-400 mr-2"></i>구디아카데미 6개월 과정(Java·Spring·빅데이터) 수료 직후 투입되어 학습 내용을 실무 검증 프로세스에 즉시 적용</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12 max-w-3xl bg-white p-6 rounded-xl border border-line fade-up flex items-center justify-between flex-wrap gap-3">
+        <p class="text-sm text-gray-600"><i class="fas fa-flask mr-2 text-accent"></i>ICB 5기 Business Analyst 과정(4개월) 수료 — 팀 프로젝트 2회 전원 1위, 80명 중 우수수료생 5인 선정. 프로젝트 상세는 <a href="#dataproject" class="text-accent font-bold underline">Data Project 섹션</a> 참고.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact" class="bg-paper border-t border-line py-16">
+    <div class="max-w-7xl mx-auto px-6 lg:px-24">
+      <div class="fade-up flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8">
+        <div>
+          <p class="eyebrow mb-3">Contact</p>
+          <h2 class="text-2xl sm:text-3xl font-black tracking-tight mb-3">문제를 기회로 바꾸고, 데이터로 증명하는<br>상품기획 MD가 되겠습니다.</h2>
+        </div>
+        <div class="text-left lg:text-right">
+          <div class="font-bold text-lg">김동진 (Dongjin Kim)</div>
+          <div class="text-sm text-gray-500">rlaehdwls96@gmail.com · 010-3234-4911</div>
+          <div class="flex gap-2 mt-3 lg:justify-end">
+            <span class="text-xs bg-white border border-line px-2 py-1 rounded">정보처리산업기사</span>
+            <span class="text-xs bg-white border border-line px-2 py-1 rounded">유통관리사 2급</span>
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 pt-6 border-t border-line text-xs text-gray-400 flex justify-between">
+        <span>Portfolio · 2026</span>
+        <span>© Dongjin Kim</span>
+      </div>
+    </div>
+  </footer>
+
+<script>
+  function handleImgError(img) {
+    if (img.dataset.fallbackApplied) return;
+    img.dataset.fallbackApplied = '1';
+    const label = img.dataset.placeholder || '이미지를 추가해주세요';
+    const wrap = document.createElement('div');
+    wrap.className = 'img-placeholder';
+    wrap.innerHTML = '<i class="fas fa-image"></i><span>' + label + '</span>';
+    img.replaceWith(wrap);
+  }
+
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const closeBtn = document.getElementById('closeBtn');
+  const overlay = document.getElementById('mobileOverlay');
+  menuBtn.addEventListener('click', () => overlay.classList.add('open'));
+  closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+  overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => overlay.classList.remove('open')));
+
+  // Scrollspy for side nav
+  const navLinks = document.querySelectorAll('#sideNav a');
+  const sections = Array.from(navLinks).map(a => document.getElementById(a.dataset.target));
+  const spyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+  sections.forEach(s => s && spyObserver.observe(s));
+
+  // Fade-up on scroll
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('in-view');
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
+
+  // Progress bar animation
+  const progressObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.style.width = el.dataset.width + '%';
+        progressObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  document.querySelectorAll('.progress-fill').forEach(el => progressObserver.observe(el));
+
+  // Charts
+  Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
+  Chart.defaults.color = '#8A8578';
+  const tip = { backgroundColor: 'rgba(21,33,31,0.95)', padding: 12, titleFont: { size: 13 }, bodyFont: { size: 12 }, cornerRadius: 6, displayColors: false };
+
+  new Chart(document.getElementById('conversionChart'), {
+    type: 'bar',
+    data: {
+      labels: ['연계 전 · 오프라인 단독', '연계 후 · O2O 퍼널'],
+      datasets: [{ data: [12, 45], backgroundColor: ['#D6D2C6', '#0F766E'], borderRadius: 6, barPercentage: 0.55 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => ' 전환율: ' + c.parsed.y + '%' } } },
+      scales: { y: { display: false, min: 0, max: 55 }, x: { grid: { display: false } } }
+    }
+  });
+
+  new Chart(document.getElementById('sfitChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Soft', 'Daily', 'Support', '기타'],
+      datasets: [{ data: [35, 40, 20, 5], backgroundColor: ['#5EEAD4', '#14B8A6', '#0F766E', '#3B4E4B'], borderWidth: 0, hoverOffset: 6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '68%',
+      plugins: {
+        legend: { position: 'right', labels: { color: '#D6D2C6', usePointStyle: true, boxWidth: 8, font: { size: 11 } } },
+        tooltip: { ...tip, callbacks: { label: c => ' ' + c.label + ': ' + c.parsed + '%' } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('rebrandingChart'), {
+    type: 'line',
+    data: {
+      labels: ['출시 1분기', '2분기', '3분기', '4분기'],
+      datasets: [
+        { label: '일반 노와이어 점유율', data: [65, 58, 52, 48], borderColor: '#C9C5BA', borderDash: [5, 5], borderWidth: 2, pointRadius: 3, tension: 0.4 },
+        { label: '신소재 광고군 점유율', data: [15, 22, 28, 35.86], borderColor: '#E2725B', backgroundColor: 'rgba(226,114,91,0.08)', borderWidth: 3, pointBackgroundColor: '#E2725B', pointRadius: 4, fill: true, tension: 0.4 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: true, position: 'top', labels: { usePointStyle: true, boxWidth: 6, font: { size: 10 } } }, tooltip: { ...tip, callbacks: { label: c => c.dataset.label + ': ' + c.parsed.y + '%' } } },
+      scales: { x: { grid: { display: false } }, y: { grid: { borderDash: [2, 4], color: '#EFEDE7' }, min: 0, max: 80 } }
+    }
+  });
+
+  new Chart(document.getElementById('funnelChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Zombie', 'Active', 'Newbie', 'Power', 'Toxic'],
+      datasets: [{ data: [1500, 933, 315, 235, 112], backgroundColor: ['#D6D2C6', '#5EEAD4', '#5EEAD4', '#0F766E', '#E2725B'], borderRadius: 4, barPercentage: 0.65 }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => c.parsed.x.toLocaleString() + '개사' } } },
+      scales: { x: { display: false }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } }
+    }
+  });
+
+  new Chart(document.getElementById('regionDelayChart'), {
+    type: 'bar',
+    data: {
+      labels: ['RR', 'AP', 'AM', 'RO', 'SP'],
+      datasets: [{ data: [27.8, 27.8, 26, 19.3, 8.3], backgroundColor: ['#E2725B', '#E2725B', '#E2725B', '#D6D2C6', '#0F766E'], borderRadius: 4, barPercentage: 0.65 }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => '평균 ' + c.parsed.x + '일' } } },
+      scales: { x: { display: false, min: 0, max: 30 }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } }
+    }
+  });
+
+  new Chart(document.getElementById('categoryChart'), {
+    type: 'bar',
+    data: {
+      labels: ['bed_bath_table', 'health_beauty', 'sports_leisure', 'computers_acc.', 'furniture_decor', 'housewares', 'watches_gifts', 'toys'],
+      datasets: [
+        { label: '판매건수', data: [9417, 8836, 7720, 6689, 6449, 5884, 5624, 3886], backgroundColor: '#0F766E', borderRadius: 3, yAxisID: 'y' },
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: { ...tip, callbacks: {
+          label: c => {
+            const sat = [3.9, 4.14, 4.11, 3.93, 3.91, 4.05, 4.02, 4.16];
+            return ['판매건수 ' + c.parsed.y.toLocaleString() + '건', '고객 만족도 ' + sat[c.dataIndex] + '점'];
+          }
+        } }
+      },
+      scales: { x: { grid: { display: false }, ticks: { font: { size: 9 }, maxRotation: 30, minRotation: 30 } }, y: { grid: { borderDash: [2, 4], color: '#EFEDE7' } } }
+    }
+  });
+
+  new Chart(document.getElementById('ahaLtvChart'), {
+    type: 'bar',
+    data: {
+      labels: ['AHA 미충족', 'AHA 충족'],
+      datasets: [{ data: [224, 64], backgroundColor: ['#D6D2C6', '#E2725B'], borderRadius: 6, barPercentage: 0.55 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => '평균 총구매액(LTV Proxy) ' + c.parsed.y } } },
+      scales: { y: { display: false }, x: { grid: { display: false } } }
+    }
+  });
+
+  new Chart(document.getElementById('f30Chart'), {
+    type: 'bar',
+    data: {
+      labels: ['F30=1 (한 번 사고 끝)', 'F30=2', 'F30=3+'],
+      datasets: [{ data: [89, 189, 279], backgroundColor: ['#D6D2C6', '#5EEAD4', '#0F766E'], borderRadius: 4, barPercentage: 0.6 }]
+    },
+    options: {
+      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => '180일 누적매출 중앙값 $' + c.parsed.x } } },
+      scales: { x: { display: false }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } }
+    }
+  });
+
+  new Chart(document.getElementById('frequencyDropChart'), {
+    type: 'bar',
+    data: {
+      labels: ['1회', '2회', '3-4회', '5회+'],
+      datasets: [{ data: [90557, 2573, 209, 19], backgroundColor: ['#D6D2C6', '#5EEAD4', '#5EEAD4', '#0F766E'], borderRadius: 4, barPercentage: 0.6 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => c.parsed.y.toLocaleString() + '명' } } },
+      scales: {
+        x: { grid: { display: false } },
+        y: { type: 'logarithmic', grid: { borderDash: [2, 4], color: '#EFEDE7' }, ticks: { callback: v => (v === 10 || v === 100 || v === 1000 || v === 10000 || v === 100000) ? v.toLocaleString() : '' } }
+      }
+    }
+  });
+</script>
 </body>
 </html>
