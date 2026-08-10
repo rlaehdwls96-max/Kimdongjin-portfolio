@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>룩북 관리 — 김동진 Portfolio</title>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F7F6F4;
+    --panel: #FFFFFF;
+    --line: #E6E4E0;
+    --text: #111214;
+    --muted: #85858B;
+    --accent: #C4622D;
+    --ok: #3F7D58;
+    --warn: #B4442E;
+    --radius: 14px;
+  }
+  body {
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, 'Noto Sans KR', sans-serif;
+    background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased;
+    font-size: 14px; line-height: 1.6;
+  }
+  button, input, textarea, select { font-family: inherit; font-size: inherit; color: inherit; }
+  button { cursor: pointer; border: none; background: none; }
+
+  /* ---------- shell ---------- */
+  .top {
+    position: sticky; top: 0; z-index: 20; background: rgba(247,246,244,0.92);
+    backdrop-filter: blur(10px); border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 14px; padding: 14px 26px;
+  }
+  .top h1 { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; }
+  .top .dot { width: 7px; height: 7px; border-radius: 50%; background: #CFCCC6; }
+  .top .dot.live { background: var(--ok); }
+  .top .spacer { flex: 1; }
+  .top small { font-size: 11px; color: var(--muted); }
+
+  .wrap { display: grid; grid-template-columns: 200px 1fr; gap: 22px; padding: 22px 26px 80px; max-width: 1240px; margin: 0 auto; }
+  @media (max-width: 860px) { .wrap { grid-template-columns: 1fr; } }
+
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; }
+  .panel + .panel { margin-top: 16px; }
+  .panel h2 { font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+
+  /* ---------- season rail ---------- */
+  .rail { display: flex; flex-direction: column; gap: 2px; }
+  .rail button {
+    display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+    padding: 9px 11px; border-radius: 9px; font-size: 13px; font-weight: 600;
+    color: var(--muted); transition: background 0.18s, color 0.18s;
+  }
+  .rail button:hover { background: #F1EFEC; color: var(--text); }
+  .rail button.active { background: var(--text); color: #fff; }
+  .rail button.active .bar { background: rgba(255,255,255,0.55); }
+  .rail .bar { width: 3px; height: 15px; border-radius: 2px; background: #DFDCD7; flex-shrink: 0; }
+  .rail .bar.filled { background: var(--accent); }
+  .rail .n { margin-left: auto; font-size: 11px; font-weight: 700; opacity: 0.75; }
+
+  /* ---------- fields ---------- */
+  label.f { display: block; font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
+  input[type=text], input[type=password], textarea, select {
+    width: 100%; padding: 9px 11px; border: 1px solid var(--line); border-radius: 9px;
+    background: #FCFBFA; transition: border-color 0.18s;
+  }
+  input:focus, textarea:focus, select:focus { outline: none; border-color: var(--text); }
+  textarea { resize: vertical; min-height: 62px; }
+  .row { display: grid; gap: 12px; margin-bottom: 12px; }
+  .row.c2 { grid-template-columns: 1fr 1fr; }
+  .row.c3 { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 640px) { .row.c2, .row.c3 { grid-template-columns: 1fr; } }
+
+  .btn {
+    padding: 9px 16px; border-radius: 9px; font-weight: 700; font-size: 13px;
+    background: var(--text); color: #fff; transition: opacity 0.18s;
+  }
+  .btn:hover { opacity: 0.86; }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn.ghost { background: transparent; border: 1px solid var(--line); color: var(--text); }
+  .btn.ghost:hover { border-color: var(--text); opacity: 1; }
+  .btn.pub { background: var(--accent); }
+  .btn.sm { padding: 5px 10px; font-size: 11.5px; border-radius: 7px; }
+
+  /* ---------- dropzone ---------- */
+  .drop {
+    border: 1.5px dashed var(--line); border-radius: var(--radius); padding: 30px 18px;
+    text-align: center; color: var(--muted); font-size: 13px; transition: border-color 0.2s, background 0.2s;
+    cursor: pointer; line-height: 1.8;
+  }
+  .drop:hover, .drop.over { border-color: var(--accent); background: #FDF8F4; color: var(--text); }
+  .drop b { color: var(--text); }
+  .drop small { display: block; font-size: 11px; margin-top: 6px; }
+
+  /* ---------- photo cards ---------- */
+  .photos { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+  .pcard {
+    display: grid; grid-template-columns: 74px 1fr auto; gap: 13px; align-items: start;
+    border: 1px solid var(--line); border-radius: 11px; padding: 11px; background: #FCFBFA;
+  }
+  .pcard.new { border-color: var(--accent); background: #FDF8F4; }
+  .pthumb { width: 74px; aspect-ratio: 3/4; border-radius: 7px; background: #EFEDEA center/cover no-repeat; }
+  .pmeta { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+  .pmeta input { padding: 6px 9px; font-size: 12.5px; }
+  .pfile { font-size: 10.5px; color: var(--muted); word-break: break-all; }
+  .pfile .tag { display: inline-block; background: var(--accent); color: #fff; font-weight: 700; padding: 1px 5px; border-radius: 5px; margin-right: 5px; }
+  .pacts { display: flex; flex-direction: column; gap: 4px; }
+  .pacts button { width: 28px; height: 26px; border-radius: 6px; border: 1px solid var(--line); font-size: 12px; background: #fff; }
+  .pacts button:hover { border-color: var(--text); }
+  .pacts button.del:hover { border-color: var(--warn); color: var(--warn); }
+
+  /* ---------- log ---------- */
+  .log {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11.5px; line-height: 1.85;
+    background: #16171A; color: #C9CCD1; border-radius: 11px; padding: 14px 16px;
+    max-height: 220px; overflow-y: auto; white-space: pre-wrap; word-break: break-all;
+  }
+  .log .ok { color: #7CC79A; } .log .er { color: #E88C7A; } .log .dim { color: #6E727A; }
+
+  .bar-fixed {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 30;
+    background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); border-top: 1px solid var(--line);
+    padding: 12px 26px; display: flex; align-items: center; gap: 12px;
+  }
+  .bar-fixed .status { font-size: 12px; color: var(--muted); flex: 1; }
+  .hint { font-size: 11.5px; color: var(--muted); line-height: 1.75; margin-top: 10px; }
+  .warnbox { border: 1px solid #EAD9D2; background: #FCF6F3; border-radius: 10px; padding: 12px 14px; font-size: 12px; color: #7A5346; line-height: 1.75; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <span class="dot" id="statusDot"></span>
+  <h1>룩북 관리</h1>
+  <span class="spacer"></span>
+  <small id="repoLabel">연결 안 됨</small>
+  <button class="btn ghost sm" onclick="toggleSetup()">설정</button>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ LEFT: seasons ============ -->
+  <div>
+    <div class="panel">
+      <h2>시즌</h2>
+      <div class="rail" id="rail"></div>
+    </div>
+  </div>
+
+  <!-- ============ RIGHT ============ -->
+  <div>
+
+    <!-- setup -->
+    <div class="panel" id="setupPanel">
+      <h2>연결 설정</h2>
+      <div class="row c3">
+        <div><label class="f">GitHub 계정</label><input type="text" id="cfgOwner" placeholder="Kimdongjin"></div>
+        <div><label class="f">리포지토리</label><input type="text" id="cfgRepo" placeholder="Kimdongjin-portfolio"></div>
+        <div><label class="f">브랜치</label><input type="text" id="cfgBranch" placeholder="main"></div>
+      </div>
+      <div class="row">
+        <div>
+          <label class="f">액세스 토큰 (Fine-grained PAT · Contents 읽기/쓰기)</label>
+          <input type="password" id="cfgToken" placeholder="github_pat_...">
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="btn" onclick="connect()">연결하고 불러오기</button>
+        <button class="btn ghost" onclick="forgetToken()">토큰 지우기</button>
+      </div>
+      <div class="warnbox" style="margin-top:14px;">
+        토큰은 이 브라우저에만 저장되고 리포지토리에는 절대 올라가지 않습니다.
+        공용 PC에서는 작업 후 <b>토큰 지우기</b>를 눌러주세요.
+        발급 경로 — GitHub → Settings → Developer settings → Personal access tokens → Fine-grained tokens →
+        해당 리포만 선택 → Repository permissions의 <b>Contents</b>를 <b>Read and write</b>로 지정.
+      </div>
+    </div>
+
+    <!-- editor -->
+    <div id="editor" class="hidden">
+
+      <div class="panel">
+        <h2><span id="seasonTitleLabel">시즌</span> 정보</h2>
+        <div class="row c2">
+          <div><label class="f">시즌 제목 <span style="font-weight:500">(비우면 "26AW 시즌 기획")</span></label>
+            <input type="text" id="fTitle" placeholder="예: 26AW 볼륨 라인 확장"></div>
+          <div><label class="f">한 줄 설명</label>
+            <input type="text" id="fNote" placeholder="예: 신소재 라인 16 SKU · 품평회 자료"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>사진 추가</h2>
+        <div class="drop" id="drop">
+          여기로 사진을 <b>끌어다 놓거나</b> 클릭해서 선택하세요
+          <small>업로드 시 긴 변 1600px · WebP로 자동 변환됩니다 (원본은 올라가지 않음)</small>
+        </div>
+        <input type="file" id="filePick" accept="image/*" multiple class="hidden">
+        <div class="photos" id="photos"></div>
+        <div class="hint" id="sizeHint"></div>
+      </div>
+
+      <div class="panel">
+        <h2>작업 기록</h2>
+        <div class="log" id="log"><span class="dim">대기 중…</span></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="bar-fixed hidden" id="saveBar">
+  <span class="status" id="saveStatus">변경 사항 없음</span>
+  <button class="btn ghost" onclick="reload()">되돌리기</button>
+  <button class="btn pub" id="saveBtn" onclick="publish()" disabled>사이트에 반영</button>
+</div>
+
+<script>
+/* =========================================================================
+   설정 저장 — localStorage가 막힌 환경에서도 죽지 않도록 안전하게 감쌉니다.
+   ========================================================================= */
+const mem = {};
+const store = {
+  get(k) { try { return localStorage.getItem(k); } catch (e) { return mem[k] ?? null; } },
+  set(k, v) { try { localStorage.setItem(k, v); } catch (e) { mem[k] = v; } },
+  del(k) { try { localStorage.removeItem(k); } catch (e) { delete mem[k]; } }
+};
+
+const DATA_PATH = 'data/lookbook.json';
+const IMG_DIR = 'images/lookbook';
+const SEASONS = ['22AW','23SS','23AW','24SS','24AW','25SS','25AW','26SS','26AW'];
+
+let cfg = { owner:'', repo:'', branch:'main', token:'' };
+let book = null;        // 현재 편집 중인 lookbook.json 객체
+let dataSha = null;     // 원격 파일 sha (업데이트에 필요)
+let current = '26AW';   // 선택된 시즌
+let pending = [];       // 아직 커밋 안 된 신규 이미지 [{path, base64, size}]
+let dirty = false;
+
+/* ---------------------------------------------------------------- log */
+function log(msg, cls) {
+  const el = document.getElementById('log');
+  if (el.querySelector('.dim')) el.innerHTML = '';
+  const t = new Date().toTimeString().slice(0, 8);
+  el.innerHTML += `<span class="dim">${t}</span> <span class="${cls || ''}">${msg}</span>\n`;
+  el.scrollTop = el.scrollHeight;
+}
+
+/* ---------------------------------------------------------------- base64 (UTF-8 안전) */
+function toB64(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = ''; bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function fromB64(b64) {
+  const bin = atob(b64.replace(/\s/g, ''));
+  const bytes = Uint8Array.from(bin, c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+/* ---------------------------------------------------------------- GitHub API */
+async function gh(path, opts = {}) {
+  const res = await fetch(`https://api.github.com${path}`, {
+    ...opts,
+    headers: {
+      'Authorization': 'Bearer ' + cfg.token,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28',
+      ...(opts.headers || {})
+    }
+  });
+  if (!res.ok) {
+    let detail = '';
+    try { detail = (await res.json()).message || ''; } catch (e) {}
+    throw new Error(`${res.status} ${detail}`);
+  }
+  return res.status === 204 ? null : res.json();
+}
+
+async function getFile(path) {
+  try {
+    return await gh(`/repos/${cfg.owner}/${cfg.repo}/contents/${path}?ref=${cfg.branch}`);
+  } catch (e) {
+    if (String(e.message).startsWith('404')) return null;
+    throw e;
+  }
+}
+
+async function putFile(path, contentB64, message, sha) {
+  const body = { message, content: contentB64, branch: cfg.branch };
+  if (sha) body.sha = sha;
+  return gh(`/repos/${cfg.owner}/${cfg.repo}/contents/${path}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+}
+
+/* ---------------------------------------------------------------- 연결 */
+function toggleSetup() {
+  document.getElementById('setupPanel').classList.toggle('hidden');
+}
+
+function loadCfg() {
+  cfg.owner  = store.get('lb_owner')  || '';
+  cfg.repo   = store.get('lb_repo')   || '';
+  cfg.branch = store.get('lb_branch') || 'main';
+  cfg.token  = store.get('lb_token')  || '';
+  document.getElementById('cfgOwner').value  = cfg.owner;
+  document.getElementById('cfgRepo').value   = cfg.repo;
+  document.getElementById('cfgBranch').value = cfg.branch;
+  document.getElementById('cfgToken').value  = cfg.token;
+}
+
+function forgetToken() {
+  store.del('lb_token');
+  cfg.token = '';
+  document.getElementById('cfgToken').value = '';
+  log('토큰을 지웠습니다.', 'ok');
+}
+
+async function connect() {
+  cfg.owner  = document.getElementById('cfgOwner').value.trim();
+  cfg.repo   = document.getElementById('cfgRepo').value.trim();
+  cfg.branch = document.getElementById('cfgBranch').value.trim() || 'main';
+  cfg.token  = document.getElementById('cfgToken').value.trim();
+
+  if (!cfg.owner || !cfg.repo || !cfg.token) {
+    log('계정 · 리포지토리 · 토큰을 모두 입력해 주세요.', 'er'); return;
+  }
+  store.set('lb_owner', cfg.owner);
+  store.set('lb_repo', cfg.repo);
+  store.set('lb_branch', cfg.branch);
+  store.set('lb_token', cfg.token);
+
+  try {
+    log('연결 확인 중…');
+    const me = await gh('/user');
+    log(`${me.login} 계정으로 인증됨`, 'ok');
+    await reload();
+    document.getElementById('statusDot').classList.add('live');
+    document.getElementById('repoLabel').textContent = `${cfg.owner}/${cfg.repo} · ${cfg.branch}`;
+    document.getElementById('setupPanel').classList.add('hidden');
+    document.getElementById('editor').classList.remove('hidden');
+    document.getElementById('saveBar').classList.remove('hidden');
+  } catch (e) {
+    log('연결 실패 — ' + e.message, 'er');
+    log('토큰 권한(Contents: Read and write)과 리포지토리 이름을 확인해 주세요.', 'dim');
+  }
+}
+
+/* ---------------------------------------------------------------- 불러오기 */
+function blankBook() {
+  return {
+    version: 1,
+    updated: new Date().toISOString().slice(0, 10),
+    intro: '',
+    seasons: SEASONS.map(code => ({ code, title: '', note: '', photos: [] }))
+  };
+}
+
+async function reload() {
+  pending = []; setDirty(false);
+  const f = await getFile(DATA_PATH);
+  if (f) {
+    dataSha = f.sha;
+    book = JSON.parse(fromB64(f.content));
+    log(`${DATA_PATH} 불러옴 (사진 ${countAll()}컷)`, 'ok');
+  } else {
+    dataSha = null;
+    book = blankBook();
+    log(`${DATA_PATH} 없음 — 새로 만듭니다.`, 'dim');
+  }
+  // 누락 시즌 보강
+  SEASONS.forEach(code => {
+    if (!book.seasons.find(x => x.code === code)) book.seasons.push({ code, title:'', note:'', photos: [] });
+  });
+  book.seasons.sort((a, b) => SEASONS.indexOf(a.code) - SEASONS.indexOf(b.code));
+  render();
+}
+
+function countAll() { return book.seasons.reduce((n, s) => n + (s.photos || []).length, 0); }
+function season(code) {
+  let s = book.seasons.find(x => x.code === code);
+  if (!s) { s = { code, title:'', note:'', photos: [] }; book.seasons.push(s); }
+  if (!s.photos) s.photos = [];
+  return s;
+}
+
+/* ---------------------------------------------------------------- 렌더 */
+function render() { renderRail(); renderSeason(); }
+
+function renderRail() {
+  document.getElementById('rail').innerHTML = SEASONS.map(code => {
+    const n = season(code).photos.length;
+    return `<button class="${code === current ? 'active' : ''}" onclick="pick('${code}')">
+      <span class="bar ${n ? 'filled' : ''}"></span>${code}<span class="n">${n || ''}</span>
+    </button>`;
+  }).join('');
+}
+
+function pick(code) { current = code; render(); }
+
+function renderSeason() {
+  const s = season(current);
+  document.getElementById('seasonTitleLabel').textContent = current;
+  document.getElementById('fTitle').value = s.title || '';
+  document.getElementById('fNote').value = s.note || '';
+
+  document.getElementById('photos').innerHTML = s.photos.map((p, i) => {
+    const isNew = pending.some(x => x.path === p.src);
+    const preview = p._preview || p.src;
+    return `<div class="pcard ${isNew ? 'new' : ''}">
+      <div class="pthumb" style="background-image:url('${preview}')"></div>
+      <div class="pmeta">
+        <input type="text" value="${(p.label || '').replace(/"/g, '&quot;')}"
+          placeholder="사진 설명 (사이트에 표시됩니다)" oninput="setField(${i},'label',this.value)">
+        <div class="pfile">${isNew ? '<span class="tag">신규</span>' : ''}${p.src}</div>
+      </div>
+      <div class="pacts">
+        <button onclick="move(${i},-1)" title="위로" ${i === 0 ? 'disabled' : ''}>↑</button>
+        <button onclick="move(${i},1)" title="아래로" ${i === s.photos.length - 1 ? 'disabled' : ''}>↓</button>
+        <button class="del" onclick="removePhoto(${i})" title="목록에서 제거">✕</button>
+      </div>
+    </div>`;
+  }).join('') || '<div class="hint">이 시즌에는 아직 사진이 없습니다.</div>';
+
+  const kb = pending.reduce((n, x) => n + x.size, 0);
+  document.getElementById('sizeHint').textContent = pending.length
+    ? `업로드 대기 ${pending.length}장 · 약 ${(kb / 1024).toFixed(0)}KB — 첫 번째 사진이 시즌 타일의 대표 이미지가 됩니다.`
+    : '첫 번째 사진이 시즌 타일의 대표 이미지가 됩니다. 순서는 ↑↓로 바꿀 수 있습니다.';
+}
+
+function setField(i, key, val) { season(current).photos[i][key] = val; setDirty(true); }
+function move(i, d) {
+  const arr = season(current).photos;
+  const j = i + d; if (j < 0 || j >= arr.length) return;
+  [arr[i], arr[j]] = [arr[j], arr[i]];
+  setDirty(true); renderSeason();
+}
+function removePhoto(i) {
+  const arr = season(current).photos;
+  const p = arr[i];
+  if (!confirm(`"${p.label || p.src}" 을(를) 목록에서 뺄까요?\n\n(리포지토리의 이미지 파일 자체는 남습니다.)`)) return;
+  pending = pending.filter(x => x.path !== p.src);
+  arr.splice(i, 1);
+  setDirty(true); render();
+}
+
+document.addEventListener('input', e => {
+  if (e.target.id === 'fTitle') { season(current).title = e.target.value; setDirty(true); }
+  if (e.target.id === 'fNote')  { season(current).note  = e.target.value; setDirty(true); }
+});
+
+function setDirty(v) {
+  dirty = v;
+  document.getElementById('saveBtn').disabled = !v;
+  document.getElementById('saveStatus').textContent = v
+    ? `저장 대기 — 신규 이미지 ${pending.length}장 + 데이터 변경`
+    : '변경 사항 없음';
+}
+
+/* ---------------------------------------------------------------- 이미지 변환 */
+const MAX_EDGE = 1600, QUALITY = 0.82;
+
+function processImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width: w, height: h } = img;
+      const scale = Math.min(1, MAX_EDGE / Math.max(w, h));
+      w = Math.round(w * scale); h = Math.round(h * scale);
+      const cv = document.createElement('canvas');
+      cv.width = w; cv.height = h;
+      const ctx = cv.getContext('2d');
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, 0, 0, w, h);
+      const dataUrl = cv.toDataURL('image/webp', QUALITY);
+      if (dataUrl.indexOf('image/webp') === -1) {   // WebP 미지원 브라우저 대비
+        return resolve({ dataUrl: cv.toDataURL('image/jpeg', QUALITY), ext: 'jpg' });
+      }
+      resolve({ dataUrl, ext: 'webp' });
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('이미지를 읽지 못했습니다')); };
+    img.src = url;
+  });
+}
+
+function slugName(code, ext) {
+  const n = Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+  return `${IMG_DIR}/${code.toLowerCase()}-${n}.${ext}`;
+}
+
+async function addFiles(files) {
+  const list = [...files].filter(f => f.type.startsWith('image/'));
+  if (!list.length) return;
+  log(`사진 ${list.length}장 변환 중…`);
+  for (const f of list) {
+    try {
+      const { dataUrl, ext } = await processImage(f);
+      const b64 = dataUrl.split(',')[1];
+      const path = slugName(current, ext);
+      pending.push({ path, base64: b64, size: Math.round(b64.length * 0.75 / 1024) });
+      season(current).photos.push({ src: path, label: '', _preview: dataUrl });
+      log(`  ${f.name} → ${(b64.length * 0.75 / 1024).toFixed(0)}KB`, 'ok');
+    } catch (e) {
+      log(`  ${f.name} 실패 — ${e.message}`, 'er');
+    }
+  }
+  setDirty(true); render();
+}
+
+const drop = document.getElementById('drop');
+const filePick = document.getElementById('filePick');
+drop.addEventListener('click', () => filePick.click());
+filePick.addEventListener('change', e => { addFiles(e.target.files); filePick.value = ''; });
+['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
+drop.addEventListener('drop', e => addFiles(e.dataTransfer.files));
+
+/* ---------------------------------------------------------------- 발행 */
+async function publish() {
+  document.getElementById('saveBtn').disabled = true;
+  try {
+    // 1) 신규 이미지 커밋
+    for (const p of pending) {
+      log(`업로드 ${p.path} …`);
+      await putFile(p.path, p.base64, `lookbook: add ${p.path}`);
+      log(`  완료`, 'ok');
+    }
+
+    // 2) 미리보기 dataURL 제거 후 JSON 커밋
+    const clean = JSON.parse(JSON.stringify(book));
+    clean.updated = new Date().toISOString().slice(0, 10);
+    clean.seasons.forEach(s => (s.photos || []).forEach(p => { delete p._preview; }));
+    const json = JSON.stringify(clean, null, 2) + '\n';
+
+    log(`${DATA_PATH} 커밋 …`);
+    const res = await putFile(DATA_PATH, toB64(json), `lookbook: update ${current} (${countAll()} photos)`, dataSha);
+    dataSha = res.content.sha;
+    pending = [];
+    book = clean;
+    setDirty(false);
+    render();
+    log('반영 완료 — GitHub Pages 재배포까지 30초~1분 정도 걸립니다.', 'ok');
+  } catch (e) {
+    log('실패 — ' + e.message, 'er');
+    if (String(e.message).startsWith('409') || String(e.message).includes('does not match')) {
+      log('다른 곳에서 먼저 수정된 것 같습니다. [되돌리기]로 최신 상태를 불러온 뒤 다시 시도해 주세요.', 'dim');
+    }
+    document.getElementById('saveBtn').disabled = false;
+  }
+}
+
+window.addEventListener('beforeunload', e => {
+  if (dirty) { e.preventDefault(); e.returnValue = ''; }
+});
+
+/* ---------------------------------------------------------------- 시작 */
+book = blankBook();
+loadCfg();
+renderRail();
+if (cfg.owner && cfg.repo && cfg.token) connect();
+</script>
+</body>
+</html>
