@@ -24,7 +24,20 @@
       "code": "23AW",
       "title": "",
       "note": "",
-      "photos": []
+      "photos": [
+        {
+          "src": "images/lookbook/23aw-msmkx7ogp6m.webp",
+          "label": "뉴 메모리 몰드와 섬세한 플라워패턴 레이스가 조화로운 23AW 메인제품. 바디포지티브를 겨냥해 플러스 사이즈 운영으로 폭넓은 사이즈 지원."
+        },
+        {
+          "src": "images/lookbook/23aw-msmkx8b7fnz.webp",
+          "label": "미니멀한 디자인과 부드러운 프리컷 누디 날개 소재가 특징인 23AW 서브 제품."
+        },
+        {
+          "src": "images/lookbook/23aw-msmkx8x44jt.webp",
+          "label": "플랫한 자수스티치와 골드메탈 얀이 어우려져 튤레이스 특유의 고급스러운 감각을 한껏 뿜어내는 풀슬립."
+        }
+      ]
     },
     {
       "code": "24SS",
