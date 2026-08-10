@@ -761,6 +761,42 @@ lookbook: `<svg viewBox="0 0 920 250" xmlns="http://www.w3.org/2000/svg" font-fa
 
 /* 캐러셀 카드용 축약 인포그래픽 — 사진이 없는 항목의 대표 비주얼 */
 const MINI = {
+case1: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
+  <text x="20" y="34" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">SCAN → PURCHASE</text>
+  <rect x="20" y="44" width="52" height="24" rx="6" fill="#6d6459" fill-opacity="0.2"/>
+  <text x="32" y="61" font-size="11" font-weight="800" fill="#4a443c">12%</text>
+  <text x="82" y="61" font-size="8.5" fill="#8a8a8f">연계 전</text>
+  <rect x="20" y="76" width="128" height="24" rx="6" fill="#C4622D" fill-opacity="0.28"/>
+  <text x="32" y="93" font-size="11" font-weight="800" fill="#8A421B">45%</text>
+  <text x="158" y="93" font-size="8.5" fill="#8a8a8f">연계 직후</text>
+  <rect x="20" y="108" width="196" height="24" rx="6" fill="#C4622D" fill-opacity="0.52"/>
+  <text x="32" y="125" font-size="11" font-weight="800" fill="#7A3915">63.0%</text>
+  <text x="88" y="125" font-size="8.5" font-weight="600" fill="#7A3915">실측 · 계측 12,568회</text>
+  <text x="20" y="150" font-size="8.5" fill="#8a8a8f">체형 계측 고객 대비 자사몰 구매 전환</text>
+</svg>`,
+case2: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
+  <text x="20" y="34" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">S-FIT · 3 STEP</text>
+  <rect x="20" y="44" width="66" height="56" rx="8" fill="#FFF" stroke="#DCD7CF"/>
+  <text x="53" y="68" font-size="10" font-weight="700" fill="#4a443c" text-anchor="middle">Soft</text>
+  <text x="53" y="87" font-size="14" font-weight="800" fill="#4a443c" text-anchor="middle">35</text>
+  <rect x="92" y="44" width="66" height="56" rx="8" fill="#C4622D" fill-opacity="0.18" stroke="#C4622D" stroke-opacity="0.45"/>
+  <text x="125" y="68" font-size="10" font-weight="700" fill="#8A421B" text-anchor="middle">Daily</text>
+  <text x="125" y="87" font-size="14" font-weight="800" fill="#8A421B" text-anchor="middle">40</text>
+  <rect x="164" y="44" width="66" height="56" rx="8" fill="#FFF" stroke="#DCD7CF"/>
+  <text x="197" y="68" font-size="10" font-weight="700" fill="#4a443c" text-anchor="middle">Support</text>
+  <text x="197" y="87" font-size="14" font-weight="800" fill="#4a443c" text-anchor="middle">20</text>
+  <text x="20" y="120" font-size="8.5" fill="#8a8a8f">고객 선택 비중 (%) · 95%가 3단계 기준 내 선택</text>
+  <text x="20" y="146" font-size="10.5" font-weight="800" fill="#4a443c">SKU 5 → 16종 · 전년 대비 169.9%</text>
+</svg>`,
+case3: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
+  <text x="20" y="34" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">NEW MATERIAL</text>
+  <text x="20" y="72" font-size="25" font-weight="800" fill="#8A421B">35.86%</text>
+  <text x="20" y="90" font-size="8.5" fill="#8a8a8f">신소재 광고 카테고리 내 점유율</text>
+  <rect x="20" y="100" width="210" height="16" rx="8" fill="#6d6459" fill-opacity="0.12"/>
+  <rect x="20" y="100" width="75" height="16" rx="8" fill="#C4622D" fill-opacity="0.55"/>
+  <text x="20" y="134" font-size="8.5" font-weight="700" fill="#4a443c">TPE 몰드컵 · 티타늄 형상기억 와이어</text>
+  <text x="20" y="150" font-size="8.5" fill="#8a8a8f">2030 +5.14%p · 3040 +9.97%p 방어</text>
+</svg>`,
 system: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="44" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">5-GATE</text>
   <rect x="20" y="56" width="38" height="52" rx="7" fill="#FFF" stroke="#DCD7CF"/><text x="39" y="86" font-size="9" font-weight="700" fill="#4a443c" text-anchor="middle">분해</text>
@@ -815,9 +851,9 @@ skills: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-fami
 };
 
 const workCards = [
-  { key:'case1', badge:'Case 01', v:'v1', label:'O2O', img:'images/case1-product.png', title:'체형 데이터 O2O 연계', desc:'매장 체험 → 온라인 구매 전환', stat:'전환 12% → 45% → 63.0%' },
-  { key:'case2', badge:'Case 02', v:'v2', label:'S-FIT', img:'images/case2-lineup.jpg', title:'S-FIT 3단계 핏 큐레이션', desc:'고객이 스스로 고르는 선택 기준 설계', stat:'전년 대비 169.9% 신장' },
-  { key:'case3', badge:'Case 03', v:'v3', label:'소재', img:'images/case3-material.png', title:'신소재 브랜드 리포지셔닝', desc:'모방 불가능한 기술 진입장벽 구축', stat:'광고 카테고리 점유율 35.86%' },
+  { key:'case1', badge:'Case 01', v:'v1', label:'O2O', title:'체형 데이터 O2O 연계', desc:'매장 체험 → 온라인 구매 전환', stat:'전환 12% → 45% → 63.0%' },
+  { key:'case2', badge:'Case 02', v:'v2', label:'S-FIT', title:'S-FIT 3단계 핏 큐레이션', desc:'고객이 스스로 고르는 선택 기준 설계', stat:'전년 대비 169.9% 신장' },
+  { key:'case3', badge:'Case 03', v:'v3', label:'소재', title:'신소재 브랜드 리포지셔닝', desc:'모방 불가능한 기술 진입장벽 구축', stat:'광고 카테고리 점유율 35.86%' },
   { key:'system', badge:'Working System', v:'v8', label:'SYSTEM', title:'일하는 구조', desc:'리피트·단종 판단 게이트 · 공급계획 · 아카이브', stat:'5단계 판단 게이트' },
   { key:'data', badge:'Side Project', v:'v4', label:'DATA', title:'Olist 이커머스 분석', desc:'ICB 5기 BA 팀 프로젝트 2건 · 전원 1위', stat:null },
   { key:'lookbook', badge:'Lookbook', v:'v5', label:'22AW–26AW', title:'시즌 기획 아카이브', desc:'입사 이후 참여한 시즌 기록', stat:null },
