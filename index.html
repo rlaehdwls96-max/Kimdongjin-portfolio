@@ -3,994 +3,1259 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dongjin Kim — Portfolio | 상품기획 MD</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          ink: '#15211F',
-          paper: '#FAF9F5',
-          accent: { DEFAULT: '#0F766E', light: '#14B8A6', soft: '#E6F5F2', dark: '#0B4A45' },
-          coral: { DEFAULT: '#E2725B', soft: '#FBEAE5' },
-          line: '#E7E4DD'
-        },
-        fontFamily: { sans: ["'Noto Sans KR'", 'sans-serif'] }
-      }
-    }
-  }
-</script>
+<title>김동진 — 상품기획 MD Portfolio</title>
+<meta name="description" content="체형 계측 데이터와 CRM 분석으로 시즌 상품기획부터 물량 운영까지 담당하는 상품기획 MD 김동진의 포트폴리오.">
+<!-- 재직 중 검색 노출을 막으려면 아래 주석을 해제하세요 -->
+<!-- <meta name="robots" content="noindex, nofollow"> -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #FAFAF9;
+    --text: #111214;
+    --muted: #8a8a8f;
+    --card: #ffffff;
+    --card-border: #ECECEA;
+    --card-shadow: 0 4px 20px rgba(20,20,20,0.05);
+    --card-shadow-hover: 0 18px 48px rgba(20,20,20,0.10);
+    --radius: 20px;
+    --footer-bg: #111214;
+    --footer-text: #FAFAF9;
+    --accent: #C4622D;
+    --transition: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   html { scroll-behavior: smooth; }
-  body { font-family: 'Noto Sans KR', sans-serif; background-color: #FAF9F5; color: #15211F; word-break: keep-all; overflow-wrap: break-word; }
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: #F1F0EB; }
-  ::-webkit-scrollbar-thumb { background: #C9C5BA; border-radius: 3px; }
 
-  .eyebrow { font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 700; color: #0F766E; }
-  .section-pad { padding-top: 6.5rem; padding-bottom: 6.5rem; }
-  @media (max-width: 768px) { .section-pad { padding-top: 4.5rem; padding-bottom: 4.5rem; } }
+  body {
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, 'Noto Sans KR', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    cursor: none;
+  }
+  @media (hover: none), (max-width: 900px) { body { cursor: auto; } .cursor-dot, .cursor-ring { display: none !important; } }
 
-  /* Floating side nav */
-  #sideNav { position: fixed; left: 2rem; top: 50%; transform: translateY(-50%); z-index: 50; }
-  #sideNav .rail { position: absolute; left: 5px; top: 6px; bottom: 6px; width: 1px; background: #DAD6CB; }
-  #sideNav .nav-dot { position: relative; width: 11px; height: 11px; border-radius: 999px; border: 2px solid #C9C5BA; background: #FAF9F5; transition: all .35s ease; cursor: pointer; }
-  #sideNav a { display: flex; align-items: center; gap: .85rem; margin-bottom: 1.4rem; }
-  #sideNav a:last-child { margin-bottom: 0; }
-  #sideNav .nav-label { font-size: .72rem; font-weight: 700; letter-spacing: .03em; color: #8A8578; opacity: 0; transform: translateX(-6px); transition: all .3s ease; white-space: nowrap; }
-  #sideNav a:hover .nav-label { opacity: 1; transform: translateX(0); }
-  #sideNav a.active .nav-dot { border-color: #0F766E; background: #0F766E; transform: scale(1.25); }
-  #sideNav a.active .nav-label { opacity: 1; transform: translateX(0); color: #0F766E; }
+  ::selection { background: var(--text); color: var(--bg); }
 
-  /* Mobile nav */
-  #mobileOverlay { position: fixed; inset: 0; background: #15211F; z-index: 100; display: flex; flex-direction: column; justify-content: center; padding: 2.5rem; transform: translateY(-100%); transition: transform .4s ease; }
-  #mobileOverlay.open { transform: translateY(0); }
-  #mobileOverlay a { font-size: 1.6rem; font-weight: 900; color: #F1F0EB; padding: .55rem 0; display: flex; align-items: baseline; gap: .75rem; }
-  #mobileOverlay a span.num { font-size: .85rem; color: #14B8A6; font-weight: 700; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
 
-  .fade-up { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
-  .fade-up.in-view { opacity: 1; transform: translateY(0); }
+  /* ===== CUSTOM CURSOR ===== */
+  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 500; border-radius: 50%; transform: translate(-50%, -50%); }
+  .cursor-dot { width: 6px; height: 6px; background: var(--text); }
+  .cursor-ring { width: 34px; height: 34px; border: 1.5px solid var(--text); opacity: 0.35; transition: width 0.35s var(--transition), height 0.35s var(--transition), opacity 0.3s; }
+  .cursor-ring.big { width: 64px; height: 64px; opacity: 0.12; }
 
-  .stat-card { transition: all .3s ease; border-top: 3px solid transparent; }
-  .stat-card:hover { transform: translateY(-4px); border-top-color: #0F766E; box-shadow: 0 14px 30px -12px rgba(15,118,110,.25); }
+  /* ===== ENTRANCE ===== */
+  @keyframes riseIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .anim-nav, .anim-hero-name, .anim-hero-sub, .anim-hint, .anim-footer { opacity: 0; }
+  body.is-ready .anim-nav       { animation: fadeIn 0.7s var(--transition) 0.1s forwards; }
+  body.is-ready .anim-hero-name { animation: riseIn 0.9s var(--transition) 0.15s forwards; }
+  body.is-ready .anim-hero-sub  { animation: riseIn 0.8s var(--transition) 0.35s forwards; }
+  body.is-ready .anim-hint      { animation: fadeIn 0.8s var(--transition) 1.2s forwards; }
+  body.is-ready .anim-footer    { animation: fadeIn 1s var(--transition) 0.6s forwards; }
 
-  .timeline-item { position: relative; padding-left: 1.75rem; border-left: 2px solid #E7E4DD; padding-bottom: 3rem; }
-  .timeline-item::before { content: ''; position: absolute; left: -0.4rem; top: .3rem; width: .85rem; height: .85rem; border-radius: 50%; background: #0F766E; border: 3px solid #FAF9F5; }
-  .timeline-item:last-child { border-left: none; padding-bottom: 0; }
+  /* ===== TOP BAR ===== */
+  .top-bar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 28px 40px; pointer-events: none; }
+  .top-bar > * { pointer-events: auto; }
+  .logo { font-size: 15px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); cursor: none; text-decoration: none; }
+  .avatar-btn {
+    width: 46px; height: 46px; border-radius: 50%; background: var(--card); border: 1px solid var(--card-border); cursor: none; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.4s var(--transition), box-shadow 0.4s var(--transition);
+    box-shadow: var(--card-shadow); position: relative; z-index: 101;
+  }
+  .avatar-btn:hover { transform: scale(1.12) rotate(8deg); box-shadow: var(--card-shadow-hover); }
+  .avatar-btn:active { transform: scale(0.94); }
+  .avatar-btn svg { width: 22px; height: 22px; fill: #333; }
 
-  .skill-badge { transition: transform .2s; display: inline-flex; align-items: center; }
-  .skill-badge:hover { transform: scale(1.05); }
+  /* ===== HERO ===== */
+  .hero { height: 38vh; min-height: 260px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; padding: 0 40px 14px; position: relative; }
+  .hero-name { font-size: clamp(46px, 7.5vw, 88px); font-weight: 800; letter-spacing: -3px; line-height: 1; }
+  .hero-sub { font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 12px; letter-spacing: 3px; text-transform: uppercase; }
 
-  .chart-container { position: relative; width: 100%; height: 300px; }
-  @media (min-width: 1024px) { .chart-container { height: 340px; } }
+  /* ===== AUTO-ROTATING CAROUSEL ===== */
+  .carousel-area { position: relative; height: 56vh; min-height: 440px; display: flex; align-items: center; overflow: hidden; }
+  .carousel-area::before, .carousel-area::after { content: ''; position: absolute; top: 0; bottom: 0; width: 12%; z-index: 5; pointer-events: none; }
+  .carousel-area::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
+  .carousel-area::after  { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
 
-  .img-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .6rem; width: 100%; height: 100%; min-height: 220px; border: 2px dashed #D6D2C6; border-radius: .9rem; color: #A8A398; font-size: .72rem; text-align: center; padding: 1.25rem; background: repeating-linear-gradient(45deg, #FFFFFF, #FFFFFF 10px, #F5F4EF 10px, #F5F4EF 20px); }
-  .img-placeholder i { font-size: 1.4rem; color: #C9C5BA; }
+  .carousel-track { display: flex; gap: 24px; align-items: center; width: max-content; animation: autoScroll 34s linear infinite; }
+  .carousel-track.paused { animation-play-state: paused; }
+  @keyframes autoScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-  .progress-track { width: 100%; height: 10px; border-radius: 999px; background: #ECEAE3; overflow: hidden; }
-  .progress-fill { height: 100%; border-radius: 999px; width: 0%; transition: width 1.3s cubic-bezier(.2,.8,.2,1); }
+  .work-card {
+    width: 250px; height: 320px; background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius);
+    box-shadow: var(--card-shadow); flex-shrink: 0; overflow: hidden; cursor: none; will-change: transform, opacity; position: relative;
+  }
+  .card-visual { width: 100%; height: 62%; overflow: hidden; position: relative; }
+  .card-visual-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: rgba(0,0,0,0.07); letter-spacing: -2px; }
+  .card-v1 { background: #F3EDE7; } .card-v2 { background: #EAEEF4; } .card-v3 { background: #EAF2EB; }
+  .card-v4 { background: #F3EFE7; } .card-v5 { background: #F0ECF4; } .card-v6 { background: #F1ECE7; } .card-v7 { background: #ECEAF1; }
+  .card-badge { position: absolute; top: 14px; left: 14px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); padding: 4px 10px; border-radius: 20px; color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .card-info { padding: 18px 20px; }
+  .card-info h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
+  .card-info p { font-size: 11.5px; color: var(--muted); font-weight: 400; }
+  .card-stat { display: inline-block; font-size: 10.5px; font-weight: 700; color: var(--accent); margin-top: 8px; padding: 3px 10px; background: var(--bg-soft); border-radius: 20px; }
+  .drag-hint { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); font-size: 10px; font-weight: 500; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; opacity: 0.5; z-index: 6; }
 
-  .blob { position: absolute; border-radius: 50%; filter: blur(2px); opacity: .9; }
+  /* ===== MORE WORK — SCROLL SECTION ===== */
+  .more-work { max-width: 1120px; margin: 40px auto 0; padding: 0 40px 70px; }
+  .more-work-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 28px; opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--transition), transform 0.7s var(--transition); }
+  .more-work-head.revealed { opacity: 1; transform: translateY(0); }
+  .more-work-head h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+  .more-work-head span { font-size: 12px; color: var(--muted); }
+
+  .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .grid-feature { grid-column: 1 / -1; }
+
+  .grid-card {
+    background: var(--card); border: 1px solid var(--card-border); border-radius: 18px; overflow: hidden; cursor: none;
+    box-shadow: var(--card-shadow); transition: transform 0.45s var(--transition), box-shadow 0.45s var(--transition);
+    opacity: 0; transform: translateY(32px);
+  }
+  .grid-card.revealed { animation: riseIn 0.7s var(--transition) forwards; }
+  .grid-card:hover { transform: translateY(-8px); box-shadow: var(--card-shadow-hover); }
+  .grid-card-info { padding: 16px 18px 18px; }
+  .grid-card-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .grid-card-info p { font-size: 11px; color: var(--muted); }
+  .grid-card-tag {
+    display: inline-flex; align-items: center; font-size: 9px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+    background: var(--bg-soft); padding: 3px 9px; border-radius: 20px; color: #555; margin-bottom: 8px;
+  }
+
+  /* ---- Standard mock preview (case1-3 / career / skills) ---- */
+  .mock-preview { height: 168px; background: var(--bg-soft); position: relative; padding: 14px 16px; display: flex; flex-direction: column; }
+  .mock-dots { display: flex; gap: 5px; margin-bottom: 10px; }
+  .mock-dots span { width: 7px; height: 7px; border-radius: 50%; background: #DAD8D3; }
+  .mock-tag { position: absolute; top: 14px; right: 16px; }
+
+  .mock-funnel { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .mock-funnel-bar { height: 16px; border-radius: 5px; background: linear-gradient(90deg, #C4622D, #E0956A); display: flex; align-items: center; padding: 0 8px; font-size: 9px; font-weight: 700; color: #fff; }
+
+  .mock-growth { display: flex; align-items: flex-end; gap: 6px; height: 76px; margin-top: 8px; }
+  .mock-growth-bar { flex: 1; background: linear-gradient(180deg, #A8C4A0, #7FA876); border-radius: 4px 4px 0 0; }
+
+  .mock-donut { display: flex; align-items: center; gap: 14px; margin-top: 6px; }
+  .mock-donut-ring { width: 68px; height: 68px; border-radius: 50%; background: conic-gradient(#7C9FC4 0% 35.86%, #E4E1DA 35.86% 100%); position: relative; flex-shrink: 0; }
+  .mock-donut-ring::after { content: '35.86%'; position: absolute; inset: 8px; background: var(--bg-soft); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 800; color: var(--text); }
+  .mock-donut-legend { font-size: 10px; color: var(--muted); line-height: 1.6; }
+  .mock-donut-legend b { color: var(--text); display: block; font-size: 12px; }
+
+  .mock-timeline { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+  .mock-tl-row { display: flex; align-items: center; gap: 8px; }
+  .mock-tl-dot { width: 7px; height: 7px; border-radius: 50%; background: #C4A87C; flex-shrink: 0; }
+  .mock-tl-bar { height: 6px; border-radius: 3px; background: #EDE3D2; flex: 1; overflow: hidden; }
+  .mock-tl-bar i { display: block; height: 100%; background: #C4A87C; border-radius: 3px; }
+  .mock-tl-label { font-size: 9px; color: var(--muted); width: 46px; flex-shrink: 0; }
+
+  .mock-radar { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .mock-chip { font-size: 9.5px; font-weight: 600; padding: 5px 10px; background: #ECEAF4; color: #5C5480; border-radius: 20px; }
+
+  /* ---- Lookbook feature block ---- */
+  .lookbook-block { padding: 26px 26px 22px; }
+  .lookbook-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+  .lookbook-head h4 { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+  .lookbook-head span { font-size: 11px; color: var(--muted); }
+  .season-mosaic { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+  .season-tile {
+    aspect-ratio: 3/4; border-radius: 12px; position: relative; overflow: hidden; cursor: none;
+    background: repeating-linear-gradient(135deg, #F4F1EC, #F4F1EC 8px, #EFEAE1 8px, #EFEAE1 16px);
+    display: flex; align-items: flex-end; padding: 10px; transition: transform 0.35s var(--transition);
+    border: 1px solid var(--card-border);
+  }
+  .season-tile:hover { transform: translateY(-6px); }
+  .season-tile span { font-size: 11px; font-weight: 800; color: var(--text); background: rgba(255,255,255,0.85); padding: 3px 8px; border-radius: 8px; }
+  .season-tile.upcoming { opacity: 0.55; }
+  .season-tile.upcoming::before { content: 'Soon'; position: absolute; top: 8px; right: 8px; font-size: 8px; font-weight: 700; color: var(--muted); background: #fff; padding: 2px 6px; border-radius: 8px; }
+
+  /* ---- Lookbook: photo-backed tiles / gallery ---- */
+  .season-tile.has-photo { background-size: cover; background-position: center; border-color: transparent; }
+  .season-tile.has-photo::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 55%);
+  }
+  .season-tile.has-photo span { position: relative; z-index: 1; }
+  .season-count {
+    position: absolute; top: 8px; right: 8px; z-index: 1;
+    font-size: 8.5px; font-weight: 700; color: var(--text);
+    background: rgba(255,255,255,0.9); padding: 2px 6px; border-radius: 8px;
+  }
+
+  .lb-season-rail { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 26px; }
+  .lb-season-pill {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2px; padding: 6px 12px;
+    border-radius: 20px; border: 1px solid var(--card-border); background: var(--bg-soft);
+    color: var(--muted); cursor: none; transition: background 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .lb-season-pill:hover { border-color: var(--text); color: var(--text); }
+  .lb-season-pill.active { background: var(--text); border-color: var(--text); color: var(--bg); }
+  .lb-season-pill.empty { opacity: 0.45; }
+
+  .lb-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 30px; }
+  .lb-photo {
+    border-radius: 14px; overflow: hidden; aspect-ratio: 3/4; position: relative;
+    background: var(--bg-soft) center/cover no-repeat; border: 1px solid var(--card-border);
+    cursor: none; opacity: 0; animation: riseIn 0.5s var(--transition) forwards;
+    transition: transform 0.35s var(--transition);
+  }
+  .lb-photo:hover { transform: translateY(-4px); }
+  .lb-photo.contain { background-size: contain; background-color: #F4F1EC; }
+  .lb-photo figcaption {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 10px 8px;
+    font-size: 10px; font-weight: 600; color: #fff; line-height: 1.4;
+    background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+  }
+  .lb-empty {
+    border: 1px dashed var(--card-border); border-radius: 14px; padding: 40px 20px;
+    text-align: center; font-size: 12.5px; color: var(--muted); margin-bottom: 30px; line-height: 1.7;
+  }
+
+  /* ---- Full-screen photo viewer ---- */
+  .pv-overlay {
+    position: fixed; inset: 0; z-index: 400; display: flex; align-items: center; justify-content: center;
+    background: rgba(0,0,0,0); backdrop-filter: blur(0px); pointer-events: none;
+    transition: background 0.35s, backdrop-filter 0.35s; padding: 40px;
+  }
+  .pv-overlay.open { background: rgba(10,10,10,0.92); backdrop-filter: blur(6px); pointer-events: auto; }
+  .pv-overlay img { max-width: 100%; max-height: 82vh; border-radius: 10px; opacity: 0; transform: scale(0.96); transition: opacity 0.35s, transform 0.45s var(--transition); }
+  .pv-overlay.open img { opacity: 1; transform: scale(1); }
+  .pv-cap { position: absolute; bottom: 30px; left: 0; right: 0; text-align: center; font-size: 12px; color: rgba(255,255,255,0.75); padding: 0 40px; }
+  .pv-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 18px; cursor: none;
+    display: flex; align-items: center; justify-content: center; transition: background 0.2s;
+  }
+  .pv-nav:hover { background: rgba(255,255,255,0.24); }
+  .pv-prev { left: 24px; } .pv-next { right: 24px; }
+  .pv-close { position: absolute; top: 24px; right: 24px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 16px; cursor: none; }
+
+  /* ---- Data / Dashboard feature block ---- */
+  .dash-block { padding: 26px 26px 22px; }
+  .dash-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+  .dash-head h4 { font-size: 16px; font-weight: 800; letter-spacing: -0.3px; }
+  .dash-head span { font-size: 11px; color: var(--muted); }
+  .dash-collage { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .dash-widget { background: var(--bg-soft); border: 1px solid var(--card-border); border-radius: 14px; padding: 14px; }
+  .dash-widget-title { font-size: 9.5px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+
+  .dash-bars { display: flex; align-items: flex-end; gap: 4px; height: 60px; }
+  .dash-bars i { flex: 1; background: #8FA8C9; border-radius: 3px 3px 0 0; }
+
+  .dash-kpi-num { font-size: 26px; font-weight: 800; letter-spacing: -1px; }
+  .dash-kpi-delta { font-size: 10px; color: #6B9E6B; font-weight: 700; margin-top: 4px; }
+
+  .dash-line { width: 100%; height: 60px; }
+
+  .dash-donut { width: 60px; height: 60px; border-radius: 50%; margin: 0 auto; background: conic-gradient(#C4622D 0% 18%, #E8B98A 18% 42%, #E4E1DA 42% 100%); }
+
+  /* ===== LIGHTBOX ===== */
+  .lb-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0); backdrop-filter: blur(0px); z-index: 300; display: flex; align-items: center; justify-content: center; padding: 32px; pointer-events: none; transition: background 0.4s, backdrop-filter 0.4s; }
+  .lb-overlay.open { background: rgba(0,0,0,0.5); backdrop-filter: blur(12px); pointer-events: auto; }
+  .lb-box { background: var(--card); border-radius: 24px; max-width: 860px; width: 100%; max-height: 88vh; overflow-y: auto; padding: 44px; position: relative; box-shadow: 0 30px 90px rgba(0,0,0,0.18); transform: translateY(40px) scale(0.95); opacity: 0; transition: transform 0.5s var(--transition), opacity 0.4s; }
+  .lb-overlay.open .lb-box { transform: translateY(0) scale(1); opacity: 1; }
+  .lb-box::-webkit-scrollbar { width: 4px; }
+  .lb-box::-webkit-scrollbar-thumb { background: #ddd; border-radius: 4px; }
+  .lb-close { position: sticky; top: 0; float: right; width: 38px; height: 38px; border-radius: 50%; background: var(--bg-soft); border: none; font-size: 16px; cursor: none; display: flex; align-items: center; justify-content: center; transition: background 0.2s, transform 0.3s; z-index: 2; }
+  .lb-close:hover { background: #eee; transform: rotate(90deg); }
+  .lb-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+  .lb-title { font-size: 29px; font-weight: 800; letter-spacing: -1px; line-height: 1.25; margin-bottom: 6px; }
+  .lb-period { font-size: 13px; color: var(--muted); margin-bottom: 28px; }
+  .lb-images { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px; }
+  .lb-img { border-radius: 14px; height: 195px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 12px; color: rgba(0,0,0,0.25); font-weight: 600; opacity: 0; animation: riseIn 0.6s var(--transition) forwards; border: 1px solid var(--card-border); }
+  .lb-img.span2 { grid-column: 1 / -1; height: 210px; }
+  .lb-narrative { font-size: 14px; line-height: 1.85; color: #444; margin-bottom: 30px; }
+  .lb-narrative strong { color: var(--text); font-weight: 700; }
+  .lb-quote { font-size: 15px; font-style: italic; color: var(--text); line-height: 1.7; padding: 20px 24px; background: var(--bg-soft); border-radius: 14px; margin: 22px 0; position: relative; }
+  .lb-quote::before { content: '"'; font-size: 46px; font-style: normal; font-weight: 800; position: absolute; top: 6px; left: 16px; opacity: 0.1; }
+  .lb-metrics { display: flex; gap: 12px; margin-top: 26px; }
+  .lb-m { flex: 1; background: var(--bg-soft); border-radius: 14px; padding: 20px 14px; text-align: center; transition: transform 0.3s var(--transition); opacity: 0; animation: riseIn 0.5s var(--transition) forwards; }
+  .lb-m:hover { transform: translateY(-4px); }
+  .lb-m .num { font-size: 26px; font-weight: 800; letter-spacing: -1px; }
+  .lb-m .desc { font-size: 10px; font-weight: 500; color: var(--muted); margin-top: 4px; }
+
+  /* ===== ABOUT ===== */
+  .about-overlay { position: fixed; inset: 0; z-index: 250; pointer-events: none; }
+  .about-overlay.open { pointer-events: auto; }
+  .about-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background 0.5s var(--transition); cursor: none; }
+  .about-overlay.open .about-backdrop { background: rgba(0,0,0,0.35); }
+  .about-panel { position: absolute; top: 0; right: 0; width: 480px; max-width: 94vw; height: 100%; background: var(--card); padding: 52px 32px 32px; overflow-y: auto; transform: translateX(100%); transition: transform 0.55s var(--transition); box-shadow: -6px 0 30px rgba(0,0,0,0.08); }
+  .about-overlay.open .about-panel { transform: translateX(0); }
+  .about-panel::-webkit-scrollbar { width: 3px; }
+  .about-panel::-webkit-scrollbar-thumb { background: #ddd; border-radius: 3px; }
+  .about-close { position: absolute; top: 18px; right: 18px; width: 36px; height: 36px; border-radius: 50%; background: var(--bg-soft); border: none; font-size: 16px; cursor: none; display: flex; align-items: center; justify-content: center; transition: transform 0.3s var(--transition); }
+  .about-close:hover { transform: rotate(90deg); }
+  .about-header { display: flex; gap: 16px; align-items: center; margin-bottom: 24px; }
+  .about-photo { width: 64px; height: 64px; border-radius: 50%; background: var(--bg-soft); border: 1px solid var(--card-border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+  .about-panel h2 { font-size: 21px; font-weight: 800; letter-spacing: -0.4px; }
+  .about-role { font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 2px; }
+  .about-stats { display: flex; gap: 16px; margin-bottom: 26px; padding-bottom: 22px; border-bottom: 1px solid #eee; }
+  .a-stat { text-align: center; }
+  .a-stat .num { font-size: 20px; font-weight: 800; }
+  .a-stat .label { font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+  .about-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 24px; }
+  .about-tile { background: var(--bg-soft); border: 2px solid transparent; border-radius: 14px; padding: 14px 10px; text-align: center; cursor: none; transition: transform 0.3s var(--transition), border-color 0.3s; }
+  .about-tile .tile-icon { font-size: 18px; margin-bottom: 6px; display: block; }
+  .about-tile .tile-label { font-size: 10.5px; font-weight: 600; color: #555; }
+  .about-tile:hover { transform: translateY(-3px); }
+  .about-tile.active { background: var(--card); border-color: var(--text); }
+  .about-tile.active .tile-label { color: var(--text); }
+  .news-card-wrap { position: relative; min-height: 260px; }
+  .news-card { background: linear-gradient(155deg, var(--news-bg, #F0E6D8) 0%, var(--card) 65%); border: 1px solid var(--card-border); border-radius: 18px; padding: 26px 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.05); opacity: 0; transform: translateY(16px) scale(0.98); animation: newsCardIn 0.5s var(--transition) forwards; }
+  @keyframes newsCardIn { to { opacity: 1; transform: translateY(0) scale(1); } }
+  .news-card-issue { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .news-card h3 { font-size: 18px; font-weight: 800; letter-spacing: -0.4px; margin-bottom: 14px; line-height: 1.35; }
+  .news-card p, .news-card li { font-size: 13px; line-height: 1.75; color: #444; }
+  .news-card ul { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .news-card li strong { color: var(--text); font-weight: 700; display: block; margin-bottom: 2px; font-size: 13px; }
+  .news-card .skill-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .news-card .skill-pill { font-size: 11px; font-weight: 500; padding: 5px 13px; background: rgba(255,255,255,0.7); border-radius: 20px; color: #444; }
+  .about-contact { margin-top: 22px; padding-top: 18px; border-top: 1px solid #eee; font-size: 12px; color: var(--muted); line-height: 1.8; }
+
+  /* ===== FOOTER ===== */
+  .footer-wrap { padding: 40px 20px 20px; }
+  .footer-bar { background: var(--footer-bg); color: var(--footer-text); border-radius: 22px; overflow: hidden; cursor: none; transition: height 0.7s var(--transition), border-radius 0.5s var(--transition); position: relative; }
+  .footer-bar.collapsed { height: 60px; }
+  .footer-bar.expanded { height: 62vh; min-height: 400px; cursor: default; border-radius: 28px; }
+  .footer-collapsed-inner { height: 60px; display: flex; align-items: center; justify-content: center; gap: 8px; transition: opacity 0.3s; }
+  .footer-bar.expanded .footer-collapsed-inner { opacity: 0; pointer-events: none; position: absolute; }
+  .footer-collapsed-inner span { font-size: 13px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; opacity: 0.6; }
+  .footer-collapsed-inner .arrow { font-size: 16px; opacity: 0.4; animation: pulseArrow 2s ease infinite; }
+  @keyframes pulseArrow { 0%, 100% { transform: translateX(0); opacity: 0.4; } 50% { transform: translateX(4px); opacity: 0.7; } }
+  .footer-expanded-inner { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; height: 100%; padding: 48px 40px; opacity: 0; transform: translateY(20px); transition: opacity 0.5s 0.2s, transform 0.5s 0.2s var(--transition); pointer-events: none; }
+  .footer-bar.expanded .footer-expanded-inner { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .footer-expanded-inner h2 { font-size: clamp(24px, 4vw, 40px); font-weight: 800; line-height: 1.35; letter-spacing: -1px; max-width: 480px; margin-bottom: 22px; }
+  .footer-name { font-size: 14px; font-weight: 500; opacity: 0.6; margin-bottom: 4px; }
+  .footer-contact-line { font-size: 13px; opacity: 0.5; margin-bottom: 26px; }
+  .footer-links { display: flex; gap: 12px; }
+  .f-pill { padding: 10px 28px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); font-size: 13px; font-weight: 500; color: inherit; text-decoration: none; cursor: none; transition: background 0.3s, border-color 0.3s, transform 0.3s var(--transition); }
+  .f-pill:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.4); transform: translateY(-2px); }
+  .footer-copy { position: absolute; bottom: 20px; font-size: 10px; opacity: 0.25; letter-spacing: 1px; }
+
+  /* ---- Rich lightbox content ---- */
+  .lb-sec { margin-bottom: 26px; }
+  .lb-sec:last-child { margin-bottom: 0; }
+  .lb-sec-label { font-size: 10px; font-weight: 800; letter-spacing: 1.6px; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .lb-body { font-size: 13.5px; line-height: 1.85; color: #444; }
+  .lb-body strong { color: var(--text); font-weight: 700; }
+  .lb-ul { list-style: none; display: flex; flex-direction: column; gap: 9px; margin-top: 8px; }
+  .lb-ul li { font-size: 13px; line-height: 1.7; color: #4a4a4a; padding-left: 15px; position: relative; }
+  .lb-ul li::before { content: ''; position: absolute; left: 0; top: 9px; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: .55; }
+  .lb-ul li b { color: var(--text); font-weight: 700; }
+  .lb-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 10px; }
+  .lb-step { background: var(--bg-soft); border: 1px solid var(--card-border); border-radius: 12px; padding: 13px 11px; }
+  .lb-step .n { font-size: 8.5px; font-weight: 800; color: var(--accent); letter-spacing: 1.2px; }
+  .lb-step .t { font-size: 12.5px; font-weight: 800; margin-top: 3px; letter-spacing: -0.2px; }
+  .lb-step .d { font-size: 10.5px; color: var(--muted); line-height: 1.6; margin-top: 5px; }
+  .lb-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  .lb-tag { font-size: 11px; font-weight: 600; padding: 5px 11px; background: var(--bg-soft); border: 1px solid var(--card-border); border-radius: 20px; color: #555; }
+  .lb-note { font-size: 11px; color: var(--muted); line-height: 1.75; margin-top: 12px; padding-top: 10px; border-top: 1px dashed var(--card-border); }
+  .lb-track { display: flex; align-items: stretch; gap: 8px; margin-top: 12px; }
+  .lb-track-step { flex: 1; background: var(--bg-soft); border: 1px solid var(--card-border); border-radius: 12px; padding: 13px 12px; position: relative; }
+  .lb-track-step .k { font-size: 11px; font-weight: 800; letter-spacing: -0.2px; }
+  .lb-track-step .v { font-size: 19px; font-weight: 800; letter-spacing: -0.8px; margin-top: 4px; }
+  .lb-track-step .s { font-size: 10px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+  .lb-track-step.hi { background: #FBF3EC; border-color: #EBD3C0; }
+  .lb-img { background-size: cover; background-position: center; background-repeat: no-repeat; }
+  .lb-img.contain { background-size: contain; background-repeat: no-repeat; background-position: center; }
+  .card-v8 { background: #EDF0EE; }
+  .mock-gates { display: flex; gap: 5px; margin-top: 10px; }
+  .mock-gate { flex: 1; background: #E9E4DC; border-radius: 6px; height: 62px; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; padding-bottom: 7px; gap: 4px; }
+  .mock-gate i { display: block; width: 60%; border-radius: 3px; background: #C4622D; opacity: .55; }
+  .mock-gate span { font-size: 8px; font-weight: 700; color: #6d6459; }
+  @media (max-width: 900px) { .lb-steps { grid-template-columns: repeat(2, 1fr); } .lb-track { flex-wrap: wrap; } .lb-track-step { min-width: calc(50% - 4px); } }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    body { cursor: auto; }
+    .top-bar { padding: 20px 24px; }
+    .hero { height: 30vh; min-height: 200px; padding: 0 24px 10px; }
+    .carousel-area { min-height: 340px; }
+    .work-card { width: 200px; height: 270px; }
+    .lb-box { padding: 26px; border-radius: 20px; }
+    .lb-images { grid-template-columns: 1fr; }
+    .lb-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .pv-overlay { padding: 16px; }
+    .pv-nav { width: 38px; height: 38px; }
+    .pv-prev { left: 8px; } .pv-next { right: 8px; }
+    .lb-metrics { flex-wrap: wrap; gap: 8px; }
+    .lb-m { min-width: calc(50% - 4px); }
+    .footer-bar.expanded { height: 55vh; min-height: 320px; }
+    .about-panel { padding: 40px 20px 20px; }
+    .more-work { padding: 0 20px 40px; }
+    .more-grid { grid-template-columns: 1fr; }
+    .season-mosaic { grid-template-columns: repeat(3, 1fr); }
+    .dash-collage { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
-<body class="antialiased">
+<body>
 
-  <!-- Floating side nav (desktop) -->
-  <nav id="sideNav" class="hidden lg:block">
-    <div class="rail"></div>
-    <a href="#hero" data-target="hero" class="active"><span class="nav-dot"></span><span class="nav-label">Intro</span></a>
-    <a href="#skills" data-target="skills"><span class="nav-dot"></span><span class="nav-label">Skills</span></a>
-    <a href="#about" data-target="about"><span class="nav-dot"></span><span class="nav-label">About</span></a>
-    <a href="#highlights" data-target="highlights"><span class="nav-dot"></span><span class="nav-label">Highlights</span></a>
-    <a href="#case01" data-target="case01"><span class="nav-dot"></span><span class="nav-label">Case 01 · O2O</span></a>
-    <a href="#case02" data-target="case02"><span class="nav-dot"></span><span class="nav-label">Case 02 · S-FIT</span></a>
-    <a href="#case03" data-target="case03"><span class="nav-dot"></span><span class="nav-label">Case 03 · 리포지셔닝</span></a>
-    <a href="#dataproject" data-target="dataproject"><span class="nav-dot"></span><span class="nav-label">Data Project</span></a>
-    <a href="#career" data-target="career"><span class="nav-dot"></span><span class="nav-label">Career</span></a>
-    <a href="#contact" data-target="contact"><span class="nav-dot"></span><span class="nav-label">Contact</span></a>
-  </nav>
+<div class="cursor-ring" id="cursorRing"></div>
+<div class="cursor-dot" id="cursorDot"></div>
 
-  <!-- Mobile top bar -->
-  <div class="lg:hidden fixed top-0 inset-x-0 z-50 bg-paper/95 backdrop-blur border-b border-line">
-    <div class="flex items-center justify-between px-5 py-4">
-      <div class="flex items-center gap-2">
-        <span class="bg-accent text-white font-black px-2 py-1 text-sm rounded">MD</span>
-        <span class="font-bold text-gray-900">Kim Dongjin</span>
+<!-- TOP BAR -->
+<div class="top-bar anim-nav">
+  <a class="logo" href="#">KDJ</a>
+  <button class="avatar-btn" onclick="toggleAbout()" aria-label="About">
+    <img src="profile.png" alt="김동진" style="width:100%;height:100%;object-fit:cover;" onerror="this.outerHTML='<svg viewBox=\'0 0 24 24\'><path d=\'M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5S7 4.3 7 7s2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z\'/></svg>'">
+  </button>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-name anim-hero-name">김동진</h1>
+  <p class="hero-sub anim-hero-sub">Product Merchandiser · 신영와코루 VENUS · 7년 3개월</p>
+</section>
+
+<!-- AUTO-ROTATING CAROUSEL -->
+<section class="carousel-area" id="carouselArea">
+  <div class="carousel-track" id="track"></div>
+  <div class="drag-hint anim-hint">hover to pause</div>
+</section>
+
+<!-- MORE WORK -->
+<section class="more-work">
+  <div class="more-work-head" id="moreWorkHead">
+    <h2>All Work</h2>
+    <span>8개 항목 · 케이스 3건 · 사이드 프로젝트 1건</span>
+  </div>
+  <div class="more-grid" id="moreGrid"></div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer-wrap anim-footer">
+  <div class="footer-bar collapsed" id="footerBar" onclick="expandFooter()">
+    <div class="footer-collapsed-inner"><span>Contact</span><span class="arrow">→</span></div>
+    <div class="footer-expanded-inner">
+      <h2>문제를 기회로 바꾸고,<br>데이터로 증명하는<br>상품기획 MD가 되겠습니다.</h2>
+      <div class="footer-name">김동진 Dongjin Kim</div>
+      <div class="footer-contact-line">rlaehdwls96@gmail.com · 010-3234-4911</div>
+      <div class="footer-links">
+        <a href="mailto:rlaehdwls96@gmail.com" class="f-pill">Email</a>
+        <a href="https://github.com/rlaehdwls96-max/Kimdongjin-portfolio" target="_blank" rel="noopener" class="f-pill">GitHub</a>
+        <!-- 경력기술서 PDF를 저장소에 올린 뒤 아래 href를 파일 경로로 바꿔주세요 -->
+        <a href="docs/김동진_경력기술서.pdf" target="_blank" rel="noopener" class="f-pill">경력기술서</a>
       </div>
-      <button id="menuBtn" class="text-xl text-ink"><i class="fas fa-bars"></i></button>
+      <div class="footer-copy">Portfolio · 2026 © Dongjin Kim</div>
     </div>
   </div>
-  <div id="mobileOverlay">
-    <button id="closeBtn" class="absolute top-6 right-6 text-2xl text-white"><i class="fas fa-times"></i></button>
-    <a href="#hero"><span class="num">01</span>Intro</a>
-    <a href="#skills"><span class="num">02</span>Skills</a>
-    <a href="#about"><span class="num">03</span>About</a>
-    <a href="#highlights"><span class="num">04</span>Highlights</a>
-    <a href="#case01"><span class="num">05</span>Case 01</a>
-    <a href="#case02"><span class="num">06</span>Case 02</a>
-    <a href="#case03"><span class="num">07</span>Case 03</a>
-    <a href="#dataproject"><span class="num">08</span>Data Project</a>
-    <a href="#career"><span class="num">09</span>Career</a>
-    <a href="#contact"><span class="num">10</span>Contact</a>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lbOverlay" onclick="closeCase(event)">
+  <div class="lb-box" id="lbBox" onclick="event.stopPropagation()">
+    <button class="lb-close" onclick="closeCase()">✕</button>
+    <div id="lbContent"></div>
   </div>
+</div>
 
-  <!-- HERO -->
-  <section id="hero" class="relative overflow-hidden pt-28 pb-16 lg:pt-36 lg:pb-20">
-    <div class="blob w-[26rem] h-[26rem] bg-accent-light/25 -top-24 right-[-6rem]"></div>
-    <div class="blob w-[20rem] h-[20rem] bg-coral/15 bottom-[-4rem] right-40"></div>
-    <div class="max-w-7xl mx-auto px-6 lg:px-24 relative z-10 w-full">
-      <p class="eyebrow mb-6">Portfolio · 2026 · Product Merchandiser</p>
-      <h1 class="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight leading-[1.15] max-w-4xl">
-        문제를 기회로 바꾸는<br><span class="text-accent">상품기획 MD,</span> 김동진입니다
-      </h1>
-      <p class="mt-8 text-base sm:text-lg text-gray-600 max-w-2xl leading-relaxed">
-        체형 계측 데이터와 CRM 분석을 결합해 여성 언더웨어 브랜드의 시즌 상품기획부터 물량 운영까지
-        전 사이클을 담당합니다. 데이터에서 문제를 발견하고, 구조로 해결합니다.
-      </p>
-      <div class="mt-10 flex flex-wrap gap-8 sm:gap-12">
-        <div><div class="text-3xl sm:text-4xl font-black text-accent">169.9<span class="text-lg">%</span></div><div class="text-xs text-gray-500 mt-1">S-FIT 출시 3개월 YoY 성장</div></div>
-        <div><div class="text-3xl sm:text-4xl font-black text-accent">96<span class="text-lg">억</span></div><div class="text-xs text-gray-500 mt-1">스캔바이미 운영 상품군 연매출</div></div>
-        <div><div class="text-3xl sm:text-4xl font-black text-accent">35.86<span class="text-lg">%</span></div><div class="text-xs text-gray-500 mt-1">신소재 광고군 시장점유율</div></div>
-      </div>
-
-      <!-- Infographic quick-nav -->
-      <div class="mt-14">
-        <p class="text-[11px] font-bold tracking-[.14em] uppercase text-gray-400 mb-3">바로가기 · Quick Navigation</p>
-        <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-9 gap-2.5">
-          <a href="#skills" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">01</span>
-            <i class="fas fa-screwdriver-wrench text-accent text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Skills</span>
-          </a>
-          <a href="#about" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">02</span>
-            <i class="fas fa-id-card text-accent text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">About</span>
-          </a>
-          <a href="#highlights" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">03</span>
-            <i class="fas fa-chart-simple text-accent text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Highlights</span>
-          </a>
-          <a href="#case01" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-coral hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-coral">04</span>
-            <i class="fas fa-shoe-prints text-coral text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-coral">Case 01 · O2O</span>
-          </a>
-          <a href="#case02" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">05</span>
-            <i class="fas fa-layer-group text-accent text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Case 02 · S-FIT</span>
-          </a>
-          <a href="#case03" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-coral hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-coral">06</span>
-            <i class="fas fa-flask text-coral text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-coral">Case 03 · 신소재</span>
-          </a>
-          <a href="#dataproject" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">07</span>
-            <i class="fas fa-chart-line text-accent text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Data Project</span>
-          </a>
-          <a href="#career" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">08</span>
-            <i class="fas fa-briefcase text-accent text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Career</span>
-          </a>
-          <a href="#contact" class="group relative flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-xl border border-line bg-white hover:border-accent hover:-translate-y-0.5 hover:shadow-md transition text-center">
-            <span class="absolute top-1.5 right-2 text-[10px] font-bold text-gray-300 group-hover:text-accent-light">09</span>
-            <i class="fas fa-envelope text-accent text-base"></i>
-            <span class="text-[11px] font-bold text-gray-600 group-hover:text-accent">Contact</span>
-          </a>
-        </div>
-      </div>
+<!-- ABOUT -->
+<div class="about-overlay" id="aboutOverlay">
+  <div class="about-backdrop" onclick="toggleAbout()"></div>
+  <div class="about-panel">
+    <button class="about-close" onclick="toggleAbout()">✕</button>
+    <div class="about-header">
+      <div class="about-photo" style="overflow:hidden;"><img src="profile.png" alt="김동진" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentNode.textContent='👤'"></div>
+      <div><h2>김동진</h2><div class="about-role">상품기획 MD · 신영와코루 VENUS 국내사업부 영업1부1과 · 계장</div></div>
     </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="section-pad bg-ink text-white border-t border-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="fade-up mb-12">
-        <p class="eyebrow mb-3 text-accent-light">01 · Skills</p>
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">보유 기술 및 툴</h2>
-      </div>
-      <div class="grid md:grid-cols-2 gap-8 fade-up">
-        <div class="space-y-3">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">데이터 및 분석</span>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-file-excel mr-2 text-green-400"></i>Excel (고급)</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fab fa-python mr-2 text-yellow-400"></i>Python (Pandas)</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-database mr-2 text-indigo-300"></i>SQL</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-users-cog mr-2 text-indigo-300"></i>CRM 활용</span>
-          </div>
-        </div>
-        <div class="space-y-3">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">기획 및 공급망 관리</span>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-chart-pie mr-2 text-teal-300"></i>Tableau</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fab fa-salesforce mr-2 text-blue-300"></i>Salesforce</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-server mr-2 text-gray-300"></i>ERP / SAP</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-accent/40 rounded text-sm"><i class="fas fa-ruler-combined mr-2 text-gray-300"></i>BOM 원가 구조 분석</span>
-          </div>
-        </div>
-        <div class="md:col-span-2 space-y-3 pt-4 border-t border-white/10">
-          <span class="text-xs font-bold text-gray-400 uppercase tracking-wider block mb-1">협업 및 업무 도구</span>
-          <div class="flex flex-wrap gap-2">
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-white/20 rounded text-sm text-gray-300"><i class="fas fa-code mr-2 text-yellow-400"></i>VS Code</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-white/20 rounded text-sm text-gray-300"><i class="fas fa-robot mr-2 text-green-400"></i>생성형 AI 툴 활용</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-white/20 rounded text-sm text-gray-300"><i class="fas fa-clipboard-list mr-2 text-gray-200"></i>Notion</span>
-            <span class="skill-badge px-3 py-1.5 bg-white/5 border border-white/20 rounded text-sm text-gray-300"><i class="fab fa-slack mr-2 text-purple-300"></i>Slack</span>
-          </div>
-        </div>
-      </div>
+    <div class="about-stats">
+      <div class="a-stat"><div class="num">7.3</div><div class="label">총 경력(년)</div></div>
+      <div class="a-stat"><div class="num">4.3</div><div class="label">MD 경력(년)</div></div>
+      <div class="a-stat"><div class="num">3</div><div class="label">주도 프로젝트</div></div>
     </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section id="about" class="section-pad bg-white border-t border-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="fade-up mb-14">
-        <p class="eyebrow mb-3">02 · About</p>
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">데이터에서 문제를 발견하고, 구조로 해결하는 MD</h2>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-        <!-- Left: profile & meta -->
-        <div class="lg:col-span-4 fade-up">
-          <div class="sticky top-24 space-y-8">
-            <div class="w-2/3 mx-auto lg:w-full rounded-xl overflow-hidden border border-line shadow-sm aspect-[3/4]">
-              <img src="profile.png" alt="Kim Dongjin" class="w-full h-full object-cover" data-placeholder="프로필 사진 (images/profile.png)" onerror="handleImgError(this)">
-            </div>
-            <div class="space-y-3 text-sm">
-              <div class="flex items-center gap-3 text-gray-700"><i class="fas fa-envelope text-accent w-5"></i>rlaehdwls96@gmail.com</div>
-              <div class="flex items-center gap-3 text-gray-700"><i class="fas fa-phone text-accent w-5"></i>010-3234-4911</div>
-              <div class="flex items-center gap-3 text-gray-700"><i class="fas fa-map-marker-alt text-accent w-5"></i>경기도 고양시 일산서구</div>
-            </div>
-            <div>
-              <h3 class="font-bold text-gray-900 mb-4 border-b border-line pb-2"><i class="fas fa-graduation-cap mr-2 text-accent"></i>학력</h3>
-              <div class="space-y-4 text-sm">
-                <div>
-                  <div class="flex justify-between"><span class="font-bold text-gray-800">서울사이버대학교</span><span class="text-xs text-gray-400">20.03–21.07</span></div>
-                  <div class="text-gray-600">온라인커머스 학사 (졸업)</div>
-                </div>
-                <div>
-                  <div class="flex justify-between"><span class="font-bold text-gray-800">두원공과대학교</span><span class="text-xs text-gray-400">15.03–19.02</span></div>
-                  <div class="text-gray-600">컴퓨터공학 전문학사 (졸업)</div>
-                </div>
-              </div>
-            </div>
-            <div>
-              <h3 class="font-bold text-gray-900 mb-4 border-b border-line pb-2"><i class="fas fa-certificate mr-2 text-accent"></i>자격 및 대외활동</h3>
-              <ul class="space-y-3 text-sm text-gray-600">
-                <li><span class="font-bold text-gray-800">INNER CIRCLE</span><br><span class="text-xs">Business Analyst Course (2025.11–2026.03) · 팀 프로젝트 2회 전원 1위, 80명 중 우수수료생 5인 선발</span></li>
-                <li><span class="font-bold text-gray-800">유통관리사 2급</span><br><span class="text-xs">대한상공회의소 (2026.06)</span></li>
-                <li><span class="font-bold text-gray-800">정보처리산업기사</span><br><span class="text-xs">한국산업인력공단 (2019.05)</span></li>
-                <li><span class="font-bold text-gray-800">SW/IT 빅데이터 전문인재 양성</span><br><span class="text-xs">1,400시간 수료 (2018.07–2019.01)</span></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right: summary + timeline preview -->
-        <div class="lg:col-span-8 space-y-10 fade-up">
-          <div class="bg-accent-soft p-7 rounded-2xl border border-accent/10">
-            <h3 class="font-bold text-gray-900 text-xl mb-4">"경험과 데이터로 본질을 꿰뚫고, 유연하게 문제를 해결하는 MD"</h3>
-            <div class="space-y-3 text-sm text-gray-700 leading-relaxed">
-              <p><span class="font-bold text-accent">1. 데이터 기반의 문제 해결</span> — 반복 실무로 축적한 경험과 데이터를 바탕으로 문제의 핵심을 빠르게 파악하고, 유연한 대응책을 도출합니다.</p>
-              <p><span class="font-bold text-accent">2. 본질 중심의 사고</span> — 전례 없는 문제에 직면했을 때 문제의 본질을 먼저 정의하고, 기존 경험과의 접점을 찾아 해결 방향을 설정합니다.</p>
-              <p><span class="font-bold text-accent">3. 기민한 실행력</span> — 완벽한 해결을 기다리기보다 빠른 방향 설정을 우선하고, 실행 중 지속적으로 피드백을 반영합니다.</p>
-            </div>
-          </div>
-
-          <div class="grid sm:grid-cols-3 gap-4">
-            <div class="p-5 rounded-xl border border-line">
-              <div class="text-2xl font-black text-ink">7년 3개월</div>
-              <div class="text-xs text-gray-500 mt-1">총 경력</div>
-            </div>
-            <div class="p-5 rounded-xl border border-line">
-              <div class="text-2xl font-black text-ink">4년 3개월</div>
-              <div class="text-xs text-gray-500 mt-1">상품기획 MD 경력</div>
-            </div>
-            <div class="p-5 rounded-xl border border-line">
-              <div class="text-2xl font-black text-ink">3개</div>
-              <div class="text-xs text-gray-500 mt-1">시즌 주도 프로젝트</div>
-            </div>
-          </div>
-
-          <div class="bg-ink p-7 rounded-2xl text-white">
-            <h3 class="font-bold text-lg mb-2 flex items-center"><i class="fas fa-route mr-2 text-accent-light"></i>지금 하는 일</h3>
-            <p class="text-sm text-gray-300 leading-relaxed">신영와코루 VENUS 국내사업부 영업1부1과에서 시즌 상품기획, 데이터 기반 트렌드 분석, BOM 원가 관리와 생산 프로세스 운영을 담당하고 있습니다. 아래 세 프로젝트가 지난 두 시즌 동안 주도한 핵심 사례입니다.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- HIGHLIGHTS -->
-  <section id="highlights" class="section-pad bg-paper border-t border-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="fade-up text-center mb-14">
-        <p class="eyebrow mb-3">03 · Performance Highlights</p>
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">실현 가능한 데이터로 성과를 만듭니다</h2>
-      </div>
-      <div class="grid grid-cols-2 lg:grid-cols-3 gap-5 fade-up">
-        <div class="stat-card bg-white p-6 rounded-xl border border-line">
-          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">S-FIT YoY 매출성장</span><i class="fas fa-won-sign text-accent"></i></div>
-          <div class="text-3xl sm:text-4xl font-black">169.9<span class="text-lg text-gray-400">%</span></div>
-          <p class="text-xs text-gray-400 mt-2">출시 3개월, 2.78억 매출</p>
-        </div>
-        <div class="stat-card bg-white p-6 rounded-xl border border-line">
-          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">O2O 구매 전환율</span><i class="fas fa-bolt text-accent"></i></div>
-          <div class="text-3xl sm:text-4xl font-black">12→45<span class="text-lg text-gray-400">%</span></div>
-          <p class="text-xs text-gray-400 mt-2">Scan-Recommend-Purchase 퍼널 신설</p>
-        </div>
-        <div class="stat-card bg-white p-6 rounded-xl border border-line">
-          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">신소재 광고군 점유율</span><i class="fas fa-chart-pie text-accent"></i></div>
-          <div class="text-3xl sm:text-4xl font-black">35.86<span class="text-lg text-gray-400">%</span></div>
-          <p class="text-xs text-gray-400 mt-2">2030 신규 유입 +5.14%p</p>
-        </div>
-        <div class="stat-card bg-white p-6 rounded-xl border border-line">
-          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">3040 핵심고객 방어</span><i class="fas fa-users text-accent"></i></div>
-          <div class="text-3xl sm:text-4xl font-black">+9.97<span class="text-lg text-gray-400">%p</span></div>
-          <p class="text-xs text-gray-400 mt-2">S-FIT 리피트 로직 재설계 효과</p>
-        </div>
-        <div class="stat-card bg-white p-6 rounded-xl border border-line">
-          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">O2O 상품군 연매출</span><i class="fas fa-mobile-alt text-accent"></i></div>
-          <div class="text-3xl sm:text-4xl font-black">96<span class="text-lg text-gray-400">억</span></div>
-          <p class="text-xs text-gray-400 mt-2">스캔바이미 KPI 직접 집계·관리</p>
-        </div>
-        <div class="stat-card bg-white p-6 rounded-xl border border-line">
-          <div class="flex justify-between items-center mb-2"><span class="text-xs font-bold text-gray-400 uppercase">S-FIT 가중평균 판매율</span><i class="fas fa-layer-group text-accent"></i></div>
-          <div class="text-3xl sm:text-4xl font-black">50.5<span class="text-lg text-gray-400">%</span></div>
-          <p class="text-xs text-gray-400 mt-2">SKU 5종 → 16종 확장 운영</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASE STUDY 01 -->
-  <section id="case01" class="section-pad bg-white border-t border-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="grid lg:grid-cols-12 gap-14">
-        <div class="lg:col-span-4 fade-up">
-          <p class="eyebrow mb-3 text-coral">Case Study 01</p>
-          <h2 class="text-3xl font-black tracking-tight mb-6">매장에 잠들어 있던<br>체형 데이터를 깨우다</h2>
-          <div class="text-sm text-gray-500 mb-6 space-y-1">
-            <div><i class="far fa-calendar mr-2"></i>25SS – 현재</div>
-            <div><i class="fas fa-user-tag mr-2"></i>역할: 상품군 운영 · O2O 연계 기획 설계</div>
-          </div>
-          <p class="text-gray-600 leading-relaxed text-sm">연매출 96억 규모 스캔바이미 상품군을 운영하며, 체험 고객의 구매 전환율이 12%에 그치던 구조를 진단하고 온라인 추천·전용 패키지로 연결하는 퍼널을 설계했습니다.</p>
-        </div>
-        <div class="lg:col-span-8 fade-up">
-          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wide mb-5">문제 발견 — 데이터가 말해준 것</h3>
-          <div class="grid sm:grid-cols-3 gap-4 mb-12">
-            <div class="p-5 rounded-xl bg-gray-50 border border-line">
-              <div class="text-xs font-bold text-accent mb-2">01 · 체험은 성공</div>
-              <p class="text-sm text-gray-600">바디 스캐닝 체험 만족도는 높음 → 그러나 경험이 매장 안에서 종료됨</p>
-            </div>
-            <div class="p-5 rounded-xl bg-gray-50 border border-line">
-              <div class="text-xs font-bold text-coral mb-2">02 · 구매는 미연결</div>
-              <p class="text-sm text-gray-600">체험 고객 구매 전환율 <strong>12%</strong>에 불과 → 체험이 매출로 이어지지 않음</p>
-            </div>
-            <div class="p-5 rounded-xl bg-gray-50 border border-line">
-              <div class="text-xs font-bold text-accent mb-2">03 · 데이터의 잠재력</div>
-              <p class="text-sm text-gray-600">수집된 체형 데이터가 오프라인 시착에만 쓰이고 온라인에서 미활용</p>
-            </div>
-          </div>
-
-          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wide mb-5">HOW — Scan → Recommend → Purchase</h3>
-          <div class="grid md:grid-cols-2 gap-8 mb-8">
-            <div class="space-y-3">
-              <div class="flex items-center gap-4 p-4 rounded-lg bg-accent-soft border border-accent/10"><span class="w-9 h-9 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm">1</span><div><div class="font-bold text-sm">Scan</div><div class="text-xs text-gray-500">매장 스캔바이미 체험으로 신체 데이터 접점 확보</div></div></div>
-              <div class="flex items-center gap-4 p-4 rounded-lg bg-accent-soft border border-accent/10"><span class="w-9 h-9 rounded-full bg-accent text-white flex items-center justify-center font-bold text-sm">2</span><div><div class="font-bold text-sm">Recommend</div><div class="text-xs text-gray-500">체형 데이터를 온라인 추천에 매핑, CRM 세그먼트로 유입 경로 추적</div></div></div>
-              <div class="flex items-center gap-4 p-4 rounded-lg bg-accent text-white"><span class="w-9 h-9 rounded-full bg-white text-accent flex items-center justify-center font-bold text-sm">3</span><div><div class="font-bold text-sm">Purchase</div><div class="text-xs text-white/80">CRM으로 확인한 20~30대 온라인 구매 성향에 맞춘 전용 패키지 운영</div></div></div>
-              <p class="text-xs text-gray-400 pt-2">매장 현장과 온라인 운영 조직 간 계측 데이터 활용 기준을 정렬해 채널 간 단절을 해소했습니다.</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-5 border border-line">
-              <div class="text-xs font-bold text-gray-500 mb-3">체험 고객 구매 전환율 — 연계 전 vs 후</div>
-              <div class="chart-container" style="height:220px"><canvas id="conversionChart"></canvas></div>
-              <p class="text-xs text-gray-400 mt-2">같은 체험 고객 기준, 데이터 연결만으로 전환율 3.7배</p>
-            </div>
-          </div>
-
-          <div class="rounded-xl overflow-hidden border border-line bg-white mb-4" style="height:380px">
-            <img src="images/case1-product.png" alt="Perfect S-fit 패키지" data-placeholder="images/case1-product.png — 실제 패키지 운영 사례 사진" onerror="handleImgError(this)" class="w-full h-full object-contain p-3">
-          </div>
-          <div class="grid sm:grid-cols-3 gap-4 mb-8">
-            <div class="rounded-xl overflow-hidden border border-line" style="height:150px">
-              <img src="images/case1-dashboard.jpg" alt="스캔바이미 운영 대시보드" data-placeholder="images/case1-dashboard.jpg — 3D 바디스캐너 운영 실적 대시보드 스크린샷" onerror="handleImgError(this)" class="w-full h-full object-cover">
-            </div>
-            <div class="sm:col-span-2 flex items-center">
-              <p class="text-xs text-gray-500 leading-relaxed">누적 계측 12,568회 · 구매 전환 63.0% · 신규 고객 87.4%를 실시간으로 집계하는 <strong class="text-gray-700">스캔바이미 운영 대시보드</strong>. CRM으로 확인한 20~30대 온라인 구매 성향에 맞춰 <strong class="text-gray-700">Perfect S-fit</strong> 전용 패키지를 상시 운영 체계로 전환했습니다.</p>
-            </div>
-          </div>
-
-          <div class="grid sm:grid-cols-4 gap-4 mb-8 text-center">
-            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-ink">12,568회</div><div class="text-xs text-gray-500">누적 계측</div></div>
-            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-ink">63.0%</div><div class="text-xs text-gray-500">구매 전환 (7,917명)</div></div>
-            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-ink">87.4%</div><div class="text-xs text-gray-500">신규 고객 비중</div></div>
-            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-ink">87.6%</div><div class="text-xs text-gray-500">20~30대 비중</div></div>
-          </div>
-
-          <div class="border-l-4 border-accent pl-5">
-            <p class="text-sm font-bold text-gray-500 mb-1">배움</p>
-            <p class="text-gray-800 italic">"채널을 나누는 대신 데이터로 이었을 때, 고객 경험과 매출이 함께 움직인다는 것을 확인했습니다."</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASE STUDY 02 -->
-  <section id="case02" class="section-pad bg-ink text-white border-t border-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="grid lg:grid-cols-12 gap-14">
-        <div class="lg:col-span-4 fade-up">
-          <p class="eyebrow mb-3 text-accent-light">Case Study 02</p>
-          <h2 class="text-3xl font-black tracking-tight mb-6">데이터 속 '선택 기준의<br>부재'에서 기회를 보다</h2>
-          <div class="text-sm text-gray-400 mb-6 space-y-1">
-            <div><i class="far fa-calendar mr-2"></i>25AW – 26SS</div>
-            <div><i class="fas fa-user-tag mr-2"></i>역할: 기획 주도</div>
-          </div>
-          <p class="text-gray-300 leading-relaxed text-sm">스캔바이미 체형 데이터로 Soft·Daily·Support 3단계 핏 상품군(S-FIT)을 설계했습니다. 소재 중심 단일 라인 5종 구조로는 다양해진 체형 수요를 받아낼 수 없다고 판단해, 선택 기준 설계부터 SKU 구성까지 기획을 주도했습니다.</p>
-        </div>
-        <div class="lg:col-span-8 fade-up">
-          <h3 class="font-bold text-sm text-gray-500 uppercase tracking-wide mb-5">문제 발견 — 데이터가 말해준 것</h3>
-          <div class="grid sm:grid-cols-3 gap-4 mb-12">
-            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
-              <div class="text-xs font-bold text-accent-light mb-2">고객의 말</div>
-              <p class="text-sm text-gray-300">"다 편하다는데 뭐가 다른지 모르겠다" — 선택 기준을 묻는 VOC 반복 확인</p>
-            </div>
-            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
-              <div class="text-xs font-bold text-accent-light mb-2">체형의 다양화</div>
-              <p class="text-sm text-gray-300">한국 여성 비만율 <strong class="text-white">38.3%</strong> 급증 — 하나의 표준 핏으로는 담을 수 없는 수요</p>
-            </div>
-            <div class="p-5 rounded-xl bg-white/5 border border-white/10">
-              <div class="text-xs font-bold text-accent-light mb-2">공급의 정체</div>
-              <p class="text-sm text-gray-300">소재 중심 단일 라인 <strong class="text-white">5 SKU</strong> — 다양해진 수요를 받아낼 상품 구조 부재</p>
-            </div>
-          </div>
-
-          <h3 class="font-bold text-sm text-gray-500 uppercase tracking-wide mb-5">HOW — 고객이 스스로 고르게 하는 3단계 기준</h3>
-          <div class="grid md:grid-cols-2 gap-8 mb-8">
-            <div class="space-y-4">
-              <div class="p-5 rounded-xl bg-white/5 border border-white/10">
-                <div class="font-bold text-sm mb-1">체형 데이터 → 선택 기준</div>
-                <p class="text-xs text-gray-400">활동 강도·보정 수준 축으로 Soft / Daily / Support 3단계 설계</p>
-              </div>
-              <div class="p-5 rounded-xl bg-white/5 border border-white/10">
-                <div class="font-bold text-sm mb-1">상품군 재편</div>
-                <p class="text-xs text-gray-400">SKU 5→16종 확장, 매장 등급별 재고 기준·행사 아이템 차별화 운영</p>
-              </div>
-              <div class="rounded-xl overflow-hidden border border-white/10" style="height:180px">
-                <img src="images/case2-lineup.jpg" alt="S-FIT 라인업" data-placeholder="images/case2-lineup.jpg — S-FIT 3단계 상품 라인업 사진" onerror="handleImgError(this)" class="w-full h-full object-cover">
-              </div>
-            </div>
-            <div class="bg-white/5 rounded-xl p-5 border border-white/10">
-              <div class="text-xs font-bold text-gray-400 mb-3">S-FIT 단계별 선택 비중</div>
-              <div class="chart-container" style="height:260px"><canvas id="sfitChart"></canvas></div>
-              <p class="text-xs text-gray-400 mt-2 text-center">구매 고객의 95%가 3단계 기준 안에서 선택</p>
-            </div>
-          </div>
-
-          <div class="grid sm:grid-cols-3 gap-4 mb-8 text-center">
-            <div class="p-4 rounded-lg bg-white/5"><div class="font-black text-2xl text-accent-light">2.78억</div><div class="text-xs text-gray-400 mt-1">출시 3개월 매출</div></div>
-            <div class="p-4 rounded-lg bg-white/5"><div class="font-black text-2xl text-accent-light">169.9%</div><div class="text-xs text-gray-400 mt-1">YoY 성장</div></div>
-            <div class="p-4 rounded-lg bg-white/5"><div class="font-black text-2xl text-accent-light">50.5%</div><div class="text-xs text-gray-400 mt-1">가중평균 판매율</div></div>
-          </div>
-
-          <div class="border-l-4 border-accent-light pl-5">
-            <p class="text-sm font-bold text-gray-400 mb-1">배움</p>
-            <p class="italic">"상품을 늘리는 일보다 고객이 고를 이유를 설계하는 일이 기획의 본질임을 배웠습니다."</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CASE STUDY 03 -->
-  <section id="case03" class="section-pad bg-white border-t border-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="grid lg:grid-cols-12 gap-14">
-        <div class="lg:col-span-4 fade-up">
-          <p class="eyebrow mb-3 text-coral">Case Study 03</p>
-          <h2 class="text-3xl font-black tracking-tight mb-6">'편안함' 경쟁의 틈에서<br>기술의 빈자리를 읽다</h2>
-          <div class="text-sm text-gray-500 mb-6 space-y-1">
-            <div><i class="far fa-calendar mr-2"></i>25AW – 26SS</div>
-            <div><i class="fas fa-user-tag mr-2"></i>역할: 상품기획 주도</div>
-          </div>
-          <p class="text-gray-600 leading-relaxed text-sm">D2C 확산으로 노와이어 시장 내 자사 점유율이 65%→48%로 하락하는 흐름을 확인하고, 가격·감성이 아닌 소재 기술 영역을 진입 지점으로 선정했습니다. TPE·티타늄 신소재 도입부터 원가·가격 설계, 자사몰 소구까지 전략 전환을 주도했습니다.</p>
-        </div>
-        <div class="lg:col-span-8 fade-up">
-          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wide mb-5">문제 발견 — 시장이 보내온 신호</h3>
-          <div class="grid sm:grid-cols-3 gap-4 mb-12">
-            <div class="p-5 rounded-xl bg-gray-50 border border-line">
-              <div class="text-xs font-bold text-coral mb-2">시장 분석</div>
-              <p class="text-sm text-gray-600">D2C 확산으로 편안함 중심 노와이어 경쟁 포화 — 가격·감성 차별화의 한계</p>
-            </div>
-            <div class="p-5 rounded-xl bg-gray-50 border border-line">
-              <div class="text-xs font-bold text-coral mb-2">데이터 확인</div>
-              <p class="text-sm text-gray-600">노와이어 전체 카테고리 내 자사 점유율 <strong>65% → 48%</strong> 하락, 같은 방식으론 방어 불가</p>
-            </div>
-            <div class="p-5 rounded-xl bg-accent-soft border border-accent/10">
-              <div class="text-xs font-bold text-accent mb-2">전략 전환</div>
-              <p class="text-sm text-gray-700">"감성이 아니라 기술로 싸울 수는 없을까?" — 경쟁이 못 들어오는 소재 기술 영역에서 승부</p>
-            </div>
-          </div>
-
-          <h3 class="font-bold text-sm text-gray-400 uppercase tracking-wide mb-5">HOW — 모방할 수 없는 소재로 판을 바꾸다</h3>
-          <div class="grid md:grid-cols-2 gap-8 mb-8">
-            <div class="space-y-4">
-              <div class="p-5 rounded-xl bg-gray-50 border border-line">
-                <div class="font-bold text-sm mb-1">신소재 도입 · 차별점 시각화</div>
-                <p class="text-xs text-gray-500">TPE 몰드·티타늄 형상기억 와이어로 기술 진입장벽 구축, 보조택·패키징에 소재 정보 표기</p>
-              </div>
-              <div class="p-5 rounded-xl bg-gray-50 border border-line">
-                <div class="font-bold text-sm mb-1">자사몰 소구 · 가격 정당성 전달</div>
-                <p class="text-xs text-gray-500">모델 기용으로 2030 접점 확대, 자사몰에서 소재 차별점을 기술력으로 소구</p>
-              </div>
-              <div class="grid grid-cols-2 gap-3">
-                <div class="rounded-xl overflow-hidden border border-line bg-white" style="height:200px">
-                  <img src="images/case3-material.png" alt="티타늄 형상기억 와이어 실물" data-placeholder="images/case3-material.png — 티타늄 형상기억 와이어 실물 사진" onerror="handleImgError(this)" class="w-full h-full object-contain p-3">
-                </div>
-                <div class="rounded-xl overflow-hidden border border-line bg-white" style="height:200px">
-                  <img src="images/case3-tag.png" alt="TPE 몰드컵" data-placeholder="images/case3-tag.png — TPE 몰드컵 소재 표기" onerror="handleImgError(this)" class="w-full h-full object-contain p-3">
-                </div>
-              </div>
-              <p class="text-xs text-gray-500">경쟁사가 따라오지 못하는 지점 — 감성이 아닌 소재 기술로 만든 진입장벽입니다.</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-5 border border-line">
-              <div class="text-xs font-bold text-gray-500 mb-3">기술 우위 상품군 판매 점유율 변화</div>
-              <div class="chart-container" style="height:200px"><canvas id="rebrandingChart"></canvas></div>
-              <div class="mt-4 space-y-3">
-                <div>
-                  <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">2030 신규 유입</span><span class="font-bold text-accent">+5.14%p</span></div>
-                  <div class="progress-track"><div class="progress-fill bg-accent" data-width="51"></div></div>
-                </div>
-                <div>
-                  <div class="flex justify-between text-xs mb-1"><span class="text-gray-500">3040 고객 비중 방어</span><span class="font-bold text-accent">+9.97%p</span></div>
-                  <div class="progress-track"><div class="progress-fill bg-accent-dark" data-width="99"></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid sm:grid-cols-3 gap-4 mb-8 text-center">
-            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-2xl text-ink">35.86%</div><div class="text-xs text-gray-500 mt-1">신소재 광고군 내 점유율</div></div>
-            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-2xl text-ink">+5.14%p</div><div class="text-xs text-gray-500 mt-1">2030 신규 유입</div></div>
-            <div class="p-4 rounded-lg bg-gray-50"><div class="font-black text-2xl text-ink">+9.97%p</div><div class="text-xs text-gray-500 mt-1">3040 고객 비중 방어</div></div>
-          </div>
-
-          <div class="border-l-4 border-accent pl-5">
-            <p class="text-sm font-bold text-gray-500 mb-1">배움</p>
-            <p class="text-gray-800 italic">"가격을 따라가는 대신 경쟁자가 따라올 수 없는 지점을 만드는 것이 차별화임을 배웠습니다."</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- DATA PROJECT (SIDE PROJECT) -->
-  <section id="dataproject" class="section-pad bg-white border-t border-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="fade-up mb-14">
-        <p class="eyebrow mb-3">04 · Side Project</p>
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight mb-4">데이터로 가설을 검증하는 습관 — Olist 이커머스 분석</h2>
-        <p class="text-gray-600 text-sm max-w-3xl leading-relaxed">ICB 5기 Business Analyst 과정 중 브라질 Olist 공개 이커머스 데이터(2016.09–2018.08, 주문 96,478건·고객 93,358명)로 진행한 <strong>팀 프로젝트</strong> 2건입니다. MD 업무에서 다루기 어려운 통계적 가설 검증(회귀분석, 클러스터링)까지 분석 역량을 넓히기 위해 참여했습니다. 아래 수치·역할 표기는 팀 전체 산출물 중 본인이 직접 담당한 분석 범위를 기준으로 적었습니다.</p>
-      </div>
-
-      <!-- Sub-project A: 물류-벤더 -->
-      <div class="fade-up bg-gray-50 rounded-2xl border border-line p-7 lg:p-9 mb-8">
-        <div class="flex flex-wrap items-center gap-2 mb-4">
-          <span class="text-xs font-bold bg-white border border-line px-2 py-1 rounded">팀 삼삼오오2 · ICB 5기</span>
-          <span class="text-xs font-bold bg-accent-soft text-accent px-2 py-1 rounded">역할: 가설 수립~통계 검증 참여</span>
-        </div>
-        <h3 class="text-xl sm:text-2xl font-black text-gray-900 mb-2">물류–리텐션 상관 분석 및 벤더 세그멘테이션</h3>
-        <p class="text-sm text-gray-500 mb-6">OKR — 악성(Toxic) 벤더 비중 10% 이하 축소 · 장거리 배송 지연율 전년 대비 30% 개선</p>
-
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-          <div class="bg-white rounded-lg p-3 border border-line text-center"><div class="font-black text-lg text-ink">1,584.4만</div><div class="text-[11px] text-gray-500">총 거래액</div></div>
-          <div class="bg-white rounded-lg p-3 border border-line text-center"><div class="font-black text-lg text-ink">3,095개</div><div class="text-[11px] text-gray-500">총 셀러 수</div></div>
-          <div class="bg-white rounded-lg p-3 border border-line text-center"><div class="font-black text-lg text-ink">95,420명</div><div class="text-[11px] text-gray-500">총 구매 고객</div></div>
-          <div class="bg-white rounded-lg p-3 border border-line text-center"><div class="font-black text-lg text-coral">63.82%</div><div class="text-[11px] text-gray-500">장거리 배송 비율</div></div>
-        </div>
-
-        <div class="space-y-3 mb-8">
-          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
-            <span class="shrink-0 w-7 h-7 rounded-full bg-coral/10 text-coral flex items-center justify-center font-bold text-xs">1</span>
-            <p class="text-sm text-gray-700"><strong class="text-gray-900">구조적 문제 진단</strong> — 공급(셀러)은 상파울루(SP) 지역에 70% 과밀집된 반면 수요(고객)는 브라질 전역에 분산. "파는 곳과 사는 곳이 달라 필연적으로 장거리 지연이 발생"하는 구조로, SP 발 배송은 평균 8.3일인데 RR·AP 등 원거리 지역은 26~27.8일까지 벌어짐</p>
-          </div>
-          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
-            <span class="shrink-0 w-7 h-7 rounded-full bg-coral/10 text-coral flex items-center justify-center font-bold text-xs">2</span>
-            <p class="text-sm text-gray-700"><strong class="text-gray-900">상관관계 확인</strong> — 배송 소요일이 10일을 넘는 순간 고객 평균 평점이 3점 미만으로 급락. 지리적 한계로 인한 배송 페널티가 타 지역 고객에게 부정적 경험을 강제하는 근본 원인으로 규명</p>
-          </div>
-          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
-            <span class="shrink-0 w-7 h-7 rounded-full bg-coral/10 text-coral flex items-center justify-center font-bold text-xs">3</span>
-            <p class="text-sm text-gray-700"><strong class="text-gray-900">벤더 세분화</strong> — 총 3,095개 셀러를 주문 이력·지연율·평점 기준으로 Zombie(1,500)·Active(933)·Newbie(315)·Power(235)·Toxic(112)로 퍼널 분리, Toxic 112개사를 블랙리스트로 특정</p>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-4 mb-6">
-          <div class="bg-white rounded-lg p-4 border border-line">
-            <div class="text-xs font-bold text-gray-500 mb-2">지역별 평균 배송 소요일 (SP 대비 격차)</div>
-            <div class="chart-container" style="height:190px"><canvas id="regionDelayChart"></canvas></div>
-          </div>
-          <div class="bg-white rounded-lg p-4 border border-line">
-            <div class="text-xs font-bold text-gray-500 mb-2">벤더 생존 퍼널 (총 셀러 3,095개)</div>
-            <div class="chart-container" style="height:190px"><canvas id="funnelChart"></canvas></div>
-          </div>
-        </div>
-        <div class="bg-white rounded-lg p-4 border border-line mb-6">
-          <div class="text-xs font-bold text-gray-500 mb-2">플랫폼 리텐션을 견인하는 카테고리 Top 8 (판매건수 · 고객 만족도)</div>
-          <div class="chart-container" style="height:210px"><canvas id="categoryChart"></canvas></div>
-        </div>
-
-        <div class="text-xs text-gray-600 pt-4 border-t border-line">
-          <strong class="text-gray-800">액션 제안:</strong> RICE 스코어링 기반 라스트마일 최적화를 최우선 배치(920점)하고, 지연율 21%→8%·재구매율 1%→5%·BNPL 결제 15%→25% 목표를 OKR로 설정. 배송 신뢰 → 재구매 → 결제 확장 → 수익으로 이어지는 Flywheel 구조를 팀 최종 제안안으로 완성
-        </div>
-      </div>
-
-      <!-- Sub-project B: 리텐션 vs LTV -->
-      <div class="fade-up bg-gray-50 rounded-2xl border border-line p-7 lg:p-9">
-        <div class="flex flex-wrap items-center gap-2 mb-4">
-          <span class="text-xs font-bold bg-white border border-line px-2 py-1 rounded">팀 3조(6인) · ICB 5기</span>
-          <span class="text-xs font-bold bg-accent-soft text-accent px-2 py-1 rounded">역할: 가설 검증·통계분석 참여</span>
-        </div>
-        <h3 class="text-xl sm:text-2xl font-black text-gray-900 mb-2">"리텐션은 만들어졌지만, LTV는 따라오지 않았다"</h3>
-        <p class="text-sm text-gray-500 mb-6">로지스틱회귀·RFM·K-클러스터링으로 검증한 리텐션 vs LTV 반전 인사이트</p>
-
-        <div class="space-y-3 mb-8">
-          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
-            <span class="shrink-0 w-7 h-7 rounded-full bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">1</span>
-            <p class="text-sm text-gray-700"><strong class="text-gray-900">첫 가설 기각</strong> — "경험이 좋으면 재구매할 것"이라는 가설로 출발했지만, 1개월 내 재구매율은 <strong>1% 미만(이탈 98.83%)</strong>. 재구매가 발생한 소수 중에서도 <strong>52%가 첫 30일 내</strong>에 몰려 있어, 30일이 전략 개입이 가능한 사실상 유일한 구간으로 재정의</p>
-          </div>
-          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
-            <span class="shrink-0 w-7 h-7 rounded-full bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">2</span>
-            <p class="text-sm text-gray-700"><strong class="text-gray-900">경험 변수 검증</strong> — 리뷰 점수별 30일 재구매율은 1~2점 0.51% → 4~5점 0.65%로 차이가 미미했고, 배송 신뢰도를 더해도 저평점·지연배송에도 재구매하는 고객군이 존재해 경험 변수 단독으로는 설명되지 않음을 확인</p>
-          </div>
-          <div class="flex gap-4 p-4 rounded-lg bg-coral-soft border border-coral/20">
-            <span class="shrink-0 w-7 h-7 rounded-full bg-coral/15 text-coral flex items-center justify-center font-bold text-xs">3</span>
-            <p class="text-sm text-gray-700"><strong class="text-gray-900">예상 밖의 반전</strong> — 중저가·정시배송·리뷰 4점 이상을 모두 만족한 'AHA 모먼트' 충족군은 30일 재구매율은 높았지만(Lift 1.13배), 평균 총구매액(LTV)은 오히려 <strong class="text-coral">0.29배(224 → 64)</strong>로 낮았음. "리텐션이 높다고 좋은 고객은 아니다" — 똑똑한 체리피커였을 가능성</p>
-          </div>
-          <div class="flex gap-4 p-4 rounded-lg bg-white border border-line">
-            <span class="shrink-0 w-7 h-7 rounded-full bg-accent/10 text-accent flex items-center justify-center font-bold text-xs">4</span>
-            <p class="text-sm text-gray-700"><strong class="text-gray-900">진짜 분기점 발견</strong> — 경험이 아니라 <strong>F30(첫 30일 내 2회차 구매 진입)</strong>이 LTV를 가르는 행동 임계점. 90,557명 중 2회차에 도달하는 인원은 2,573명뿐이지만, 이 지점을 넘는 순간 LTV 중앙값이 89 → 189 → 279로 구조적으로 2배 이상 점프하고 RFM·K-클러스터링에서도 고가치 고객군이 별도로 분리됨</p>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-4 mb-6">
-          <div class="bg-white rounded-lg p-4 border border-line">
-            <div class="text-xs font-bold text-gray-500 mb-2">AHA 모먼트 충족 여부 · 평균 LTV</div>
-            <div class="chart-container" style="height:170px"><canvas id="ahaLtvChart"></canvas></div>
-          </div>
-          <div class="bg-white rounded-lg p-4 border border-line">
-            <div class="text-xs font-bold text-gray-500 mb-2">초기 구매 빈도(F30)별 LTV 중앙값</div>
-            <div class="chart-container" style="height:170px"><canvas id="f30Chart"></canvas></div>
-          </div>
-          <div class="bg-white rounded-lg p-4 border border-line">
-            <div class="text-xs font-bold text-gray-500 mb-2">구매 빈도별 고객 수 (로그 스케일)</div>
-            <div class="chart-container" style="height:170px"><canvas id="frequencyDropChart"></canvas></div>
-          </div>
-        </div>
-
-        <div class="text-xs text-gray-600 pt-4 border-t border-line">
-          <strong class="text-gray-800">액션 제안:</strong> 첫 구매 후 14일 내 미재구매 고객에게 동일 가격대·카테고리 상품을 재노출하고 할인 대신 배송 신뢰 메시지로 유도, 배송지연·저평점에도 재구매한 고객군은 과도한 CS·보상 없이도 유지 가능한 고객으로 분류해 핵심 카테고리×가격대 세그먼트에 자원을 집중
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CAREER -->
-  <section id="career" class="section-pad bg-paper border-t border-line">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="fade-up mb-14">
-        <p class="eyebrow mb-3">05 · Career</p>
-        <h2 class="text-3xl sm:text-4xl font-black tracking-tight">경력 사항</h2>
-      </div>
-
-      <div class="max-w-3xl fade-up">
-        <div class="timeline-item">
-          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1">
-            <div class="font-bold text-xl text-gray-900">신영와코루 (VENUS) <span class="text-sm text-gray-500 font-normal ml-2">| 국내사업부 영업1부1과 · 계장</span></div>
-            <div class="text-sm text-accent font-bold bg-accent-soft px-2 py-1 rounded">2022.05 ~ 재직중 · 4년 3개월</div>
-          </div>
-          <p class="text-sm text-gray-500 mb-4">시즌 상품 기획, 데이터 기반 트렌드 분석, BOM 원가 관리 및 생산 프로세스 운영</p>
-          <div class="bg-white p-4 rounded-lg border border-line space-y-3">
-            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide">주도 프로젝트 3건 — 상세는 위 Case Study 참고</div>
-            <ul class="text-sm text-gray-600 space-y-1.5">
-              <li><i class="fas fa-check text-accent mr-2"></i>스캔바이미 O2O 상품군 운영 — 96억 규모, 구매 전환율 12%→45% 개선 (Case 01)</li>
-              <li><i class="fas fa-check text-accent mr-2"></i>S-FIT 3단계 핏 큐레이션 기획 — SKU 5→16종, YoY 169.9% 성장 (Case 02)</li>
-              <li><i class="fas fa-check text-accent mr-2"></i>신소재 기반 브랜드 리포지셔닝 — 신소재 광고군 점유율 35.86% (Case 03)</li>
-            </ul>
-            <div class="text-xs font-bold text-gray-400 uppercase tracking-wide pt-2 border-t border-line">프로젝트 외 시즌 사이클에서 상시 수행하는 업무</div>
-            <ul class="text-sm text-gray-600 space-y-1.5">
-              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">물량 운영</strong> — 브랜드 전체 판매 사이클·재고 소진율을 주간 분석해 추가 발주 물량과 매장별 상품 구성 결정</li>
-              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">원가·소싱</strong> — BOM 기준 소재별 원가 구조 분석·영업이익률 산출, 소싱팀 협업으로 신규 협력사 발굴</li>
-              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">생산·납기</strong> — 행사·협력사 라인별 생산 일정과 납기를 통합 관리해 시즌 출시 일정 준수</li>
-              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">채널 운영</strong> — 유통 채널별 기획상품을 구성하고 채널 특성에 맞춘 물량·가격 정책 조정</li>
-              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">시장 조사</strong> — 분기별 경쟁사·시장 조사를 수행해 차기 시즌 기획 방향의 근거로 반영</li>
-              <li><i class="fas fa-repeat text-gray-400 mr-2"></i><strong class="text-gray-800">조직 지원</strong> — 시즌 전략회의 자료 작성·발표, 시즌 품평회 운영, 영업 현장 교육자료 제작</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1">
-            <div class="font-bold text-xl text-gray-900">CJ 프레시원 <span class="text-sm text-gray-500 font-normal ml-2">| 경영지원 · 영업관리 · 채권관리 · 주임</span></div>
-            <div class="text-sm text-gray-500 font-bold bg-gray-100 px-2 py-1 rounded">2019.07 ~ 2022.02 · 2년 8개월</div>
-          </div>
-          <div class="bg-white p-4 rounded-lg border border-line mt-3 space-y-4">
-            <div>
-              <div class="text-sm font-bold text-gray-800 mb-1">PROJECT 01 · 채권·여신 리스크 관리 운영</div>
-              <p class="text-xs text-gray-500 mb-2">성과 — 연체 거래처 조기 식별 체계 운영으로 대손 리스크 사전 통제</p>
-              <ul class="text-sm text-gray-600 space-y-1">
-                <li><i class="fas fa-check text-gray-400 mr-2"></i>거래처별 여신 한도를 설정하고 채권 현황을 주기 점검해 연체 발생 거래처를 조기 식별</li>
-                <li><i class="fas fa-check text-gray-400 mr-2"></i>영업 현장과 본사 간 업무 조율 창구를 맡아 리스크 발생 시 대응 절차를 신속 가동</li>
-                <li><i class="fas fa-check text-gray-400 mr-2"></i>연체 이력·거래 규모를 반영해 거래처별 여신 기준을 조정하고 영업 담당자와 회수 일정 합의</li>
-              </ul>
-            </div>
-            <div class="pt-3 border-t border-line">
-              <div class="text-sm font-bold text-gray-800 mb-1">PROJECT 02 · 신규 유통센터 ERP 통합 전환 지원</div>
-              <p class="text-xs text-gray-500 mb-2">성과 — 수기 기반 계약·발주 프로세스의 ERP 전환으로 수주–출고–반품 데이터 일원화</p>
-              <ul class="text-sm text-gray-600 space-y-1">
-                <li><i class="fas fa-check text-gray-400 mr-2"></i>현장 수기 계약·발주 프로세스를 진단하고 ERP 전환을 지원해 데이터가 시스템에 반영되는 구조 구축</li>
-                <li><i class="fas fa-check text-gray-400 mr-2"></i>DRM 정보보안 도입에 참여해 문서 등급화 기준의 영업 데이터 관리 방식 정립</li>
-                <li><i class="fas fa-check text-gray-400 mr-2"></i>현장 담당자 대상 전환 절차를 안내해 시스템 정착 과정의 운영 혼선 최소화</li>
-              </ul>
-            </div>
-            <div class="pt-3 border-t border-line">
-              <div class="text-xs font-bold text-gray-400 uppercase tracking-wide mb-1.5">상시 수행 업무</div>
-              <ul class="text-sm text-gray-600 space-y-1">
-                <li><i class="fas fa-repeat text-gray-400 mr-2"></i>직영점·소매점·차량판매 등 복수 유통 채널 운영 지원, 신규 거래처 코드 개설·변경 전담</li>
-                <li><i class="fas fa-repeat text-gray-400 mr-2"></i>채널별 매출을 집계해 경영진 보고용 통합 실적 보고서를 정기 작성</li>
-                <li><i class="fas fa-repeat text-gray-400 mr-2"></i>채용·근태 등 인사행정 업무 병행 수행</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="timeline-item">
-          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-1">
-            <div class="font-bold text-xl text-gray-900">㈜트리아 <span class="text-sm text-gray-500 font-normal ml-2">| IFRS17 시스템 프로젝트 · 대리</span></div>
-            <div class="text-sm text-gray-500 font-bold bg-gray-100 px-2 py-1 rounded">2019.02 ~ 2019.05 · 4개월</div>
-          </div>
-          <div class="bg-white p-4 rounded-lg border border-line mt-3">
-            <div class="text-sm font-bold text-gray-800 mb-1">IFRS17 시스템 유지보수 · 개발 지원 (금융권 대형 고객사)</div>
-            <p class="text-xs text-gray-500 mb-2">성과 — 금융권 운영 환경의 시스템 검증·개발 지원 실무 수행</p>
-            <ul class="text-sm text-gray-600 space-y-1">
-              <li><i class="fas fa-check text-gray-400 mr-2"></i>현대카드 모기지프라임·산업은행·우리은행 대상 시스템 구동 모니터링과 테스트 데이터 검증 수행</li>
-              <li><i class="fas fa-check text-gray-400 mr-2"></i>처브(Chubb)보험사 개발 지원 업무를 맡아 현업 담당자와 협업하며 개발환경 세팅부터 Java·Spring 기반 개발까지 직접 참여</li>
-              <li><i class="fas fa-check text-gray-400 mr-2"></i>구디아카데미 6개월 과정(Java·Spring·빅데이터) 수료 직후 투입되어 학습 내용을 실무 검증 프로세스에 즉시 적용</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-12 max-w-3xl bg-white p-6 rounded-xl border border-line fade-up flex items-center justify-between flex-wrap gap-3">
-        <p class="text-sm text-gray-600"><i class="fas fa-flask mr-2 text-accent"></i>ICB 5기 Business Analyst 과정(4개월) 수료 — 팀 프로젝트 2회 전원 1위, 80명 중 우수수료생 5인 선정. 프로젝트 상세는 <a href="#dataproject" class="text-accent font-bold underline">Data Project 섹션</a> 참고.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT / FOOTER -->
-  <footer id="contact" class="bg-paper border-t border-line py-16">
-    <div class="max-w-7xl mx-auto px-6 lg:px-24">
-      <div class="fade-up flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8">
-        <div>
-          <p class="eyebrow mb-3">Contact</p>
-          <h2 class="text-2xl sm:text-3xl font-black tracking-tight mb-3">문제를 기회로 바꾸고, 데이터로 증명하는<br>상품기획 MD가 되겠습니다.</h2>
-        </div>
-        <div class="text-left lg:text-right">
-          <div class="font-bold text-lg">김동진 (Dongjin Kim)</div>
-          <div class="text-sm text-gray-500">rlaehdwls96@gmail.com · 010-3234-4911</div>
-          <div class="flex gap-2 mt-3 lg:justify-end">
-            <span class="text-xs bg-white border border-line px-2 py-1 rounded">정보처리산업기사</span>
-            <span class="text-xs bg-white border border-line px-2 py-1 rounded">유통관리사 2급</span>
-          </div>
-        </div>
-      </div>
-      <div class="mt-10 pt-6 border-t border-line text-xs text-gray-400 flex justify-between">
-        <span>Portfolio · 2026</span>
-        <span>© Dongjin Kim</span>
-      </div>
-    </div>
-  </footer>
+    <div class="about-tiles" id="aboutTiles"></div>
+    <div class="news-card-wrap" id="newsCardWrap"></div>
+    <div class="about-contact">rlaehdwls96@gmail.com<br>010-3234-4911<br>경기도 고양시 일산서구</div>
+  </div>
+</div>
 
 <script>
-  function handleImgError(img) {
-    if (img.dataset.fallbackApplied) return;
-    img.dataset.fallbackApplied = '1';
-    const label = img.dataset.placeholder || '이미지를 추가해주세요';
-    const wrap = document.createElement('div');
-    wrap.className = 'img-placeholder';
-    wrap.innerHTML = '<i class="fas fa-image"></i><span>' + label + '</span>';
-    img.replaceWith(wrap);
+/* ============ WORK DATA (carousel) ============ */
+const workCards = [
+  { key:'case1', badge:'Case 01', v:'v1', label:'O2O', title:'체형 데이터 O2O 연계', desc:'매장 체험 → 온라인 구매 전환', stat:'전환 12% → 45% → 63.0%' },
+  { key:'case2', badge:'Case 02', v:'v2', label:'S-FIT', title:'S-FIT 3단계 핏 큐레이션', desc:'고객이 스스로 고르는 선택 기준 설계', stat:'전년 대비 169.9% 신장' },
+  { key:'case3', badge:'Case 03', v:'v3', label:'소재', title:'신소재 브랜드 리포지셔닝', desc:'모방 불가능한 기술 진입장벽 구축', stat:'광고 카테고리 점유율 35.86%' },
+  { key:'system', badge:'Working System', v:'v8', label:'SYSTEM', title:'일하는 구조', desc:'리피트·단종 판단 게이트 · 공급계획 · 아카이브', stat:'5단계 판단 게이트' },
+  { key:'data', badge:'Side Project', v:'v4', label:'DATA', title:'Olist 이커머스 분석', desc:'ICB 5기 BA 팀 프로젝트 2건 · 전원 1위', stat:null },
+  { key:'lookbook', badge:'Lookbook', v:'v5', label:'22AW–26AW', title:'시즌 기획 아카이브', desc:'입사 이후 참여한 시즌 기록', stat:null },
+  { key:'career', badge:'Career', v:'v6', label:'7.3Y', title:'경력 사항', desc:'VENUS · CJ 프레시원 · 트리아', stat:null },
+  { key:'skills', badge:'Toolkit', v:'v7', label:'TOOLS', title:'보유 기술 및 툴', desc:'판단 영역별로 정리한 4개 역량', stat:null }
+];
+
+/* 이미지: src가 있으면 실제 사진, 없으면 색상 플레이스홀더로 표시됩니다.
+   fit:'contain' 은 배경 없는 제품컷용(잘림 방지) */
+const cases = {
+
+  /* ─────────── CASE 01 ─────────── */
+  case1: {
+    eyebrow:'Case Study 01',
+    title:'매장에 잠들어 있던 체형 데이터를 깨우다',
+    period:'25SS – 현재 · 상품군 운영 · O2O 퍼널 설계 주도 · 행사 연계 운영 지원',
+    images:[
+      { label:'Perfect S-fit 전용 패키지', src:'images/case1-product.png', fit:'contain' },
+      { label:'스캔바이미 운영 대시보드', src:'images/case1-dashboard.jpg' }
+    ],
+    colors:['#F3EDE7','#EFE8DF'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-sec-label">Situation — 연매출 96억 규모 상품군</div>
+        <div class="lb-body">매장에 설치된 3D 바디스캐너(스캔바이미)로 고객 체형을 계측하는 상품군을 운영하고 있었습니다. 체험 만족도는 높았지만 <strong>경험이 매장 안에서 끝났습니다.</strong> 계측 데이터는 오프라인 시착 참고용으로만 쓰였고, 온라인에서는 전혀 활용되지 않았습니다.</div>
+        <ul class="lb-ul">
+          <li><b>체험은 성공</b> — 바디 스캐닝 만족도는 높으나 경험이 매장 안에서 종료</li>
+          <li><b>구매는 미연결</b> — 체험 고객의 자사몰 구매 전환율 12%에 불과</li>
+          <li><b>데이터는 방치</b> — 수집한 체형 데이터가 온라인 추천에 미활용</li>
+        </ul>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Action — Scan → Recommend → Purchase</div>
+        <ul class="lb-ul">
+          <li><b>Scan</b> — 매장 스캔바이미 체험으로 신체 데이터 접점 확보</li>
+          <li><b>Recommend</b> — 체형 데이터를 온라인 추천에 매핑. CRM 신규 등록 시 고객 등급별 세그먼트로 분류하고, 오프라인 고객의 CI값이 온라인에 등록되는 시점을 퍼널 진입점으로 정의해 유입 경로를 추적</li>
+          <li><b>Purchase</b> — 등급별로 광고 문자·이숍 쿠폰을 차등 운영하고, CRM으로 확인한 20~30대 온라인 구매 성향에 맞춰 Perfect S-fit 전용 패키지를 상시 운영 체계로 전환</li>
+        </ul>
+        <div class="lb-body" style="margin-top:12px">매장 현장과 온라인 운영 조직 간 <strong>계측 데이터 활용 기준을 정렬</strong>해 채널 간 단절을 해소했습니다. 백화점 판촉·팝업 행사에서는 브랜드 모델 캠페인과 함께 스캔바이미 예약·운영을 지원했습니다.</div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Result — 동일 산식 기준 3시점 추이</div>
+        <div class="lb-track">
+          <div class="lb-track-step"><div class="k">연계 전</div><div class="v">12%</div><div class="s">오프라인 단독 운영</div></div>
+          <div class="lb-track-step"><div class="k">연계 직후</div><div class="v">45%</div><div class="s">O2O 퍼널 신설</div></div>
+          <div class="lb-track-step hi"><div class="k">최근 실측</div><div class="v">63.0%</div><div class="s">2026.03~07 · 상시 운영 전환 후</div></div>
+        </div>
+        <div class="lb-note">산식 — 분모: 3D 바디스캐너 계측 고객 / 분자: 계측 고객의 자사몰 구매 건. 세 시점 모두 동일 산식입니다. 최근 실측은 누적 계측 12,568회 중 구매 7,917명 기준이며, 같은 기간 신규 고객 비중 87.4% · 20~30대 비중 87.6%로 집계됐습니다.</div>
+      </div>`,
+    quote:'채널을 나누는 대신 데이터로 이었을 때, 고객 경험과 매출이 함께 움직인다는 것을 확인했습니다.',
+    metrics:[
+      {num:'96억',desc:'운영 상품군 연매출'},
+      {num:'12→45%',desc:'연계 전후 구매 전환'},
+      {num:'63.0%',desc:'최근 실측 (26.03~07)'},
+      {num:'12,568회',desc:'누적 계측'}
+    ]
+  },
+
+  /* ─────────── CASE 02 ─────────── */
+  case2: {
+    eyebrow:'Case Study 02',
+    title:'데이터 속 "선택 기준의 부재"에서 기회를 보다',
+    period:'25AW – 26SS · 기획 주도',
+    images:[ { label:'S-FIT 3단계 라인업', src:'images/case2-lineup.jpg' } ],
+    colors:['#EAEEF4'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-sec-label">Situation — 다 편한데, 뭐가 다른지 모르겠다</div>
+        <div class="lb-body">노와이어 카테고리는 이미 "편안함"으로 포화 상태였습니다. 정작 고객은 <strong>무엇을 기준으로 골라야 하는지</strong>를 묻고 있었는데, 상품 구조는 그 질문에 답하지 못했습니다.</div>
+        <ul class="lb-ul">
+          <li><b>고객의 말</b> — "다 편하다는데 뭐가 다른지 모르겠다" — 선택 기준을 묻는 VOC가 반복 확인됨</li>
+          <li><b>체형의 다양화</b> — 국내 여성 비만율 29.5%(2021, 19세 이상), 20대 여성은 10년간 1.9배 증가. 하나의 표준 핏으로는 담을 수 없는 수요</li>
+          <li><b>공급의 정체</b> — 소재 중심 단일 라인 5 SKU 구조로는 다양해진 수요를 받아낼 상품 구조가 없음</li>
+        </ul>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Action — 고객이 스스로 고르게 하는 3단계 기준</div>
+        <ul class="lb-ul">
+          <li><b>선택 기준 설계</b> — 스캔바이미 체형 데이터를 활동 강도·보정 수준 2개 축으로 재분석해 Soft / Daily / Support 3단계로 정의</li>
+          <li><b>상품군 재편</b> — SKU 5종 → 16종 확장. 단계별로 소재·패턴·가격대를 분리해 "왜 이걸 골라야 하는지"가 상품에서 드러나게 구성</li>
+          <li><b>운영 기준</b> — 매장 등급별 재고 기준을 다르게 두고, 행사 아이템을 별도로 지정해 정상가 라인과 간섭하지 않도록 운영</li>
+          <li><b>현장 정착</b> — 시즌 품평회에서 3단계 기준을 직접 발표하고, 영업 현장용 교육자료를 제작해 매장에서 같은 언어로 설명되도록 함</li>
+        </ul>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Result</div>
+        <div class="lb-body">출시 3개월 매출 <strong>2.78억</strong>, 전년 대비 <strong>169.9% 신장</strong>, 가중평균 판매율 <strong>50.5%</strong>를 기록했습니다. 구매 고객의 <strong>95%가 3단계 기준 안에서 선택</strong>했고(Soft 35 · Daily 40 · Support 20), 설계한 기준이 실제 구매 행동으로 작동한다는 것이 확인됐습니다.</div>
+      </div>`,
+    quote:'상품을 늘리는 일보다 고객이 고를 이유를 설계하는 일이 기획의 본질임을 배웠습니다.',
+    metrics:[
+      {num:'2.78억',desc:'출시 3개월 매출'},
+      {num:'169.9%',desc:'전년 대비 신장'},
+      {num:'50.5%',desc:'가중평균 판매율'},
+      {num:'5→16종',desc:'SKU 확장'}
+    ]
+  },
+
+  /* ─────────── CASE 03 ─────────── */
+  case3: {
+    eyebrow:'Case Study 03',
+    title:'"편안함" 경쟁의 틈에서 기술의 빈자리를 읽다',
+    period:'25AW – 26SS · 상품기획 주도',
+    images:[
+      { label:'티타늄 형상기억 와이어', src:'images/case3-material.png', fit:'contain' },
+      { label:'TPE 몰드컵 · 소재 표기 보조택', src:'images/case3-tag.png', fit:'contain' }
+    ],
+    colors:['#EAF2EB','#E3EDE4'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-sec-label">Situation — 같은 방식으론 방어가 안 되는 구간</div>
+        <div class="lb-body">D2C 브랜드 확산으로 노와이어 시장의 경쟁이 가격과 감성 소구에 몰렸습니다. 같은 축에서 싸우는 동안 <strong>노와이어 전체 카테고리 내 자사 점유율이 65% → 48%로 하락</strong>했습니다. "감성이 아니라 기술로 싸울 수는 없을까"가 출발점이었습니다.</div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Action — 모방할 수 없는 소재로 판을 바꾸다</div>
+        <ul class="lb-ul">
+          <li><b>신소재 도입</b> — TPE 몰드컵과 티타늄 형상기억 와이어를 도입해 후발 브랜드가 단기간에 따라올 수 없는 기술 진입장벽을 구축</li>
+          <li><b>차별점 시각화</b> — 보조택과 패키징에 소재 정보를 직접 표기해, 매장에서 만져보기 전에도 차이가 읽히도록 설계</li>
+          <li><b>가격 정당성</b> — BOM 기준 원가 구조를 다시 산출해 신소재 원가를 반영한 가격대를 설계하고, 영업이익률이 유지되는 선에서 판가를 확정</li>
+          <li><b>소구 채널</b> — 모델 기용으로 2030 접점을 넓히고, 자사몰에서는 감성 카피 대신 소재 기술을 전면에 배치</li>
+        </ul>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Result</div>
+        <div class="lb-body">신소재 광고 카테고리 내 점유율 <strong>35.86%</strong>를 확보했고, CRM 세대별 고객 비중 집계에서 <strong>2030 신규 유입 +5.14%p</strong>, <strong>3040 핵심 고객 비중 +9.97%p 방어</strong>가 확인됐습니다. 신규 유입과 기존 고객 유지가 동시에 움직인 점이 이 전환의 핵심 결과입니다.</div>
+        <div class="lb-note">점유율 구분 — 65% → 48%는 노와이어 전체 카테고리 기준, 35.86%는 신소재 광고 카테고리 내 기준입니다. %p 수치는 사내 CRM 세대별 고객 비중 집계값입니다.</div>
+      </div>`,
+    quote:'가격을 따라가는 대신 경쟁자가 따라올 수 없는 지점을 만드는 것이 차별화임을 배웠습니다.',
+    metrics:[
+      {num:'35.86%',desc:'신소재 광고 카테고리 점유율'},
+      {num:'+5.14%p',desc:'2030 신규 유입'},
+      {num:'+9.97%p',desc:'3040 고객 비중 방어'},
+      {num:'65→48%',desc:'대응 전 카테고리 점유율'}
+    ]
+  },
+
+  /* ─────────── WORKING SYSTEM ─────────── */
+  system: {
+    eyebrow:'Working System',
+    title:'한 번의 성과보다, 반복 가능한 판단 구조',
+    period:'신영와코루 VENUS · 시즌 사이클 상시 운영',
+    images:[ { label:'판단 게이트 · 공급계획 · 아카이브' } ],
+    colors:['#EDF0EE'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-body">앞의 케이스가 결과라면, 이 항목은 <strong>그 결과가 나온 방식</strong>입니다. 시즌마다 같은 순서로 판단하고, 그 판단 근거를 기록으로 남깁니다.</div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">01 · 리피트 / 단종 판단 5단계 게이트</div>
+        <div class="lb-body">"이 품번을 더 넣을 것인가, 끊을 것인가"는 시즌마다 수십 번 반복되는 판단입니다. 감이 아니라 같은 순서로 통과시키기 위해 5단계로 정리해 운영합니다. 각 단계의 임계치는 사내 기준으로 관리합니다.</div>
+        <div class="lb-steps">
+          <div class="lb-step"><div class="n">GATE 01</div><div class="t">분해</div><div class="d">품번·색상·사이즈 단위로 판매 데이터를 분해해 실제 움직이는 단위 확인</div></div>
+          <div class="lb-step"><div class="n">GATE 02</div><div class="t">재고</div><div class="d">현재고와 입고 예정 물량을 합산해 추가 발주 여력 판단</div></div>
+          <div class="lb-step"><div class="n">GATE 03</div><div class="t">판매율</div><div class="d">기간별 판매율·소진 속도를 산출해 시즌 내 소화 가능 여부 확인</div></div>
+          <div class="lb-step"><div class="n">GATE 04</div><div class="t">이익률</div><div class="d">BOM 기준 원가 구조로 영업이익률을 산출해 물량 확대 근거 검토</div></div>
+          <div class="lb-step"><div class="n">GATE 05</div><div class="t">등급</div><div class="d">매장 등급별 재고 기준·행사 아이템 여부에 맞춰 배분 방향까지 확정</div></div>
+        </div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">02 · 월별 공급계획 운영</div>
+        <div class="lb-body">사내 ERP에서 추출한 원본 데이터에는 신제품과 리피트가 한 시트에 섞여 있습니다. 이를 매월 <strong>신제품 / 리피트 시트로 분리</strong>해 영업1부1과 월별 공급계획서를 작성하고, 생산 일정과 납기를 같은 기준으로 통합 관리합니다.</div>
+        <div class="lb-tags">
+          <span class="lb-tag">사내 ERP 추출</span><span class="lb-tag">신제품 / 리피트 분리</span><span class="lb-tag">월별 공급계획서</span><span class="lb-tag">생산·납기 통합 관리</span>
+        </div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">03 · MD 업무 아카이브 (Notion)</div>
+        <div class="lb-body">일상 업무 관리와 성과 기록을 한 구조에서 처리하기 위해 Notion에 <strong>3중 데이터베이스</strong>를 직접 설계해 운영합니다. 성과는 분기 1회 정제해 등록하고, 검증 근거 필드를 함께 남겨 수치가 문서마다 어긋나지 않도록 관리합니다.</div>
+        <ul class="lb-ul">
+          <li><b>일일 업무</b> — 캘린더 뷰, 매일 기입</li>
+          <li><b>프로젝트 · 기획</b> — 보드 뷰, 발의부터 종료까지 단계 관리</li>
+          <li><b>성과 기록</b> — 정량 성과 + 검증 근거를 프로젝트에 관계형으로 연결</li>
+        </ul>
+      </div>`,
+    quote:'판단이 사람에 따라 달라지지 않도록, 순서를 먼저 정해두는 편입니다.',
+    metrics:[
+      {num:'5단계',desc:'리피트·단종 판단 게이트'},
+      {num:'월 1회',desc:'공급계획 갱신 주기'},
+      {num:'3중 DB',desc:'업무·프로젝트·성과 연결'}
+    ]
+  },
+
+  /* ─────────── DATA SIDE PROJECT ─────────── */
+  data: {
+    eyebrow:'Side Project',
+    title:'데이터로 가설을 검증하는 습관 — Olist 이커머스 분석',
+    period:'ICB 5기 Business Analyst 과정 (2025.11–2026.03) · 팀 프로젝트 2건 · 전원 1위',
+    images:[ { label:'물류–리텐션 분석' }, { label:'벤더 세그멘테이션' }, { label:'리텐션 vs LTV 분석' } ],
+    colors:['#F3EFE7','#EEE9DE','#E9E2D3'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-body">브라질 Olist 공개 이커머스 데이터(2016.09–2018.08, 주문 96,478건)로 진행한 팀 프로젝트 2건입니다. MD 업무에서 다루기 어려운 <strong>통계적 가설 검증(회귀분석·클러스터링)</strong>까지 분석 역량을 넓히려고 참여했습니다. 아래 수치·역할은 팀 산출물 중 본인이 직접 담당한 분석 범위 기준입니다.</div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Project 1 — 물류·리텐션 상관 분석 및 벤더 세그멘테이션</div>
+        <ul class="lb-ul">
+          <li><b>구조적 문제 진단</b> — 셀러는 상파울루(SP)에 70% 과밀집된 반면 고객은 전국에 분산. "파는 곳과 사는 곳이 달라 장거리 지연이 필연적으로 발생"하는 구조로, SP 발 배송은 평균 8.3일인데 원거리 지역은 26~27.8일까지 벌어짐</li>
+          <li><b>상관관계 확인</b> — 배송 소요일이 <b>10일을 넘는 순간</b> 고객 평균 평점이 3점 미만으로 급락. 지리적 한계가 타 지역 고객에게 부정적 경험을 강제하는 근본 원인으로 규명</li>
+          <li><b>벤더 세분화</b> — 셀러 3,095개를 주문 이력·지연율·평점 기준으로 Zombie / Active / Newbie / Power / Toxic 5등급으로 퍼널 분리하고, Toxic 112개사를 블랙리스트로 특정</li>
+          <li><b>액션 제안</b> — RICE 스코어링으로 라스트마일 최적화를 최우선 배치하고, 지연율 21%→8% · 재구매율 1%→5%를 OKR로 설정. 배송 신뢰 → 재구매 → 결제 확장으로 이어지는 Flywheel 구조를 팀 최종안으로 완성</li>
+        </ul>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Project 2 — "리텐션은 만들어졌지만, LTV는 따라오지 않았다"</div>
+        <ul class="lb-ul">
+          <li><b>첫 가설 기각</b> — "경험이 좋으면 재구매한다"로 출발했지만 1개월 내 재구매율은 1% 미만. 재구매 발생분 중 52%가 첫 30일에 몰려 있어, 30일을 사실상 유일한 개입 구간으로 재정의</li>
+          <li><b>경험 변수 검증</b> — 리뷰 점수별 30일 재구매율은 1~2점 0.51% vs 4~5점 0.65%로 차이가 미미. 저평점·지연배송에도 재구매하는 고객군이 존재해 경험 변수 단독으로는 설명되지 않음을 확인</li>
+          <li><b>예상 밖의 반전</b> — 중저가·정시배송·리뷰 4점 이상을 모두 만족한 'AHA 모먼트' 충족군은 재구매율은 높았지만(Lift 1.13배) 평균 LTV는 오히려 <b>0.29배</b>로 낮았음</li>
+          <li><b>진짜 분기점</b> — 경험이 아니라 <b>F30(첫 30일 내 2회차 구매 진입)</b>이 LTV를 가르는 행동 임계점. 이 지점을 넘는 순간 LTV 중앙값이 89 → 189 → 279로 구조적으로 2배 이상 점프하고, RFM·K-클러스터링에서도 고가치 고객군이 별도로 분리됨</li>
+        </ul>
+        <div class="lb-note">MD 업무와의 연결 — 벤더 5등급 세그멘테이션은 입점사·협력사 등급 관리에, F30 임계점 분석은 시즌 초기 재구매 유도 시점 설계에 그대로 대응되는 구조입니다.</div>
+      </div>`,
+    quote:'리텐션이 높다고 좋은 고객은 아니다 — 똑똑한 체리피커였을 가능성.',
+    metrics:[
+      {num:'96,478',desc:'분석 주문 건수'},
+      {num:'3,095',desc:'셀러 5등급 세분화'},
+      {num:'112개사',desc:'Toxic 벤더 특정'},
+      {num:'2배+',desc:'F30 통과 시 LTV 점프'}
+    ]
+  },
+
+  /* ─────────── LOOKBOOK ─────────── */
+  lookbook: {
+    eyebrow:'Lookbook',
+    title:'22AW — 26AW 시즌 기획 아카이브',
+    period:'신영와코루 VENUS · 시즌별 상품기획 기록',
+    images:[ { label:'시즌 기획 아카이브' } ],
+    colors:['#F0ECF4'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-body">2022년 5월 입사 이후 매 시즌 상품기획에 참여하며 트렌드 분석, 물량 운영, BOM 원가 관리, 채널별 기획상품 구성을 수행한 기록입니다. 시즌마다 반복되는 업무는 아래 여섯 가지입니다.</div>
+        <ul class="lb-ul">
+          <li><b>물량 운영</b> — 브랜드 전체 판매 사이클·재고 소진율을 주간 분석해 추가 발주 물량과 매장별 상품 구성 결정</li>
+          <li><b>원가 · 소싱</b> — BOM 기준 소재별 원가 구조 분석과 영업이익률 산출, 소싱팀 협업으로 신규 협력사 발굴</li>
+          <li><b>생산 · 납기</b> — 행사·협력사 라인별 생산 일정과 납기를 통합 관리해 시즌 출시 일정 준수</li>
+          <li><b>채널 운영</b> — 유통 채널별 기획상품을 구성하고 채널 특성에 맞춘 물량·가격 정책 조정</li>
+          <li><b>시장 조사</b> — 분기별 경쟁사·시장 조사를 수행해 차기 시즌 기획 방향의 근거로 반영</li>
+          <li><b>조직 지원</b> — 시즌 전략회의 자료 작성·발표, 시즌 품평회 운영, 영업 현장 교육자료 제작</li>
+        </ul>
+        <div class="lb-note">시즌별 상세 콘텐츠(품평회 자료·라인업 이미지)는 순차적으로 채워질 예정입니다.</div>
+      </div>`,
+    quote:'',
+    metrics:[
+      {num:'9시즌',desc:'입사 이후 참여 시즌'},
+      {num:'96억',desc:'주력 상품군 연매출'},
+      {num:'16종',desc:'단일 라인 최대 SKU'}
+    ]
+  },
+
+  /* ─────────── CAREER ─────────── */
+  career: {
+    eyebrow:'Career',
+    title:'경력 사항 — 총 7년 3개월',
+    period:'신영와코루 VENUS · CJ 프레시원 · ㈜트리아',
+    images:[ { label:'경력 타임라인' } ],
+    colors:['#F1ECE7'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-sec-label">신영와코루 (VENUS) · 국내사업부 영업1부1과 · 계장 — 2022.05 ~ 재직중 (4년 3개월)</div>
+        <div class="lb-body">시즌 상품 기획, 데이터 기반 트렌드 분석, BOM 원가 관리 및 생산 프로세스 운영을 담당합니다.</div>
+        <ul class="lb-ul">
+          <li><b>스캔바이미 O2O 상품군 운영</b> — 연매출 96억 규모, 체험 고객 구매 전환 12% → 45%(연계 직후) → 63.0%(최근 실측) <span style="color:#8a8a8f">(Case 01)</span></li>
+          <li><b>S-FIT 3단계 핏 큐레이션 기획</b> — SKU 5→16종, 출시 3개월 2.78억 · 전년 대비 169.9% 신장 <span style="color:#8a8a8f">(Case 02)</span></li>
+          <li><b>신소재 기반 브랜드 리포지셔닝</b> — 신소재 광고 카테고리 내 점유율 35.86% <span style="color:#8a8a8f">(Case 03)</span></li>
+        </ul>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">CJ 프레시원 · 경영지원 / 영업관리 / 채권관리 · 주임 — 2019.07 ~ 2022.02 (2년 8개월)</div>
+        <ul class="lb-ul">
+          <li><b>채권·여신 리스크 관리</b> — 거래처별 여신 한도를 설정하고 채권 현황을 주기 점검해 연체 거래처를 조기 식별. 영업 현장과 본사 간 조율 창구를 맡아 리스크 발생 시 대응 절차를 신속 가동하고, 연체 이력·거래 규모를 반영해 여신 기준을 조정</li>
+          <li><b>신규 유통센터 ERP 통합 전환 지원</b> — 현장의 수기 계약·발주 프로세스를 진단하고 ERP 전환을 지원해 수주–출고–반품 데이터를 일원화. DRM 정보보안 도입에 참여해 문서 등급화 기준의 영업 데이터 관리 방식을 정립</li>
+          <li><b>상시 업무</b> — 직영점·소매점·차량판매 등 복수 채널 운영 지원, 신규 거래처 코드 개설·변경 전담, 경영진 보고용 통합 실적 보고서 작성, 채용·근태 등 인사행정 병행</li>
+        </ul>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">㈜트리아 · IFRS17 시스템 프로젝트 · 대리 — 2019.02 ~ 2019.05 (4개월)</div>
+        <ul class="lb-ul">
+          <li>현대카드 모기지프라임·산업은행·우리은행 대상 시스템 구동 모니터링과 테스트 데이터 검증 수행</li>
+          <li>처브(Chubb)보험사 개발 지원을 맡아 개발환경 세팅부터 Java·Spring 기반 개발까지 직접 참여</li>
+          <li>구디아카데미 6개월 과정(Java·Spring·빅데이터) 수료 직후 투입되어 학습 내용을 실무 검증 프로세스에 즉시 적용</li>
+        </ul>
+      </div>`,
+    quote:'',
+    metrics:[
+      {num:'7년 3개월',desc:'총 경력'},
+      {num:'4년 3개월',desc:'상품기획 MD 경력'},
+      {num:'3건',desc:'시즌 주도 프로젝트'}
+    ]
+  },
+
+  /* ─────────── SKILLS ─────────── */
+  skills: {
+    eyebrow:'Toolkit',
+    title:'툴 목록이 아니라, 어떤 판단에 무엇을 쓰는지',
+    period:'상품기획 · 데이터 분석 · 시스템 운영 · 기록 체계',
+    images:[ { label:'역량 · 도구 매핑' } ],
+    colors:['#ECEAF1'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-sec-label">상품기획 · MD 실무</div>
+        <div class="lb-body">시즌 상품 구성과 선택 기준 설계, SKU 전개, BOM 기준 원가 구조 분석과 가격·이익률 설계, 채널별 물량·가격 정책 조정까지 기획 전 사이클을 담당합니다.</div>
+        <div class="lb-tags"><span class="lb-tag">Excel (고급)</span><span class="lb-tag">BOM 원가 구조 분석</span><span class="lb-tag">시즌 기획서 · 품평회</span></div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">데이터 분석 · 가설 검증</div>
+        <div class="lb-body">CRM 세그먼트로 고객 구성과 유입 경로를 확인하고, 판매율·재고 소진 추이를 주간 단위로 분석합니다. 사이드 프로젝트에서는 회귀분석·클러스터링까지 직접 수행했습니다.</div>
+        <div class="lb-tags"><span class="lb-tag">Salesforce (CRM)</span><span class="lb-tag">Tableau</span><span class="lb-tag">SQL · MySQL</span><span class="lb-tag">Python (Pandas)</span></div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">시스템 · 공급망 운영</div>
+        <div class="lb-body">사내 ERP에서 추출한 데이터를 신제품·리피트로 분리해 월별 공급계획을 작성하고, 생산 일정과 납기를 통합 관리합니다. 이전 직장에서는 SAP 환경의 채권·여신 관리와 신규 유통센터 ERP 전환을 지원했습니다.</div>
+        <div class="lb-tags"><span class="lb-tag">사내 ERP · 신영와코루</span><span class="lb-tag">SAP · CJ 프레시원</span><span class="lb-tag">월별 공급계획 운영</span></div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">기록 체계 · 협업</div>
+        <div class="lb-body">일일 업무·프로젝트·성과를 관계형으로 연결한 Notion 아카이브를 직접 설계해 운영합니다. 생성형 AI는 자료 제작과 분석 보조에 상시 활용합니다.</div>
+        <div class="lb-tags"><span class="lb-tag">Notion (3중 DB)</span><span class="lb-tag">Claude · ChatGPT</span><span class="lb-tag">VS Code</span><span class="lb-tag">Slack</span></div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">학습 이력</div>
+        <ul class="lb-ul">
+          <li>SW/IT 빅데이터 전문인재 양성 1,400시간 수료 (2018.07–2019.01)</li>
+          <li>정보처리산업기사 · 한국산업인력공단 (2019.05)</li>
+          <li>유통관리사 2급 · 대한상공회의소 (2026.06)</li>
+          <li>ICB 5기 Business Analyst 과정 (2025.11–2026.03) · 팀 프로젝트 2회 전원 1위, 80명 중 우수수료생 5인 선발</li>
+          <li>AICE Associate <b>준비 중</b> (2026)</li>
+        </ul>
+      </div>`,
+    quote:'',
+    metrics:[
+      {num:'4',desc:'역량 영역'},
+      {num:'1,400h',desc:'빅데이터 과정 수료'},
+      {num:'2',desc:'보유 자격증'}
+    ]
   }
+};
 
-  // Mobile menu
-  const menuBtn = document.getElementById('menuBtn');
-  const closeBtn = document.getElementById('closeBtn');
-  const overlay = document.getElementById('mobileOverlay');
-  menuBtn.addEventListener('click', () => overlay.classList.add('open'));
-  closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
-  overlay.querySelectorAll('a').forEach(a => a.addEventListener('click', () => overlay.classList.remove('open')));
+const aboutTopics = [
+  { key:'now', icon:'📍', label:'Now', issue:'Issue 01', bg:'#F0E6D8', html:`<h3>지금 하는 일</h3><p>신영와코루 VENUS 국내사업부 영업1부1과에서 시즌 상품기획, 데이터 기반 트렌드 분석, BOM 원가 관리와 생산 프로세스 운영을 담당하고 있습니다. 체형 계측 데이터와 CRM 분석을 결합해 상품기획부터 물량 운영까지 전 사이클을 맡고 있으며, 지난 두 시즌 동안 3건의 핵심 프로젝트를 주도했습니다.</p>` },
+  { key:'story', icon:'💡', label:'Story', issue:'Issue 02', bg:'#E4E8D8', html:`<h3>일하는 방식</h3><ul>
+      <li><strong>데이터 기반 문제 해결</strong>반복 실무로 축적한 경험과 데이터를 바탕으로 문제의 핵심을 빠르게 파악하고, 유연한 대응책을 도출합니다.</li>
+      <li><strong>본질 중심 사고</strong>전례 없는 문제에 직면했을 때 본질을 먼저 정의하고, 기존 경험과의 접점을 찾아 해결 방향을 설정합니다.</li>
+      <li><strong>기민한 실행력</strong>완벽한 해결을 기다리기보다 빠른 방향 설정을 우선하고, 실행 중 지속적으로 피드백을 반영합니다.</li>
+      <li><strong>판단을 구조로</strong>리피트·단종 판단을 5단계 게이트로 정리하고, 근거를 Notion 아카이브에 남겨 판단이 사람에 따라 달라지지 않도록 관리합니다.</li>
+    </ul>` },
+  { key:'edu', icon:'🎓', label:'Education', issue:'Issue 03', bg:'#D8E0E8', html:`<h3>학력</h3><ul>
+      <li><strong>서울사이버대학교</strong>온라인커머스 학사 · 20.03–21.07 (졸업, 재직 중 학업 병행)</li>
+      <li><strong>두원공과대학교</strong>컴퓨터공학 전문학사 · 15.03–19.02 (졸업)</li>
+    </ul>` },
+  { key:'cert', icon:'📜', label:'Certs', issue:'Issue 04', bg:'#E8D8DC', html:`<h3>자격 및 대외활동</h3><ul>
+      <li><strong>ICB Business Analyst 5기</strong>2025.11–2026.03 · 팀 프로젝트 2회 전원 1위, 80명 중 우수수료생 5인</li>
+      <li><strong>유통관리사 2급</strong>대한상공회의소 · 2026.06</li>
+      <li><strong>정보처리산업기사</strong>한국산업인력공단 · 2019.05</li>
+      <li><strong>SW/IT 빅데이터 전문인재 양성</strong>1,400시간 수료 · 2018.07–2019.01</li>
+      <li><strong>AICE Associate</strong>준비 중 · 2026</li>
+    </ul>` },
+  { key:'career', icon:'💼', label:'Career', issue:'Issue 05', bg:'#DCE8D4', html:`<h3>경력 사항 — 총 7년 3개월</h3><ul>
+      <li><strong>신영와코루 VENUS</strong>계장 · 2022.05~재직중 (4년 3개월) · 시즌 상품기획 / BOM 원가 / 물량·납기 운영</li>
+      <li><strong>CJ 프레시원</strong>주임 · 2019.07~2022.02 (2년 8개월) · 채권·여신 관리 / 유통센터 ERP 전환 지원</li>
+      <li><strong>㈜트리아</strong>대리 · 2019.02~2019.05 (4개월) · IFRS17 시스템 검증·개발 지원</li>
+    </ul>` },
+  { key:'skills', icon:'🛠', label:'Skills', issue:'Issue 06', bg:'#DCD8E8', html:`<h3>보유 기술 및 툴</h3><div class="skill-pills">
+      <span class="skill-pill">Excel (고급)</span><span class="skill-pill">Python (Pandas)</span><span class="skill-pill">SQL · MySQL</span>
+      <span class="skill-pill">Tableau</span><span class="skill-pill">Salesforce</span><span class="skill-pill">사내 ERP</span>
+      <span class="skill-pill">SAP</span><span class="skill-pill">BOM 원가 분석</span><span class="skill-pill">Notion</span>
+      <span class="skill-pill">Claude · ChatGPT</span>
+    </div><p style="margin-top:12px;font-size:12px;color:#8a8a8f;line-height:1.7">SAP은 CJ 프레시원 재직 시 사용했고, 신영와코루에서는 사내 ERP와 Salesforce·Tableau 기반 CRM 분석을 사용합니다.</p>` }
+];
 
-  // Scrollspy for side nav
-  const navLinks = document.querySelectorAll('#sideNav a');
-  const sections = Array.from(navLinks).map(a => document.getElementById(a.dataset.target));
-  const spyObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.id;
-        navLinks.forEach(a => a.classList.toggle('active', a.dataset.target === id));
+/* ============ CAROUSEL ============ */
+function buildCarousel() {
+  const track = document.getElementById('track');
+  const setHtml = workCards.map(c => `
+    <div class="work-card" data-case="${c.key}" onclick="cardClick('${c.key}')">
+      <div class="card-visual"><div class="card-visual-inner card-${c.v}">${c.label}<div class="card-badge">${c.badge}</div></div></div>
+      <div class="card-info"><h3>${c.title}</h3><p>${c.desc}</p>${c.stat ? `<span class="card-stat">${c.stat}</span>` : ''}</div>
+    </div>`).join('');
+  track.innerHTML = setHtml + setHtml;
+}
+buildCarousel();
+
+const carouselArea = document.getElementById('carouselArea');
+const track = document.getElementById('track');
+function updateCardFocus() {
+  const areaRect = carouselArea.getBoundingClientRect();
+  const centerX = areaRect.left + areaRect.width / 2;
+  document.querySelectorAll('.work-card').forEach(card => {
+    const r = card.getBoundingClientRect();
+    const cardCenter = r.left + r.width / 2;
+    const dist = Math.abs(cardCenter - centerX);
+    const norm = Math.min(dist / (areaRect.width * 0.42), 1);
+    const scale = 1.18 - norm * 0.38;
+    const opacity = 1 - norm * 0.75;
+    const ty = norm * 34;
+    const rot = ((cardCenter - centerX) / areaRect.width) * 14;
+    card.style.transform = `translateY(${ty}px) scale(${scale}) rotate(${rot}deg)`;
+    card.style.opacity = opacity;
+    card.style.zIndex = Math.round((1 - norm) * 100);
+  });
+  requestAnimationFrame(updateCardFocus);
+}
+requestAnimationFrame(updateCardFocus);
+
+carouselArea.addEventListener('mouseenter', () => track.classList.add('paused'));
+carouselArea.addEventListener('mouseleave', () => { if (!isDragging) track.classList.remove('paused'); });
+
+let isDragging = false, dragStartX = 0, dragMoved = 0, baseTranslate = 0;
+function getTranslateX(el) { const st = window.getComputedStyle(el); const m = new DOMMatrixReadOnly(st.transform); return m.m41; }
+carouselArea.addEventListener('mousedown', e => {
+  isDragging = true; dragMoved = 0; dragStartX = e.clientX; baseTranslate = getTranslateX(track);
+  track.style.animation = 'none'; track.style.transform = `translateX(${baseTranslate}px)`;
+});
+window.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  const dx = e.clientX - dragStartX; dragMoved += Math.abs(dx);
+  track.style.transform = `translateX(${baseTranslate + dx}px)`;
+});
+window.addEventListener('mouseup', () => {
+  if (!isDragging) return; isDragging = false;
+  setTimeout(() => { track.style.animation = ''; track.style.transform = ''; track.classList.remove('paused'); }, 400);
+});
+function cardClick(key) { if (dragMoved > 6) return; openCase(key); }
+
+/* ============ MORE WORK — categorized visuals ============ */
+const seasons = ['22AW','23SS','23AW','24SS','24AW','25SS','25AW','26SS','26AW'];
+
+/* ============ LOOKBOOK DATA ============
+   룩북 사진·설명은 data/lookbook.json 에서 읽어옵니다.
+   이 HTML을 직접 고칠 필요는 없습니다 — admin.html 에서 등록하세요.
+   (fetch를 쓰므로 파일을 더블클릭하면 로컬에서는 비어 보입니다.
+    GitHub Pages 또는 로컬 서버에서 확인하세요.)                        */
+let lookbook = { seasons: seasons.map(code => ({ code, title:'', note:'', photos: [] })) };
+
+function seasonOf(code) {
+  return lookbook.seasons.find(x => x.code === code) || { code, title:'', note:'', photos: [] };
+}
+function photoCount(code) { return (seasonOf(code).photos || []).length; }
+
+async function loadLookbook() {
+  try {
+    const res = await fetch('data/lookbook.json?v=' + Date.now());
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    if (data && Array.isArray(data.seasons)) {
+      // JSON에 없는 시즌도 타일은 유지되도록 병합
+      lookbook = {
+        ...data,
+        seasons: seasons.map(code => {
+          const found = data.seasons.find(x => x.code === code);
+          return found ? { photos: [], ...found } : { code, title:'', note:'', photos: [] };
+        })
+      };
+      buildMoreGrid();
+    }
+  } catch (e) {
+    console.info('lookbook.json 을 불러오지 못했습니다 — 기본 타일로 표시합니다.', e);
+  }
+}
+
+function mockPreview(type) {
+  if (type === 'funnel') return `
+    <div class="mock-preview"><div class="mock-dots"><span></span><span></span><span></span></div>
+      <div class="mock-funnel">
+        <div class="mock-funnel-bar" style="width:38%">12%</div>
+        <div class="mock-funnel-bar" style="width:70%">45%</div>
+        <div class="mock-funnel-bar" style="width:95%">63%</div>
+      </div></div>`;
+  if (type === 'growth') return `
+    <div class="mock-preview"><div class="mock-dots"><span></span><span></span><span></span></div>
+      <div class="mock-tag card-stat" style="position:static;align-self:flex-end;margin-bottom:2px;">전년 대비 169.9%</div>
+      <div class="mock-growth">
+        <div class="mock-growth-bar" style="height:30%"></div><div class="mock-growth-bar" style="height:48%"></div>
+        <div class="mock-growth-bar" style="height:66%"></div><div class="mock-growth-bar" style="height:100%"></div>
+      </div></div>`;
+  if (type === 'share') return `
+    <div class="mock-preview"><div class="mock-dots"><span></span><span></span><span></span></div>
+      <div class="mock-donut">
+        <div class="mock-donut-ring"></div>
+        <div class="mock-donut-legend"><b>신소재 광고 카테고리</b>점유율 35.86%<br>2030 신규 유입 +5.14%p</div>
+      </div></div>`;
+  if (type === 'timeline') return `
+    <div class="mock-preview"><div class="mock-dots"><span></span><span></span><span></span></div>
+      <div class="mock-timeline">
+        <div class="mock-tl-row"><span class="mock-tl-label">VENUS</span><div class="mock-tl-bar"><i style="width:60%"></i></div><span class="mock-tl-dot"></span></div>
+        <div class="mock-tl-row"><span class="mock-tl-label">CJ</span><div class="mock-tl-bar"><i style="width:38%"></i></div><span class="mock-tl-dot"></span></div>
+        <div class="mock-tl-row"><span class="mock-tl-label">트리아</span><div class="mock-tl-bar"><i style="width:8%"></i></div><span class="mock-tl-dot"></span></div>
+      </div></div>`;
+  if (type === 'gates') return `
+    <div class="mock-preview"><div class="mock-dots"><span></span><span></span><span></span></div>
+      <div class="mock-gates">
+        <div class="mock-gate"><i style="height:22%"></i><span>분해</span></div>
+        <div class="mock-gate"><i style="height:38%"></i><span>재고</span></div>
+        <div class="mock-gate"><i style="height:56%"></i><span>판매율</span></div>
+        <div class="mock-gate"><i style="height:74%"></i><span>이익률</span></div>
+        <div class="mock-gate"><i style="height:92%"></i><span>등급</span></div>
+      </div></div>`;
+  if (type === 'radar') return `
+    <div class="mock-preview"><div class="mock-dots"><span></span><span></span><span></span></div>
+      <div class="mock-radar">
+        <span class="mock-chip">Excel</span><span class="mock-chip">Python</span><span class="mock-chip">SQL</span>
+        <span class="mock-chip">Tableau</span><span class="mock-chip">Salesforce</span><span class="mock-chip">사내 ERP</span>
+      </div></div>`;
+  return '';
+}
+
+function buildMoreGrid() {
+  const grid = document.getElementById('moreGrid');
+
+  const totalPhotos = lookbook.seasons.reduce((n, x) => n + (x.photos || []).length, 0);
+  const lookbookBlock = `
+    <div class="grid-card grid-feature" onclick="event.stopPropagation()">
+      <div class="lookbook-block">
+        <div class="lookbook-head">
+          <h4>시즌 룩북</h4>
+          <span onclick="openCase('lookbook')" style="cursor:none;">${totalPhotos ? totalPhotos + '컷 · ' : ''}전체보기 →</span>
+        </div>
+        <div class="season-mosaic">
+          ${seasons.map(code => {
+            const sn = seasonOf(code);
+            const n = (sn.photos || []).length;
+            const cover = n ? sn.photos[0].src : '';
+            const style = cover ? `background-image:url('${cover}')` : '';
+            return `<div class="season-tile ${n ? 'has-photo' : 'upcoming'}" style="${style}"
+                      onclick="openSeason('${code}')">
+                      ${n ? `<div class="season-count">${n}</div>` : ''}
+                      <span>${code}</span>
+                    </div>`;
+          }).join('')}
+        </div>
+      </div>
+    </div>`;
+
+  const dashBlock = `
+    <div class="grid-card grid-feature" onclick="event.stopPropagation()">
+      <div class="dash-block">
+        <div class="dash-head"><h4>Data Side Project — Olist 분석</h4><span onclick="openCase('data')" style="cursor:none;">전체보기 →</span></div>
+        <div class="dash-collage">
+          <div class="dash-widget" onclick="openCase('data')">
+            <div class="dash-widget-title">주문 건수</div>
+            <div class="dash-kpi-num">96,478</div>
+            <div class="dash-kpi-delta">▲ 분석 대상 전체</div>
+          </div>
+          <div class="dash-widget" onclick="openCase('data')">
+            <div class="dash-widget-title">셀러 5등급 세분화</div>
+            <div class="dash-donut"></div>
+            <div class="dash-kpi-delta" style="text-align:center">3,095개 · Toxic 112</div>
+          </div>
+          <div class="dash-widget" onclick="openCase('data')">
+            <div class="dash-widget-title">배송 10일 초과 → 평점 급락</div>
+            <div class="dash-bars">
+              <i style="height:80%"></i><i style="height:64%"></i><i style="height:48%"></i><i style="height:30%"></i><i style="height:18%"></i>
+            </div>
+          </div>
+          <div class="dash-widget" onclick="openCase('data')">
+            <div class="dash-widget-title">F30 임계점</div>
+            <div class="dash-kpi-num">2배+</div>
+            <div class="dash-kpi-delta">통과 시 LTV 중앙값 점프</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  const mockTypes = { case1:'funnel', case2:'growth', case3:'share', system:'gates', career:'timeline', skills:'radar' };
+  const remaining = workCards.filter(c => c.key !== 'lookbook' && c.key !== 'data').map(c => `
+    <div class="grid-card" onclick="openCase('${c.key}')">
+      ${mockPreview(mockTypes[c.key])}
+      <div class="grid-card-info"><span class="grid-card-tag">${c.badge}</span><h4>${c.title}</h4><p>${c.desc}</p></div>
+    </div>`).join('');
+
+  grid.innerHTML = lookbookBlock + dashBlock + remaining;
+}
+buildMoreGrid();
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('revealed');
+      if (entry.target.id === 'moreGrid') {
+        document.querySelectorAll('.grid-card').forEach((el, i) => setTimeout(() => el.classList.add('revealed'), i * 90));
       }
-    });
-  }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
-  sections.forEach(s => s && spyObserver.observe(s));
-
-  // Fade-up on scroll
-  const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('in-view');
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.fade-up').forEach(el => fadeObserver.observe(el));
-
-  // Progress bar animation
-  const progressObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        el.style.width = el.dataset.width + '%';
-        progressObserver.unobserve(el);
-      }
-    });
-  }, { threshold: 0.4 });
-  document.querySelectorAll('.progress-fill').forEach(el => progressObserver.observe(el));
-
-  // Charts
-  Chart.defaults.font.family = "'Noto Sans KR', sans-serif";
-  Chart.defaults.color = '#8A8578';
-  const tip = { backgroundColor: 'rgba(21,33,31,0.95)', padding: 12, titleFont: { size: 13 }, bodyFont: { size: 12 }, cornerRadius: 6, displayColors: false };
-
-  new Chart(document.getElementById('conversionChart'), {
-    type: 'bar',
-    data: {
-      labels: ['연계 전 · 오프라인 단독', '연계 후 · O2O 퍼널'],
-      datasets: [{ data: [12, 45], backgroundColor: ['#D6D2C6', '#0F766E'], borderRadius: 6, barPercentage: 0.55 }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => ' 전환율: ' + c.parsed.y + '%' } } },
-      scales: { y: { display: false, min: 0, max: 55 }, x: { grid: { display: false } } }
     }
   });
+}, { threshold: 0.1 });
+io.observe(document.getElementById('moreWorkHead'));
+io.observe(document.getElementById('moreGrid'));
 
-  new Chart(document.getElementById('sfitChart'), {
-    type: 'doughnut',
-    data: {
-      labels: ['Soft', 'Daily', 'Support', '기타'],
-      datasets: [{ data: [35, 40, 20, 5], backgroundColor: ['#5EEAD4', '#14B8A6', '#0F766E', '#3B4E4B'], borderWidth: 0, hoverOffset: 6 }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false, cutout: '68%',
-      plugins: {
-        legend: { position: 'right', labels: { color: '#D6D2C6', usePointStyle: true, boxWidth: 8, font: { size: 11 } } },
-        tooltip: { ...tip, callbacks: { label: c => ' ' + c.label + ': ' + c.parsed + '%' } }
-      }
-    }
-  });
+/* ============ LIGHTBOX ============ */
+function openCase(id) {
+  const c = cases[id]; if (!c) return;
+  let imagesHtml = c.images.map((raw, i) => {
+    const img = (typeof raw === 'string') ? { label: raw } : raw;
+    const single = c.images.length === 1;
+    let cls = 'lb-img';
+    if (single || (c.images.length === 3 && i === 2)) cls += ' span2';
+    if (img.fit === 'contain') cls += ' contain';
+    const bg = c.colors[i] || c.colors[0];
+    const style = img.src
+      ? `background-color:${bg}; background-image:url('${img.src}');`
+      : `background:${bg};`;
+    const caption = img.src
+      ? `<span style="align-self:flex-end;margin:0 auto 10px;font-size:10.5px;font-weight:600;color:#5a5a5a;background:rgba(255,255,255,.82);padding:3px 10px;border-radius:20px;">${img.label}</span>`
+      : img.label;
+    return `<div class="${cls}" style="${style} animation-delay:${0.08*i}s">${caption}</div>`;
+  }).join('');
+  let metricsHtml = c.metrics.map((m,i) => `<div class="lb-m" style="animation-delay:${0.3+0.06*i}s"><div class="num">${m.num}</div><div class="desc">${m.desc}</div></div>`).join('');
+  let quoteHtml = c.quote ? `<div class="lb-quote">${c.quote}</div>` : '';
+  // 룩북 케이스에는 시즌 이동 레일을 붙입니다.
+  let seasonRail = '';
+  if (id === 'lookbook') {
+    seasonRail = `<div class="lb-season-rail" style="margin-top:-18px">` + seasons.map(cd =>
+      `<button class="lb-season-pill ${photoCount(cd) ? '' : 'empty'}" onclick="openSeason('${cd}')">${cd}${photoCount(cd) ? ' · ' + photoCount(cd) : ''}</button>`
+    ).join('') + `</div>`;
+  }
+  document.getElementById('lbContent').innerHTML = `
+    <div class="lb-eyebrow">${c.eyebrow}</div><div class="lb-title">${c.title}</div><div class="lb-period">${c.period}</div>
+    <div class="lb-images">${imagesHtml}</div>${seasonRail}<div class="lb-narrative">${c.narrative}</div>${quoteHtml}
+    <div class="lb-metrics">${metricsHtml}</div>`;
+  document.getElementById('lbOverlay').classList.add('open'); document.body.style.overflow = 'hidden';
+}
+function closeCase(e) {
+  if (e && e.target !== document.getElementById('lbOverlay')) return;
+  document.getElementById('lbOverlay').classList.remove('open'); document.body.style.overflow = '';
+}
 
-  new Chart(document.getElementById('rebrandingChart'), {
-    type: 'line',
-    data: {
-      labels: ['출시 1분기', '2분기', '3분기', '4분기'],
-      datasets: [
-        { label: '일반 노와이어 점유율', data: [65, 58, 52, 48], borderColor: '#C9C5BA', borderDash: [5, 5], borderWidth: 2, pointRadius: 3, tension: 0.4 },
-        { label: '신소재 광고군 점유율', data: [15, 22, 28, 35.86], borderColor: '#E2725B', backgroundColor: 'rgba(226,114,91,0.08)', borderWidth: 3, pointBackgroundColor: '#E2725B', pointRadius: 4, fill: true, tension: 0.4 }
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: true, position: 'top', labels: { usePointStyle: true, boxWidth: 6, font: { size: 10 } } }, tooltip: { ...tip, callbacks: { label: c => c.dataset.label + ': ' + c.parsed.y + '%' } } },
-      scales: { x: { grid: { display: false } }, y: { grid: { borderDash: [2, 4], color: '#EFEDE7' }, min: 0, max: 80 } }
-    }
-  });
+/* ============ SEASON GALLERY ============ */
+let pvList = [], pvIndex = 0;
 
-  new Chart(document.getElementById('funnelChart'), {
-    type: 'bar',
-    data: {
-      labels: ['Zombie', 'Active', 'Newbie', 'Power', 'Toxic'],
-      datasets: [{ data: [1500, 933, 315, 235, 112], backgroundColor: ['#D6D2C6', '#5EEAD4', '#5EEAD4', '#0F766E', '#E2725B'], borderRadius: 4, barPercentage: 0.65 }]
-    },
-    options: {
-      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => c.parsed.x.toLocaleString() + '개사' } } },
-      scales: { x: { display: false }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } }
-    }
-  });
+function openSeason(code) {
+  const sn = seasonOf(code);
+  const photos = sn.photos || [];
 
-  new Chart(document.getElementById('regionDelayChart'), {
-    type: 'bar',
-    data: {
-      labels: ['RR', 'AP', 'AM', 'RO', 'SP'],
-      datasets: [{ data: [27.8, 27.8, 26, 19.3, 8.3], backgroundColor: ['#E2725B', '#E2725B', '#E2725B', '#D6D2C6', '#0F766E'], borderRadius: 4, barPercentage: 0.65 }]
-    },
-    options: {
-      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => '평균 ' + c.parsed.x + '일' } } },
-      scales: { x: { display: false, min: 0, max: 30 }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } }
-    }
-  });
+  const rail = seasons.map(c =>
+    `<button class="lb-season-pill ${c === code ? 'active' : ''} ${photoCount(c) ? '' : 'empty'}"
+      onclick="openSeason('${c}')">${c}${photoCount(c) ? ' · ' + photoCount(c) : ''}</button>`).join('');
 
-  new Chart(document.getElementById('categoryChart'), {
-    type: 'bar',
-    data: {
-      labels: ['bed_bath_table', 'health_beauty', 'sports_leisure', 'computers_acc.', 'furniture_decor', 'housewares', 'watches_gifts', 'toys'],
-      datasets: [
-        { label: '판매건수', data: [9417, 8836, 7720, 6689, 6449, 5884, 5624, 3886], backgroundColor: '#0F766E', borderRadius: 3, yAxisID: 'y' },
-      ]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: {
-        legend: { display: false },
-        tooltip: { ...tip, callbacks: {
-          label: c => {
-            const sat = [3.9, 4.14, 4.11, 3.93, 3.91, 4.05, 4.02, 4.16];
-            return ['판매건수 ' + c.parsed.y.toLocaleString() + '건', '고객 만족도 ' + sat[c.dataIndex] + '점'];
-          }
-        } }
-      },
-      scales: { x: { grid: { display: false }, ticks: { font: { size: 9 }, maxRotation: 30, minRotation: 30 } }, y: { grid: { borderDash: [2, 4], color: '#EFEDE7' } } }
-    }
-  });
+  const gallery = photos.length
+    ? `<div class="lb-gallery">${photos.map((ph, i) => `
+        <figure class="lb-photo ${ph.fit === 'contain' ? 'contain' : ''}"
+          style="background-image:url('${ph.src}'); animation-delay:${0.04 * i}s"
+          onclick="openPhoto('${code}', ${i})">
+          ${ph.label ? `<figcaption>${ph.label}</figcaption>` : ''}
+        </figure>`).join('')}</div>`
+    : `<div class="lb-empty">아직 등록된 사진이 없는 시즌입니다.<br>다른 시즌을 선택하거나 전체 아카이브를 확인해 주세요.</div>`;
 
-  new Chart(document.getElementById('ahaLtvChart'), {
-    type: 'bar',
-    data: {
-      labels: ['AHA 미충족', 'AHA 충족'],
-      datasets: [{ data: [224, 64], backgroundColor: ['#D6D2C6', '#E2725B'], borderRadius: 6, barPercentage: 0.55 }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => '평균 총구매액(LTV Proxy) ' + c.parsed.y } } },
-      scales: { y: { display: false }, x: { grid: { display: false } } }
-    }
-  });
+  document.getElementById('lbContent').innerHTML = `
+    <div class="lb-eyebrow">Lookbook · ${code}</div>
+    <div class="lb-title">${sn.title || code + ' 시즌 기획'}</div>
+    <div class="lb-period">${sn.note || '신영와코루 VENUS · 시즌별 상품기획 기록'}</div>
+    <div class="lb-season-rail">${rail}</div>
+    ${gallery}
+    <div class="lb-narrative" style="margin-bottom:0">
+      <div class="lb-note" style="cursor:none" onclick="openCase('lookbook')">
+        시즌 전체 업무 구조와 성과 지표는 <b>아카이브 전체보기 →</b>
+      </div>
+    </div>`;
+  document.getElementById('lbOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const box = document.getElementById('lbBox'); if (box) box.scrollTop = 0;
+}
 
-  new Chart(document.getElementById('f30Chart'), {
-    type: 'bar',
-    data: {
-      labels: ['F30=1 (한 번 사고 끝)', 'F30=2', 'F30=3+'],
-      datasets: [{ data: [89, 189, 279], backgroundColor: ['#D6D2C6', '#5EEAD4', '#0F766E'], borderRadius: 4, barPercentage: 0.6 }]
-    },
-    options: {
-      indexAxis: 'y', responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => '180일 누적매출 중앙값 $' + c.parsed.x } } },
-      scales: { x: { display: false }, y: { grid: { display: false }, ticks: { font: { size: 10 } } } }
-    }
-  });
+/* ============ PHOTO VIEWER ============ */
+function ensureViewer() {
+  if (document.getElementById('pvOverlay')) return;
+  const el = document.createElement('div');
+  el.id = 'pvOverlay';
+  el.className = 'pv-overlay';
+  el.innerHTML = `
+    <button class="pv-close" onclick="closePhoto()" aria-label="닫기">✕</button>
+    <button class="pv-nav pv-prev" onclick="stepPhoto(-1)" aria-label="이전 사진">‹</button>
+    <img id="pvImg" alt="">
+    <button class="pv-nav pv-next" onclick="stepPhoto(1)" aria-label="다음 사진">›</button>
+    <div class="pv-cap" id="pvCap"></div>`;
+  el.addEventListener('click', e => { if (e.target === el) closePhoto(); });
+  document.body.appendChild(el);
+}
 
-  new Chart(document.getElementById('frequencyDropChart'), {
-    type: 'bar',
-    data: {
-      labels: ['1회', '2회', '3-4회', '5회+'],
-      datasets: [{ data: [90557, 2573, 209, 19], backgroundColor: ['#D6D2C6', '#5EEAD4', '#5EEAD4', '#0F766E'], borderRadius: 4, barPercentage: 0.6 }]
-    },
-    options: {
-      responsive: true, maintainAspectRatio: false,
-      plugins: { legend: { display: false }, tooltip: { ...tip, callbacks: { label: c => c.parsed.y.toLocaleString() + '명' } } },
-      scales: {
-        x: { grid: { display: false } },
-        y: { type: 'logarithmic', grid: { borderDash: [2, 4], color: '#EFEDE7' }, ticks: { callback: v => (v === 10 || v === 100 || v === 1000 || v === 10000 || v === 100000) ? v.toLocaleString() : '' } }
-      }
-    }
+function openPhoto(code, i) {
+  ensureViewer();
+  pvList = seasonOf(code).photos || [];
+  pvIndex = i;
+  renderPhoto();
+  document.getElementById('pvOverlay').classList.add('open');
+}
+function renderPhoto() {
+  const ph = pvList[pvIndex]; if (!ph) return;
+  document.getElementById('pvImg').src = ph.src;
+  document.getElementById('pvImg').alt = ph.label || '';
+  document.getElementById('pvCap').textContent =
+    [ph.label, ph.caption].filter(Boolean).join(' — ') + (pvList.length > 1 ? `   (${pvIndex + 1}/${pvList.length})` : '');
+}
+function stepPhoto(d) {
+  if (!pvList.length) return;
+  pvIndex = (pvIndex + d + pvList.length) % pvList.length;
+  renderPhoto();
+}
+function closePhoto() {
+  const el = document.getElementById('pvOverlay');
+  if (el) el.classList.remove('open');
+}
+
+/* ============ ABOUT ============ */
+function buildAboutTiles() {
+  const tiles = document.getElementById('aboutTiles');
+  tiles.innerHTML = aboutTopics.map(t => `<div class="about-tile" data-key="${t.key}" onclick="selectTopic('${t.key}')"><span class="tile-icon">${t.icon}</span><span class="tile-label">${t.label}</span></div>`).join('');
+}
+buildAboutTiles();
+function selectTopic(key) {
+  const t = aboutTopics.find(x => x.key === key); if (!t) return;
+  document.querySelectorAll('.about-tile').forEach(el => el.classList.toggle('active', el.dataset.key === key));
+  document.getElementById('newsCardWrap').innerHTML = `<div class="news-card" style="--news-bg:${t.bg}"><div class="news-card-issue">${t.issue}</div>${t.html}</div>`;
+}
+function toggleAbout() {
+  const el = document.getElementById('aboutOverlay');
+  const opening = !el.classList.contains('open');
+  el.classList.toggle('open'); document.body.style.overflow = el.classList.contains('open') ? 'hidden' : '';
+  if (opening) selectTopic('now');
+}
+
+/* ============ FOOTER ============ */
+function expandFooter() {
+  const bar = document.getElementById('footerBar');
+  if (bar.classList.contains('collapsed')) { bar.classList.remove('collapsed'); bar.classList.add('expanded'); }
+}
+document.getElementById('footerBar').addEventListener('click', function(e) {
+  if (this.classList.contains('expanded') && e.target === this) { this.classList.remove('expanded'); this.classList.add('collapsed'); }
+});
+
+/* ============ CURSOR ============ */
+const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
+function animRing(){ rx+=(mx-rx)*0.18; ry+=(my-ry)*0.18; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+new MutationObserver(() => {
+  document.querySelectorAll('.work-card, .grid-card, .about-tile, .avatar-btn, .footer-bar, .lb-close, .about-close, .f-pill, .season-tile, .dash-widget, .lb-photo, .lb-season-pill, .pv-nav, .pv-close').forEach(el => {
+    if (el.dataset.cursorBound) return; el.dataset.cursorBound = '1';
+    el.addEventListener('mouseenter', () => ring.classList.add('big'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('big'));
   });
+}).observe(document.body, { childList: true, subtree: true });
+
+/* ============ KEYBOARD / LOAD ============ */
+document.addEventListener('keydown', e => {
+  const pv = document.getElementById('pvOverlay');
+  const pvOpen = pv && pv.classList.contains('open');
+  if (pvOpen) {
+    if (e.key === 'Escape') { closePhoto(); return; }
+    if (e.key === 'ArrowLeft') { stepPhoto(-1); return; }
+    if (e.key === 'ArrowRight') { stepPhoto(1); return; }
+  }
+  if (e.key === 'Escape') {
+    closeCase();
+    if (document.getElementById('aboutOverlay').classList.contains('open')) toggleAbout();
+  }
+});
+loadLookbook();
+window.addEventListener('load', () => requestAnimationFrame(() => document.body.classList.add('is-ready')));
 </script>
+
 </body>
 </html>
