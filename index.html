@@ -86,19 +86,21 @@
   .carousel-area::before { left: 0; background: linear-gradient(90deg, var(--bg), transparent); }
   .carousel-area::after  { right: 0; background: linear-gradient(270deg, var(--bg), transparent); }
 
-  .carousel-track { display: flex; gap: 24px; align-items: center; width: max-content; animation: autoScroll 34s linear infinite; }
-  .carousel-track.paused { animation-play-state: paused; }
-  @keyframes autoScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  /* 트랙 이동은 JS(rAF)가 담당합니다 — 카드 수·화면폭이 바뀌어도 계산이 자동으로 맞습니다. */
+  .carousel-track { display: flex; gap: 24px; align-items: center; width: max-content; will-change: transform; transform: translate3d(0,0,0); }
+  .carousel-area { touch-action: pan-y; }
 
   .work-card {
     width: 250px; height: 320px; background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius);
-    box-shadow: var(--card-shadow); flex-shrink: 0; overflow: hidden; cursor: none; will-change: transform, opacity; position: relative;
+    box-shadow: var(--card-shadow); flex-shrink: 0; overflow: hidden; cursor: none; position: relative;
+    will-change: transform, opacity; transform: translate3d(0,0,0); backface-visibility: hidden;
+    contain: layout paint style;
   }
   .card-visual { width: 100%; height: 62%; overflow: hidden; position: relative; }
   .card-visual-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; color: rgba(0,0,0,0.07); letter-spacing: -2px; }
   .card-v1 { background: #F3EDE7; } .card-v2 { background: #EAEEF4; } .card-v3 { background: #EAF2EB; }
   .card-v4 { background: #F3EFE7; } .card-v5 { background: #F0ECF4; } .card-v6 { background: #F1ECE7; } .card-v7 { background: #ECEAF1; }
-  .card-badge { position: absolute; top: 14px; left: 14px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); padding: 4px 10px; border-radius: 20px; color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+  .card-badge { position: absolute; top: 14px; left: 14px; font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; background: rgba(255,255,255,0.95); padding: 4px 10px; border-radius: 20px; color: #333; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
   .card-info { padding: 18px 20px; }
   .card-info h3 { font-size: 15px; font-weight: 700; letter-spacing: -0.3px; margin-bottom: 4px; }
   .card-info p { font-size: 11.5px; color: var(--muted); font-weight: 400; }
@@ -171,7 +173,13 @@
     border: 1px solid var(--card-border);
   }
   .season-tile:hover { transform: translateY(-6px); }
-  .season-tile span { font-size: 11px; font-weight: 800; color: var(--text); background: rgba(255,255,255,0.85); padding: 3px 8px; border-radius: 8px; }
+  .season-tile { flex-direction: column; align-items: stretch; justify-content: flex-end; gap: 4px; }
+  .season-code { font-size: 11px; font-weight: 800; color: var(--text); background: rgba(255,255,255,0.88); padding: 3px 8px; border-radius: 8px; align-self: flex-start; }
+  .season-hl {
+    font-size: 8.8px; font-weight: 600; line-height: 1.35; color: var(--text);
+    background: rgba(255,255,255,0.86); padding: 4px 7px; border-radius: 8px;
+    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  }
   .season-tile.upcoming { opacity: 0.55; }
   .season-tile.upcoming::before { content: 'Soon'; position: absolute; top: 8px; right: 8px; font-size: 8px; font-weight: 700; color: var(--muted); background: #fff; padding: 2px 6px; border-radius: 8px; }
 
@@ -181,7 +189,7 @@
     content: ''; position: absolute; inset: 0;
     background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 55%);
   }
-  .season-tile.has-photo span { position: relative; z-index: 1; }
+  .season-tile.has-photo .season-code, .season-tile.has-photo .season-hl { position: relative; z-index: 1; }
   .season-count {
     position: absolute; top: 8px; right: 8px; z-index: 1;
     font-size: 8.5px; font-weight: 700; color: var(--text);
@@ -212,6 +220,50 @@
     font-size: 10px; font-weight: 600; color: #fff; line-height: 1.4;
     background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
   }
+  /* ---- Lookbook: 에디토리얼(사진 + 설명 나란히) ---- */
+  .lb-viewtoggle { display: flex; gap: 6px; margin: 0 0 16px; }
+  .lb-viewtoggle button {
+    font-size: 10.5px; font-weight: 700; padding: 5px 12px; border-radius: 20px; cursor: none;
+    border: 1px solid var(--card-border); background: var(--bg-soft); color: var(--muted);
+    transition: background .25s, color .25s, border-color .25s;
+  }
+  .lb-viewtoggle button.active { background: var(--text); border-color: var(--text); color: var(--bg); }
+
+  .lb-editorial { display: flex; flex-direction: column; gap: 16px; margin-bottom: 30px; }
+  .lb-row {
+    display: grid; grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr); gap: 20px; align-items: center;
+    background: var(--bg-soft); border: 1px solid var(--card-border); border-radius: 16px; padding: 14px;
+    opacity: 0; animation: riseIn 0.5s var(--transition) forwards;
+  }
+  .lb-row:nth-child(even) .lb-row-media { order: 2; }
+  .lb-row-media {
+    border-radius: 12px; overflow: hidden; background: #F4F1EC; cursor: none; position: relative;
+    aspect-ratio: 3/4; max-height: 320px;
+  }
+  .lb-row-media img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s var(--transition); }
+  .lb-row-media.contain img { object-fit: contain; }
+  .lb-row:hover .lb-row-media img { transform: scale(1.035); }
+  .lb-row-text { padding: 6px 12px 6px 2px; min-width: 0; }
+  .lb-row-idx { font-size: 10px; font-weight: 800; letter-spacing: 1.4px; color: var(--accent); margin-bottom: 9px; }
+  .lb-row-text p { font-size: 12.5px; line-height: 1.78; color: var(--text); word-break: keep-all; }
+  .lb-row-zoom { display: inline-block; margin-top: 12px; font-size: 10.5px; font-weight: 700; color: var(--muted); }
+  .lb-row:hover .lb-row-zoom { color: var(--accent); }
+
+  /* ---- 시즌 하이라이트 타임라인 ---- */
+  .lb-timeline { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .lb-tl-item {
+    display: grid; grid-template-columns: 66px 1fr auto; gap: 14px; align-items: center; text-align: left;
+    width: 100%; padding: 11px 14px; border-radius: 12px; cursor: none;
+    border: 1px solid var(--card-border); background: var(--bg-soft); color: var(--text);
+    transition: background .25s, border-color .25s, transform .25s var(--transition);
+  }
+  .lb-tl-item:hover { border-color: var(--text); transform: translateX(3px); }
+  .lb-tl-item.empty { opacity: 0.55; }
+  .lb-tl-code { font-size: 12.5px; font-weight: 800; letter-spacing: -0.2px; }
+  .lb-tl-hl { font-size: 11.5px; line-height: 1.5; color: var(--text); word-break: keep-all; }
+  .lb-tl-item.empty .lb-tl-hl { color: var(--muted); }
+  .lb-tl-n { font-size: 10px; font-weight: 700; color: var(--muted); white-space: nowrap; }
+
   .lb-empty {
     border: 1px dashed var(--card-border); border-radius: 14px; padding: 40px 20px;
     text-align: center; font-size: 12.5px; color: var(--muted); margin-bottom: 30px; line-height: 1.7;
@@ -408,6 +460,12 @@
     .lb-figure.half { grid-column: 1 / -1; }
     .lb-shot img, .lb-shot.span2 img { max-height: 300px; }
     .lb-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .lb-row { grid-template-columns: 1fr; gap: 12px; }
+    .lb-row:nth-child(even) .lb-row-media { order: 0; }
+    .lb-row-media { aspect-ratio: 4/3; max-height: 300px; }
+    .lb-row-text { padding: 0 4px 6px; }
+    .lb-tl-item { grid-template-columns: 56px 1fr; }
+    .lb-tl-n { grid-column: 2; }
     .pv-overlay { padding: 16px; }
     .pv-nav { width: 38px; height: 38px; }
     .pv-prev { left: 8px; } .pv-next { right: 8px; }
@@ -748,11 +806,11 @@ lookbook: `<svg viewBox="0 0 920 250" xmlns="http://www.w3.org/2000/svg" font-fa
   </g>
   <g>
     <rect x="22" y="144" width="188" height="88" rx="12" fill="#FBF3EC" stroke="#EBD3C0"/>
-    <text x="42" y="180" font-size="19" font-weight="800" fill="#111214">25SS</text><text x="42" y="202" font-size="10" fill="#8A421B">S-FIT 3단계 기획</text>
+    <text x="42" y="180" font-size="19" font-weight="800" fill="#111214">25SS</text><text x="42" y="202" font-size="10" fill="#8A421B">체형 데이터 O2O 연계</text>
     <rect x="222" y="144" width="188" height="88" rx="12" fill="#FBF3EC" stroke="#EBD3C0"/>
     <text x="242" y="180" font-size="19" font-weight="800" fill="#111214">25AW</text><text x="242" y="202" font-size="10" fill="#8A421B">신소재 리포지셔닝</text>
     <rect x="422" y="144" width="188" height="88" rx="12" fill="#FBF3EC" stroke="#EBD3C0"/>
-    <text x="442" y="180" font-size="19" font-weight="800" fill="#111214">26SS</text><text x="442" y="202" font-size="10" fill="#8A421B">O2O 연계 확대</text>
+    <text x="442" y="180" font-size="19" font-weight="800" fill="#111214">26SS</text><text x="442" y="202" font-size="10" fill="#8A421B">S-FIT 3단계 기획</text>
     <rect x="622" y="144" width="273" height="88" rx="12" fill="#FBF3EC" stroke="#EBD3C0"/>
     <text x="642" y="180" font-size="19" font-weight="800" fill="#111214">26AW</text><text x="642" y="202" font-size="10" fill="#8A421B">진행 중 · 물량 계획 운영</text>
   </g>
@@ -1090,7 +1148,7 @@ const cases = {
     eyebrow:'Lookbook',
     title:'22AW — 26AW 시즌 기획 아카이브',
     period:'신영와코루 VENUS · 시즌별 상품기획 기록',
-    images:[ { fig:'lookbook' } ],
+    images:[],
     colors:['#F0ECF4'],
     narrative:`
       <div class="lb-sec">
@@ -1239,68 +1297,165 @@ const aboutTopics = [
     </div><p style="margin-top:12px;font-size:12px;color:#8a8a8f;line-height:1.7">SAP은 CJ 프레시원 재직 시 사용했고, 신영와코루에서는 사내 ERP와 Salesforce·Tableau 기반 CRM 분석을 사용합니다.</p>` }
 ];
 
-/* ============ CAROUSEL ============ */
-function buildCarousel() {
-  const track = document.getElementById('track');
-  const setHtml = workCards.map(c => {
-    /* 대표 비주얼: 실사진 > 축약 인포그래픽 > 텍스트 라벨 */
-    const media = c.img
-      ? `<img src="${c.img}" alt="${c.title}" loading="lazy">`
-      : (MINI[c.key] || c.label);
-    return `
-    <div class="work-card" data-case="${c.key}" onclick="cardClick('${c.key}')">
-      <div class="card-visual"><div class="card-visual-inner card-${c.v} has-media">${media}<div class="card-badge">${c.badge}</div></div></div>
-      <div class="card-info"><h3>${c.title}</h3><p>${c.desc}</p>${c.stat ? `<span class="card-stat">${c.stat}</span>` : ''}</div>
-    </div>`;
-  }).join('');
-  track.innerHTML = setHtml + setHtml;
-}
-buildCarousel();
-
+/* ============ CAROUSEL ============
+   [성능] 예전 구현은 매 프레임 카드 16장에 getBoundingClientRect()를 호출해
+   강제 리플로우를 일으켰고, 트랙 이동은 translateX(-50%) 키프레임에 하드코딩돼
+   카드 수가 바뀌면 어긋났습니다. 이제 위치는 최초 1회만 측정해 캐시하고,
+   프레임마다 계산만 합니다(레이아웃 읽기 0회). 화면 밖이거나 탭이 비활성이면 정지합니다. */
 const carouselArea = document.getElementById('carouselArea');
 const track = document.getElementById('track');
-function updateCardFocus() {
-  const areaRect = carouselArea.getBoundingClientRect();
-  const centerX = areaRect.left + areaRect.width / 2;
-  document.querySelectorAll('.work-card').forEach(card => {
-    const r = card.getBoundingClientRect();
-    const cardCenter = r.left + r.width / 2;
-    const dist = Math.abs(cardCenter - centerX);
-    const norm = Math.min(dist / (areaRect.width * 0.42), 1);
-    const scale = 1.18 - norm * 0.38;
-    const opacity = 1 - norm * 0.75;
-    const ty = norm * 34;
-    const rot = ((cardCenter - centerX) / areaRect.width) * 14;
-    card.style.transform = `translateY(${ty}px) scale(${scale}) rotate(${rot}deg)`;
-    card.style.opacity = opacity;
-    card.style.zIndex = Math.round((1 - norm) * 100);
-  });
-  requestAnimationFrame(updateCardFocus);
+
+const REDUCE_MOTION = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+const SCROLL_SPEED = 68;            // px / sec (기존 34의 2배)
+
+let CARD_SET_HTML = '';
+let cardGeo = [];                   // {el, left, w, lastT, lastO}
+let setWidth = 0, trackPad = 0, areaW = 0;
+let offset = 0;
+let running = false, hovered = false, isDragging = false;
+let dragStartX = 0, dragMoved = 0, dragBase = 0, lastFrame = 0;
+
+function cardMarkup(c) {
+  const media = c.img
+    ? `<img src="${c.img}" alt="${c.title}" loading="lazy" decoding="async">`
+    : (MINI[c.key] || c.label);
+  return `
+  <div class="work-card" data-case="${c.key}" onclick="cardClick('${c.key}')">
+    <div class="card-visual"><div class="card-visual-inner card-${c.v} has-media">${media}<div class="card-badge">${c.badge}</div></div></div>
+    <div class="card-info"><h3>${c.title}</h3><p>${c.desc}</p>${c.stat ? `<span class="card-stat">${c.stat}</span>` : ''}</div>
+  </div>`;
 }
-requestAnimationFrame(updateCardFocus);
 
-carouselArea.addEventListener('mouseenter', () => track.classList.add('paused'));
-carouselArea.addEventListener('mouseleave', () => { if (!isDragging) track.classList.remove('paused'); });
+function buildCarousel(sets) {
+  CARD_SET_HTML = workCards.map(cardMarkup).join('');
+  track.innerHTML = new Array(Math.max(2, sets || 2)).fill(CARD_SET_HTML).join('');
+}
 
-let isDragging = false, dragStartX = 0, dragMoved = 0, baseTranslate = 0;
-function getTranslateX(el) { const st = window.getComputedStyle(el); const m = new DOMMatrixReadOnly(st.transform); return m.m41; }
-carouselArea.addEventListener('mousedown', e => {
-  isDragging = true; dragMoved = 0; dragStartX = e.clientX; baseTranslate = getTranslateX(track);
-  track.style.animation = 'none'; track.style.transform = `translateX(${baseTranslate}px)`;
+/* 화면을 덮을 만큼만 세트를 복제하고, 카드 좌표를 캐시합니다. */
+function measureCarousel() {
+  const per = workCards.length;
+  if (track.children.length < per + 1) return;
+
+  const kids = track.children;
+  setWidth = kids[per].offsetLeft - kids[0].offsetLeft;
+  areaW = carouselArea.clientWidth;
+  if (!setWidth || !areaW) return;
+
+  const needed = Math.max(2, Math.ceil(areaW / setWidth) + 2);
+  if (kids.length / per < needed) {
+    buildCarousel(needed);
+    return measureCarousel();
+  }
+
+  const base = track.children[0].offsetLeft;
+  // 트랙 원점이 캐러셀 영역 기준으로 어디인지 (transform 영향 없는 값)
+  trackPad = base - carouselArea.clientLeft;
+  cardGeo = Array.prototype.map.call(track.children, el => ({
+    el, left: el.offsetLeft - base, w: el.offsetWidth, lastT: '', lastO: ''
+  }));
+}
+
+function frame(t) {
+  if (!running) return;
+  const dt = lastFrame ? Math.min((t - lastFrame) / 1000, 0.05) : 0;
+  lastFrame = t;
+
+  if (!hovered && !isDragging && !REDUCE_MOTION) offset += SCROLL_SPEED * dt;
+  if (setWidth > 0) offset = ((offset % setWidth) + setWidth) % setWidth;
+  track.style.transform = `translate3d(${-offset}px,0,0)`;
+
+  const cx = areaW / 2, span = areaW * 0.42;
+  for (let i = 0; i < cardGeo.length; i++) {
+    const g = cardGeo[i];
+    const c = trackPad + g.left + g.w / 2 - offset;
+    const norm = Math.min(Math.abs(c - cx) / span, 1);
+    const tf = `translate3d(0,${(norm * 30).toFixed(1)}px,0) scale(${(1.14 - norm * 0.32).toFixed(3)}) rotate(${(((c - cx) / areaW) * 11).toFixed(2)}deg)`;
+    const op = (1 - norm * 0.75).toFixed(2);
+    if (tf !== g.lastT) { g.el.style.transform = tf; g.lastT = tf; }
+    if (op !== g.lastO) { g.el.style.opacity = op; g.el.style.zIndex = Math.round((1 - norm) * 100); g.lastO = op; }
+  }
+  requestAnimationFrame(frame);
+}
+
+function startCarousel() {
+  if (!cardGeo.length) measureCarousel();      // 최초 레이아웃이 늦게 잡히는 경우 대비
+  if (running || !cardGeo.length) return;
+  running = true; lastFrame = 0; requestAnimationFrame(frame);
+}
+function stopCarousel() { running = false; }
+
+buildCarousel(2);
+measureCarousel();
+startCarousel();
+
+/* 화면 밖 / 백그라운드 탭이면 루프를 완전히 멈춥니다 */
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(es => { es[es.length - 1].isIntersecting ? startCarousel() : stopCarousel(); }, { threshold: 0 })
+    .observe(carouselArea);
+}
+document.addEventListener('visibilitychange', () => { document.hidden ? stopCarousel() : startCarousel(); });
+
+let resizeTimer;
+window.addEventListener('resize', () => {
+  clearTimeout(resizeTimer);
+  resizeTimer = setTimeout(() => { measureCarousel(); }, 180);
 });
-window.addEventListener('mousemove', e => {
+/* 웹폰트가 늦게 적용되면 카드 폭이 달라질 수 있어 한 번 더 측정합니다 */
+window.addEventListener('load', () => { measureCarousel(); startCarousel(); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => measureCarousel());
+
+carouselArea.addEventListener('mouseenter', () => { hovered = true; });
+carouselArea.addEventListener('mouseleave', () => { hovered = false; });
+
+/* 드래그 — 포인터 이벤트로 마우스/터치 동시 지원 (미지원 브라우저는 마우스 이벤트로 대체) */
+function dragStart(x) { isDragging = true; dragMoved = 0; dragStartX = x; dragBase = offset; }
+function dragMove(x) {
   if (!isDragging) return;
-  const dx = e.clientX - dragStartX; dragMoved += Math.abs(dx);
-  track.style.transform = `translateX(${baseTranslate + dx}px)`;
-});
-window.addEventListener('mouseup', () => {
-  if (!isDragging) return; isDragging = false;
-  setTimeout(() => { track.style.animation = ''; track.style.transform = ''; track.classList.remove('paused'); }, 400);
-});
+  const dx = x - dragStartX;
+  dragMoved = Math.max(dragMoved, Math.abs(dx));
+  offset = dragBase - dx;
+}
+const endDrag = () => { isDragging = false; };
+if ('PointerEvent' in window) {
+  carouselArea.addEventListener('pointerdown', e => {
+    if (e.pointerType === 'mouse' && e.button !== 0) return;
+    dragStart(e.clientX);
+  });
+  window.addEventListener('pointermove', e => dragMove(e.clientX));
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
+} else {
+  carouselArea.addEventListener('mousedown', e => { if (e.button === 0) dragStart(e.clientX); });
+  window.addEventListener('mousemove', e => dragMove(e.clientX));
+  window.addEventListener('mouseup', endDrag);
+  carouselArea.addEventListener('touchstart', e => dragStart(e.touches[0].clientX), { passive: true });
+  window.addEventListener('touchmove', e => dragMove(e.touches[0].clientX), { passive: true });
+  window.addEventListener('touchend', endDrag);
+}
+
 function cardClick(key) { if (dragMoved > 6) return; openCase(key); }
 
 /* ============ MORE WORK — categorized visuals ============ */
 const seasons = ['22AW','23SS','23AW','24SS','24AW','25SS','25AW','26SS','26AW'];
+
+/* ============ 시즌별 하이라이트 ============
+   한 줄씩 자유롭게 고치세요. data/lookbook.json 의 시즌에 "highlight" 값을
+   넣으면 그 값이 아래 기본값보다 우선 적용됩니다. */
+const SEASON_HL = {
+  '22AW': '입사 시즌 — 마이핏 헴 파워넷·메모리 몰드 메인 라인 참여',
+  '23SS': 'Non-Stretch 삽입 몰드로 지지력 보강 · 에어러블 스페이서 몰드컵 여름 라인',
+  '23AW': '플러스 사이즈 운영으로 사이즈 레인지 확대 · 실리콘 에어오일 독자 패드 적용',
+  '24SS': '전중심 스테이블 커버 설계 정착 · 성형외과 협업 회복기 전용 브라 개발',
+  '24AW': "'콰이어트 럭셔리' 트렌드 반영 · 블랙라벨 고감각 그룹 라인 강화",
+  '25SS': '체형 데이터 O2O 연계 착수 — 매장 계측 → 자사몰 구매 퍼널 설계 (Case 01)',
+  '25AW': '신소재(TPE·티타늄 형상기억 와이어) 기반 브랜드 리포지셔닝 (Case 03)',
+  '26SS': 'S-FIT 3단계 핏 큐레이션 — SKU 5→16종 확장, 선택 기준 설계 (Case 02)',
+  '26AW': '진행 중 — 물량 계획 및 공급계획 운영'
+};
+function highlightOf(code) {
+  const sn = seasonOf(code);
+  return (sn && sn.highlight) || SEASON_HL[code] || '';
+}
 
 /* ============ LOOKBOOK DATA ============
    룩북 사진·설명은 data/lookbook.json 에서 읽어옵니다.
@@ -1325,7 +1480,7 @@ async function loadLookbook() {
         ...data,
         seasons: seasons.map(code => {
           const found = data.seasons.find(x => x.code === code);
-          return found ? { photos: [], ...found } : { code, title:'', note:'', photos: [] };
+          return found ? { photos: [], highlight:'', ...found } : { code, title:'', note:'', highlight:'', photos: [] };
         })
       };
       buildMoreGrid();
@@ -1398,10 +1553,13 @@ function buildMoreGrid() {
             const n = (sn.photos || []).length;
             const cover = n ? sn.photos[0].src : '';
             const style = cover ? `background-image:url('${cover}')` : '';
+            const hl = highlightOf(code);
             return `<div class="season-tile ${n ? 'has-photo' : 'upcoming'}" style="${style}"
+                      title="${code} — ${hl.replace(/"/g, '&quot;')}"
                       onclick="openSeason('${code}')">
                       ${n ? `<div class="season-count">${n}</div>` : ''}
-                      <span>${code}</span>
+                      <span class="season-code">${code}</span>
+                      ${hl ? `<span class="season-hl">${hl}</span>` : ''}
                     </div>`;
           }).join('')}
         </div>
@@ -1439,13 +1597,20 @@ function buildMoreGrid() {
     </div>`;
 
   const mockTypes = { case1:'funnel', case2:'growth', case3:'share', system:'gates', career:'timeline', skills:'radar' };
-  const remaining = workCards.filter(c => c.key !== 'lookbook' && c.key !== 'data').map(c => `
+  const cardHtml = key => {
+    const c = workCards.find(x => x.key === key); if (!c) return '';
+    return `
     <div class="grid-card" onclick="openCase('${c.key}')">
       ${mockPreview(mockTypes[c.key])}
       <div class="grid-card-info"><span class="grid-card-tag">${c.badge}</span><h4>${c.title}</h4><p>${c.desc}</p></div>
-    </div>`).join('');
+    </div>`;
+  };
 
-  grid.innerHTML = lookbookBlock + dashBlock + remaining;
+  /* 배치 순서: 애니메이션 바 → 룩북 → 케이스 소개 → 일하는 구조·경력·툴 → 데이터 사이드 프로젝트(맨 끝) */
+  const caseBlock = ['case1','case2','case3'].map(cardHtml).join('');
+  const restBlock = ['system','career','skills'].map(cardHtml).join('');
+
+  grid.innerHTML = lookbookBlock + caseBlock + restBlock + dashBlock;
 }
 buildMoreGrid();
 
@@ -1461,6 +1626,22 @@ const io = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 io.observe(document.getElementById('moreWorkHead'));
 io.observe(document.getElementById('moreGrid'));
+
+/* ============ 시즌 하이라이트 타임라인 ============ */
+function seasonTimelineHtml() {
+  return `<div class="lb-sec">
+    <div class="lb-sec-label">시즌별 하이라이트 — 22AW ~ 26AW</div>
+    <div class="lb-timeline">` + seasons.map(cd => {
+      const cnt = photoCount(cd);
+      const hl = highlightOf(cd) || '기록 정리 중';
+      return `<button class="lb-tl-item ${cnt ? '' : 'empty'}" onclick="openSeason('${cd}')">
+        <span class="lb-tl-code">${cd}</span>
+        <span class="lb-tl-hl">${hl}</span>
+        <span class="lb-tl-n">${cnt ? cnt + '컷 보기 →' : '준비 중'}</span>
+      </button>`;
+    }).join('') + `</div>
+  </div>`;
+}
 
 /* ============ LIGHTBOX ============ */
 function openCase(id) {
@@ -1487,7 +1668,9 @@ function openCase(id) {
   }).join('');
   let metricsHtml = c.metrics.map((m,i) => `<div class="lb-m" style="animation-delay:${0.3+0.06*i}s"><div class="num">${m.num}</div><div class="desc">${m.desc}</div></div>`).join('');
   let quoteHtml = c.quote ? `<div class="lb-quote">${c.quote}</div>` : '';
-  // 룩북 케이스에는 시즌 이동 레일을 붙입니다.
+  // 룩북 케이스에는 시즌 하이라이트 타임라인 + 이동 레일을 붙입니다.
+  let narrative = c.narrative;
+  if (id === 'lookbook') narrative = seasonTimelineHtml() + narrative;
   let seasonRail = '';
   if (id === 'lookbook') {
     seasonRail = `<div class="lb-season-rail" style="margin-top:-18px">` + seasons.map(cd =>
@@ -1496,7 +1679,7 @@ function openCase(id) {
   }
   document.getElementById('lbContent').innerHTML = `
     <div class="lb-eyebrow">${c.eyebrow}</div><div class="lb-title">${c.title}</div><div class="lb-period">${c.period}</div>
-    <div class="lb-images">${imagesHtml}</div>${seasonRail}<div class="lb-narrative">${c.narrative}</div>${quoteHtml}
+    ${imagesHtml ? `<div class="lb-images">${imagesHtml}</div>` : ''}${seasonRail}<div class="lb-narrative">${narrative}</div>${quoteHtml}
     <div class="lb-metrics">${metricsHtml}</div>`;
   document.getElementById('lbOverlay').classList.add('open'); document.body.style.overflow = 'hidden';
 }
@@ -1508,29 +1691,58 @@ function closeCase(e) {
 /* ============ SEASON GALLERY ============ */
 let pvList = [], pvIndex = 0;
 
+let lbView = 'editorial';   // 'editorial' | 'grid'
+let lbSeason = '';
+
+function setLbView(mode) { lbView = mode; openSeason(lbSeason || seasons[0]); }
+
 function openSeason(code) {
+  lbSeason = code;
   const sn = seasonOf(code);
   const photos = sn.photos || [];
+  const hl = highlightOf(code);
 
   const rail = seasons.map(c =>
     `<button class="lb-season-pill ${c === code ? 'active' : ''} ${photoCount(c) ? '' : 'empty'}"
       onclick="openSeason('${c}')">${c}${photoCount(c) ? ' · ' + photoCount(c) : ''}</button>`).join('');
 
-  const gallery = photos.length
-    ? `<div class="lb-gallery">${photos.map((ph, i) => `
-        <figure class="lb-photo ${ph.fit === 'contain' ? 'contain' : ''}"
-          style="background-image:url('${ph.src}'); animation-delay:${0.04 * i}s"
-          onclick="openPhoto('${code}', ${i})">
-          ${ph.label ? `<figcaption>${ph.label}</figcaption>` : ''}
-        </figure>`).join('')}</div>`
+  /* 에디토리얼 — 사진과 설명을 좌우로 나란히 배치해 함께 읽히게 합니다.
+     짝수 행은 좌우를 뒤집어 단조로움을 없앴습니다. */
+  const editorial = `<div class="lb-editorial">${photos.map((ph, i) => `
+    <article class="lb-row" style="animation-delay:${(0.05 * i).toFixed(2)}s">
+      <div class="lb-row-media ${ph.fit === 'contain' ? 'contain' : ''}" onclick="openPhoto('${code}', ${i})">
+        <img src="${ph.src}" alt="${(ph.label || code).slice(0, 60)}" loading="lazy" decoding="async">
+      </div>
+      <div class="lb-row-text">
+        <div class="lb-row-idx">${code} · ${String(i + 1).padStart(2, '0')} / ${String(photos.length).padStart(2, '0')}</div>
+        <p>${ph.label || ''}</p>
+        <span class="lb-row-zoom" onclick="event.stopPropagation(); openPhoto('${code}', ${i})">크게 보기 →</span>
+      </div>
+    </article>`).join('')}</div>`;
+
+  const gridView = `<div class="lb-gallery">${photos.map((ph, i) => `
+    <figure class="lb-photo ${ph.fit === 'contain' ? 'contain' : ''}"
+      style="background-image:url('${ph.src}'); animation-delay:${0.04 * i}s"
+      onclick="openPhoto('${code}', ${i})">
+      ${ph.label ? `<figcaption>${ph.label.slice(0, 46)}…</figcaption>` : ''}
+    </figure>`).join('')}</div>`;
+
+  const toggle = photos.length ? `
+    <div class="lb-viewtoggle">
+      <button class="${lbView === 'editorial' ? 'active' : ''}" onclick="setLbView('editorial')">설명과 함께 보기</button>
+      <button class="${lbView === 'grid' ? 'active' : ''}" onclick="setLbView('grid')">사진만 크게 보기</button>
+    </div>` : '';
+
+  const body = photos.length
+    ? toggle + (lbView === 'grid' ? gridView : editorial)
     : `<div class="lb-empty">아직 등록된 사진이 없는 시즌입니다.<br>다른 시즌을 선택하거나 전체 아카이브를 확인해 주세요.</div>`;
 
   document.getElementById('lbContent').innerHTML = `
     <div class="lb-eyebrow">Lookbook · ${code}</div>
     <div class="lb-title">${sn.title || code + ' 시즌 기획'}</div>
-    <div class="lb-period">${sn.note || '신영와코루 VENUS · 시즌별 상품기획 기록'}</div>
+    <div class="lb-period">${hl || sn.note || '신영와코루 VENUS · 시즌별 상품기획 기록'}</div>
     <div class="lb-season-rail">${rail}</div>
-    ${gallery}
+    ${body}
     <div class="lb-narrative" style="margin-bottom:0">
       <div class="lb-note" style="cursor:none" onclick="openCase('lookbook')">
         시즌 전체 업무 구조와 성과 지표는 <b>아카이브 전체보기 →</b>
@@ -1615,7 +1827,7 @@ window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.styl
 function animRing(){ rx+=(mx-rx)*0.18; ry+=(my-ry)*0.18; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
 animRing();
 new MutationObserver(() => {
-  document.querySelectorAll('.work-card, .grid-card, .about-tile, .avatar-btn, .footer-bar, .lb-close, .about-close, .f-pill, .season-tile, .dash-widget, .lb-photo, .lb-season-pill, .pv-nav, .pv-close').forEach(el => {
+  document.querySelectorAll('.work-card, .grid-card, .about-tile, .avatar-btn, .footer-bar, .lb-close, .about-close, .f-pill, .season-tile, .dash-widget, .lb-photo, .lb-row-media, .lb-tl-item, .lb-viewtoggle button, .lb-season-pill, .pv-nav, .pv-close').forEach(el => {
     if (el.dataset.cursorBound) return; el.dataset.cursorBound = '1';
     el.addEventListener('mouseenter', () => ring.classList.add('big'));
     el.addEventListener('mouseleave', () => ring.classList.remove('big'));
