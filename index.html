@@ -15,7 +15,7 @@
     --bg: #FFFFFF;
     --bg-soft: #FAFAF9;
     --text: #111214;
-    --muted: #8a8a8f;
+    --muted: #767676;
     --card: #ffffff;
     --card-border: #ECECEA;
     --card-shadow: 0 4px 20px rgba(20,20,20,0.05);
@@ -43,6 +43,12 @@
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   /* ===== CUSTOM CURSOR ===== */
@@ -489,7 +495,7 @@
 <div class="top-bar anim-nav">
   <a class="logo" href="#">KDJ</a>
   <button class="avatar-btn" onclick="toggleAbout()" aria-label="About">
-    <img src="profile.png" alt="김동진" style="width:100%;height:100%;object-fit:cover;" onerror="this.outerHTML='<svg viewBox=\'0 0 24 24\'><path d=\'M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5S7 4.3 7 7s2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z\'/></svg>'">
+    <img src="images/profile.png" alt="김동진" style="width:100%;height:100%;object-fit:cover;" onerror="this.outerHTML='<svg viewBox=\'0 0 24 24\'><path d=\'M12 12c2.7 0 5-2.3 5-5s-2.3-5-5-5S7 4.3 7 7s2.3 5 5 5zm0 2c-3.3 0-10 1.7-10 5v2h20v-2c0-3.3-6.7-5-10-5z\'/></svg>'">
   </button>
 </div>
 
@@ -536,7 +542,7 @@
 <!-- LIGHTBOX -->
 <div class="lb-overlay" id="lbOverlay" onclick="closeCase(event)">
   <div class="lb-box" id="lbBox" onclick="event.stopPropagation()">
-    <button class="lb-close" onclick="closeCase()">✕</button>
+    <button class="lb-close" onclick="closeCase()" aria-label="닫기">✕</button>
     <div id="lbContent"></div>
   </div>
 </div>
@@ -545,9 +551,9 @@
 <div class="about-overlay" id="aboutOverlay">
   <div class="about-backdrop" onclick="toggleAbout()"></div>
   <div class="about-panel">
-    <button class="about-close" onclick="toggleAbout()">✕</button>
+    <button class="about-close" onclick="toggleAbout()" aria-label="닫기">✕</button>
     <div class="about-header">
-      <div class="about-photo" style="overflow:hidden;"><img src="profile.png" alt="김동진" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentNode.textContent='👤'"></div>
+      <div class="about-photo" style="overflow:hidden;"><img src="images/profile.png" alt="김동진" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentNode.textContent='👤'"></div>
       <div><h2>김동진</h2><div class="about-role">상품기획 MD · 신영와코루 VENUS 국내사업부 영업1부1과 · 계장</div></div>
     </div>
     <div class="about-stats">
