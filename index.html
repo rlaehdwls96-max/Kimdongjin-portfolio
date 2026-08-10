@@ -60,6 +60,10 @@
   /* ===== ENTRANCE ===== */
   @keyframes riseIn { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+  /* 타임라인 바 — 라이트박스가 열릴 때 왼쪽부터 그려지듯 채워집니다 */
+  @keyframes tlGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+  .tl-bar { transform-box: fill-box; transform-origin: left center; animation: tlGrow 0.65s var(--transition) both; }
   .anim-nav, .anim-hero-name, .anim-hero-sub, .anim-hint, .anim-footer { opacity: 0; }
   body.is-ready .anim-nav       { animation: fadeIn 0.7s var(--transition) 0.1s forwards; }
   body.is-ready .anim-hero-name { animation: riseIn 0.9s var(--transition) 0.15s forwards; }
@@ -649,7 +653,7 @@ system: `<svg viewBox="0 0 920 430" xmlns="http://www.w3.org/2000/svg" font-fami
 
 career: `<svg viewBox="0 0 920 300" xmlns="http://www.w3.org/2000/svg" font-family="inherit" role="img" aria-label="경력 타임라인">
   <text x="22" y="24" font-size="13" font-weight="700" fill="#111214">경력 타임라인 — 총 7년 3개월</text>
-  <text x="898" y="24" font-size="11" fill="#8a8a8f" text-anchor="end">2019.02 → 2026.08</text>
+  <text x="898" y="24" font-size="11" fill="#767676" text-anchor="end">2019.02 → 2026.08</text>
   <g stroke="#EFEBE5" stroke-width="1">
     <line x1="240" y1="44" x2="240" y2="252"/><line x1="339" y1="44" x2="339" y2="252"/>
     <line x1="438" y1="44" x2="438" y2="252"/><line x1="536" y1="44" x2="536" y2="252"/>
@@ -662,20 +666,20 @@ career: `<svg viewBox="0 0 920 300" xmlns="http://www.w3.org/2000/svg" font-fami
   </g>
 
   <text x="140" y="82" font-size="12.5" font-weight="800" fill="#111214" text-anchor="end">신영와코루 VENUS</text>
-  <text x="140" y="99" font-size="10" fill="#8a8a8f" text-anchor="end">상품기획 MD · 계장</text>
-  <rect x="471" y="62" width="424" height="46" rx="10" fill="#C4622D" fill-opacity="0.16" stroke="#C4622D" stroke-opacity="0.42"/>
+  <text x="140" y="99" font-size="10" fill="#767676" text-anchor="end">상품기획 MD · 계장</text>
+  <rect class="tl-bar" style="animation-delay:0.45s" x="471" y="62" width="424" height="46" rx="10" fill="#C4622D" fill-opacity="0.16" stroke="#C4622D" stroke-opacity="0.42"/>
   <text x="489" y="82" font-size="12" font-weight="700" fill="#8A421B">2022.05 ~ 재직중</text>
   <text x="489" y="99" font-size="10.5" fill="#8A421B" fill-opacity="0.85">4년 3개월 · 시즌 기획 / BOM 원가 / 생산 운영</text>
 
   <text x="140" y="152" font-size="12.5" font-weight="800" fill="#111214" text-anchor="end">CJ 프레시원</text>
-  <text x="140" y="169" font-size="10" fill="#8a8a8f" text-anchor="end">경영지원 · 채권관리 · 주임</text>
-  <rect x="191" y="132" width="263" height="46" rx="10" fill="#6d6459" fill-opacity="0.13" stroke="#6d6459" stroke-opacity="0.3"/>
+  <text x="140" y="169" font-size="10" fill="#767676" text-anchor="end">경영지원 · 채권관리 · 주임</text>
+  <rect class="tl-bar" style="animation-delay:0.58s" x="191" y="132" width="263" height="46" rx="10" fill="#6d6459" fill-opacity="0.13" stroke="#6d6459" stroke-opacity="0.3"/>
   <text x="209" y="152" font-size="12" font-weight="700" fill="#4a443c">2019.07 ~ 2022.02</text>
   <text x="209" y="169" font-size="10.5" fill="#4a443c" fill-opacity="0.85">2년 8개월 · 여신/채권 · ERP 전환</text>
 
   <text x="140" y="222" font-size="12.5" font-weight="800" fill="#111214" text-anchor="end">㈜트리아</text>
-  <text x="140" y="239" font-size="10" fill="#8a8a8f" text-anchor="end">IFRS17 프로젝트 · 대리</text>
-  <rect x="150" y="202" width="36" height="46" rx="10" fill="#6d6459" fill-opacity="0.13" stroke="#6d6459" stroke-opacity="0.3"/>
+  <text x="140" y="239" font-size="10" fill="#767676" text-anchor="end">IFRS17 프로젝트 · 대리</text>
+  <rect class="tl-bar" style="animation-delay:0.71s" x="150" y="202" width="36" height="46" rx="10" fill="#6d6459" fill-opacity="0.13" stroke="#6d6459" stroke-opacity="0.3"/>
   <text x="198" y="222" font-size="12" font-weight="700" fill="#4a443c">2019.02 ~ 2019.05</text>
   <text x="198" y="239" font-size="10.5" fill="#4a443c" fill-opacity="0.85">4개월 · Java/Spring 개발 · 데이터 검증</text>
 </svg>`,
@@ -733,7 +737,7 @@ skills: `<svg viewBox="0 0 920 400" xmlns="http://www.w3.org/2000/svg" font-fami
 
 data1: `<svg viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg" font-family="inherit" role="img" aria-label="배송 소요일과 평점 상관">
   <text x="18" y="24" font-size="12.5" font-weight="700" fill="#111214">배송 소요일 → 평점 급락 구간</text>
-  <text x="18" y="42" font-size="10" fill="#8a8a8f">셀러 70% 상파울루(SP) 과밀 · 고객은 전국 분산</text>
+  <text x="18" y="42" font-size="10" fill="#767676">셀러 70% 상파울루(SP) 과밀 · 고객은 전국 분산</text>
   <line x1="60" y1="230" x2="424" y2="230" stroke="#E0DBD3" stroke-width="1"/>
   <g font-size="9" fill="#a8a29a" text-anchor="middle">
     <text x="60" y="248">0일</text><text x="181" y="248">10일</text><text x="303" y="248">20일</text><text x="424" y="248">30일</text>
@@ -750,16 +754,16 @@ data1: `<svg viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg" font-famil
 
 data2: `<svg viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg" font-family="inherit" role="img" aria-label="벤더 세그멘테이션">
   <text x="18" y="24" font-size="12.5" font-weight="700" fill="#111214">벤더 세그멘테이션 — 셀러 3,095개</text>
-  <text x="18" y="42" font-size="10" fill="#8a8a8f">주문 이력 · 지연율 · 평점 기준 5등급 퍼널</text>
+  <text x="18" y="42" font-size="10" fill="#767676">주문 이력 · 지연율 · 평점 기준 5등급 퍼널</text>
   <rect x="45" y="58" width="360" height="34" rx="7" fill="#F1EDE7" stroke="#E6E1DA"/>
   <text x="62" y="80" font-size="11.5" font-weight="700" fill="#4a443c">Zombie</text>
-  <text x="388" y="80" font-size="10" fill="#8a8a8f" text-anchor="end">활동 중단</text>
+  <text x="388" y="80" font-size="10" fill="#767676" text-anchor="end">활동 중단</text>
   <rect x="63" y="98" width="324" height="34" rx="7" fill="#F1EDE7" stroke="#E6E1DA"/>
   <text x="80" y="120" font-size="11.5" font-weight="700" fill="#4a443c">Active</text>
-  <text x="370" y="120" font-size="10" fill="#8a8a8f" text-anchor="end">정상 거래</text>
+  <text x="370" y="120" font-size="10" fill="#767676" text-anchor="end">정상 거래</text>
   <rect x="81" y="138" width="288" height="34" rx="7" fill="#F1EDE7" stroke="#E6E1DA"/>
   <text x="98" y="160" font-size="11.5" font-weight="700" fill="#4a443c">Newbie</text>
-  <text x="352" y="160" font-size="10" fill="#8a8a8f" text-anchor="end">신규 진입</text>
+  <text x="352" y="160" font-size="10" fill="#767676" text-anchor="end">신규 진입</text>
   <rect x="99" y="178" width="252" height="34" rx="7" fill="#7A8F6E" fill-opacity="0.2" stroke="#7A8F6E" stroke-opacity="0.45"/>
   <text x="116" y="200" font-size="11.5" font-weight="800" fill="#4A5B41">Power</text>
   <text x="334" y="200" font-size="10" fill="#4A5B41" text-anchor="end">핵심 셀러</text>
@@ -771,16 +775,16 @@ data2: `<svg viewBox="0 0 450 300" xmlns="http://www.w3.org/2000/svg" font-famil
 
 data3: `<svg viewBox="0 0 920 250" xmlns="http://www.w3.org/2000/svg" font-family="inherit" role="img" aria-label="리텐션과 LTV 분석">
   <text x="22" y="24" font-size="12.5" font-weight="700" fill="#111214">리텐션은 만들어졌지만, LTV는 따라오지 않았다</text>
-  <text x="22" y="43" font-size="10" fill="#8a8a8f">첫 가설 &quot;경험이 좋으면 재구매한다&quot; → 1개월 내 재구매율 1% 미만으로 기각</text>
+  <text x="22" y="43" font-size="10" fill="#767676">첫 가설 &quot;경험이 좋으면 재구매한다&quot; → 1개월 내 재구매율 1% 미만으로 기각</text>
 
   <rect x="22" y="62" width="264" height="88" rx="12" fill="#C4622D" fill-opacity="0.16" stroke="#C4622D" stroke-opacity="0.42"/>
   <rect x="290" y="62" width="243" height="88" rx="12" fill="#F4F1EC" stroke="#E6E1DA"/>
   <text x="42" y="90" font-size="11" font-weight="800" letter-spacing="1" fill="#8A421B">0 ~ 30일</text>
   <text x="42" y="118" font-size="24" font-weight="800" fill="#8A421B">52%</text>
   <text x="42" y="138" font-size="10.5" fill="#8A421B" fill-opacity="0.85">재구매 발생분이 이 구간에 집중</text>
-  <text x="310" y="90" font-size="11" font-weight="800" letter-spacing="1" fill="#8a8a8f">30일 이후</text>
-  <text x="310" y="118" font-size="24" font-weight="800" fill="#8a8a8f">48%</text>
-  <text x="310" y="138" font-size="10.5" fill="#8a8a8f">개입 효율이 급격히 떨어지는 구간</text>
+  <text x="310" y="90" font-size="11" font-weight="800" letter-spacing="1" fill="#767676">30일 이후</text>
+  <text x="310" y="118" font-size="24" font-weight="800" fill="#767676">48%</text>
+  <text x="310" y="138" font-size="10.5" fill="#767676">개입 효율이 급격히 떨어지는 구간</text>
   <text x="22" y="176" font-size="10.5" fill="#6d6459">→ 30일을 사실상 유일한 개입 구간으로 재정의</text>
 
   <line x1="565" y1="62" x2="565" y2="212" stroke="#EFEBE5" stroke-width="1"/>
@@ -797,10 +801,10 @@ data3: `<svg viewBox="0 0 920 250" xmlns="http://www.w3.org/2000/svg" font-famil
 
 lookbook: `<svg viewBox="0 0 920 250" xmlns="http://www.w3.org/2000/svg" font-family="inherit" role="img" aria-label="시즌 기획 아카이브">
   <text x="22" y="24" font-size="13" font-weight="700" fill="#111214">시즌 기획 아카이브 — 22AW ~ 26AW</text>
-  <text x="898" y="24" font-size="11" fill="#8a8a8f" text-anchor="end">입사 이후 참여 시즌 9개</text>
+  <text x="898" y="24" font-size="11" fill="#767676" text-anchor="end">입사 이후 참여 시즌 9개</text>
   <g>
     <rect x="22" y="44" width="188" height="88" rx="12" fill="#F4F1EC" stroke="#E6E1DA"/>
-    <text x="42" y="80" font-size="19" font-weight="800" fill="#111214">22AW</text><text x="42" y="102" font-size="10" fill="#8a8a8f">입사 시즌</text>
+    <text x="42" y="80" font-size="19" font-weight="800" fill="#111214">22AW</text><text x="42" y="102" font-size="10" fill="#767676">입사 시즌</text>
     <rect x="222" y="44" width="188" height="88" rx="12" fill="#F4F1EC" stroke="#E6E1DA"/>
     <text x="242" y="80" font-size="19" font-weight="800" fill="#111214">23SS</text>
     <rect x="422" y="44" width="188" height="88" rx="12" fill="#F4F1EC" stroke="#E6E1DA"/>
@@ -829,14 +833,14 @@ case1: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-famil
   <text x="20" y="34" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">SCAN → PURCHASE</text>
   <rect x="20" y="44" width="52" height="24" rx="6" fill="#6d6459" fill-opacity="0.2"/>
   <text x="32" y="61" font-size="11" font-weight="800" fill="#4a443c">12%</text>
-  <text x="82" y="61" font-size="8.5" fill="#8a8a8f">연계 전</text>
+  <text x="82" y="61" font-size="8.5" fill="#767676">연계 전</text>
   <rect x="20" y="76" width="128" height="24" rx="6" fill="#C4622D" fill-opacity="0.28"/>
   <text x="32" y="93" font-size="11" font-weight="800" fill="#8A421B">45%</text>
-  <text x="158" y="93" font-size="8.5" fill="#8a8a8f">연계 직후</text>
+  <text x="158" y="93" font-size="8.5" fill="#767676">연계 직후</text>
   <rect x="20" y="108" width="196" height="24" rx="6" fill="#C4622D" fill-opacity="0.52"/>
   <text x="32" y="125" font-size="11" font-weight="800" fill="#7A3915">63.0%</text>
   <text x="88" y="125" font-size="8.5" font-weight="600" fill="#7A3915">실측 · 계측 12,568회</text>
-  <text x="20" y="150" font-size="8.5" fill="#8a8a8f">체형 계측 고객 대비 자사몰 구매 전환</text>
+  <text x="20" y="150" font-size="8.5" fill="#767676">체형 계측 고객 대비 자사몰 구매 전환</text>
 </svg>`,
 case2: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="34" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">S-FIT · 3 STEP</text>
@@ -849,17 +853,17 @@ case2: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-famil
   <rect x="164" y="44" width="66" height="56" rx="8" fill="#FFF" stroke="#DCD7CF"/>
   <text x="197" y="68" font-size="10" font-weight="700" fill="#4a443c" text-anchor="middle">Support</text>
   <text x="197" y="87" font-size="14" font-weight="800" fill="#4a443c" text-anchor="middle">20</text>
-  <text x="20" y="120" font-size="8.5" fill="#8a8a8f">고객 선택 비중 (%) · 95%가 3단계 기준 내 선택</text>
+  <text x="20" y="120" font-size="8.5" fill="#767676">고객 선택 비중 (%) · 95%가 3단계 기준 내 선택</text>
   <text x="20" y="146" font-size="10.5" font-weight="800" fill="#4a443c">SKU 5 → 16종 · 전년 대비 169.9%</text>
 </svg>`,
 case3: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="34" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">NEW MATERIAL</text>
   <text x="20" y="72" font-size="25" font-weight="800" fill="#8A421B">35.86%</text>
-  <text x="20" y="90" font-size="8.5" fill="#8a8a8f">신소재 광고 카테고리 내 점유율</text>
+  <text x="20" y="90" font-size="8.5" fill="#767676">신소재 광고 카테고리 내 점유율</text>
   <rect x="20" y="100" width="210" height="16" rx="8" fill="#6d6459" fill-opacity="0.12"/>
   <rect x="20" y="100" width="75" height="16" rx="8" fill="#C4622D" fill-opacity="0.55"/>
   <text x="20" y="134" font-size="8.5" font-weight="700" fill="#4a443c">TPE 몰드컵 · 티타늄 형상기억 와이어</text>
-  <text x="20" y="150" font-size="8.5" fill="#8a8a8f">2030 +5.14%p · 3040 +9.97%p 방어</text>
+  <text x="20" y="150" font-size="8.5" fill="#767676">2030 +5.14%p · 3040 +9.97%p 방어</text>
 </svg>`,
 system: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="44" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">5-GATE</text>
@@ -868,7 +872,7 @@ system: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-fami
   <rect x="106" y="56" width="38" height="52" rx="7" fill="#FFF" stroke="#DCD7CF"/><text x="125" y="83" font-size="9" font-weight="700" fill="#4a443c" text-anchor="middle">판매</text><text x="125" y="94" font-size="9" font-weight="700" fill="#4a443c" text-anchor="middle">율</text>
   <rect x="149" y="56" width="38" height="52" rx="7" fill="#FFF" stroke="#DCD7CF"/><text x="168" y="83" font-size="9" font-weight="700" fill="#4a443c" text-anchor="middle">이익</text><text x="168" y="94" font-size="9" font-weight="700" fill="#4a443c" text-anchor="middle">률</text>
   <rect x="192" y="56" width="38" height="52" rx="7" fill="#C4622D" fill-opacity="0.18" stroke="#C4622D" stroke-opacity="0.45"/><text x="211" y="86" font-size="9" font-weight="800" fill="#8A421B" text-anchor="middle">등급</text>
-  <text x="20" y="130" font-size="9" fill="#8a8a8f">공급계획 · Notion 3중 DB</text>
+  <text x="20" y="130" font-size="9" fill="#767676">공급계획 · Notion 3중 DB</text>
 </svg>`,
 data: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="42" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">OLIST · 96,478 ORDERS</text>
@@ -879,7 +883,7 @@ data: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family
   <rect x="128" y="56" width="26" height="62" rx="4" fill="#C4622D" fill-opacity="0.45"/>
   <rect x="162" y="52" width="26" height="66" rx="4" fill="#C4622D" fill-opacity="0.6"/>
   <path d="M26 96 L60 84 L94 70 L128 62 L162 58" stroke="#8A421B" stroke-width="1.6" fill="none"/>
-  <text x="20" y="140" font-size="9" fill="#8a8a8f">배송 지연 ↑ → 평점 ↓</text>
+  <text x="20" y="140" font-size="9" fill="#767676">배송 지연 ↑ → 평점 ↓</text>
 </svg>`,
 lookbook: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="38" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">22AW — 26AW</text>
@@ -891,26 +895,26 @@ lookbook: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-fa
     <rect x="93" y="86" width="64" height="30" rx="6" fill="#FFF" stroke="#DCD7CF"/><text x="125" y="106" fill="#4a443c">25SS</text>
     <rect x="166" y="86" width="64" height="30" rx="6" fill="#C4622D" fill-opacity="0.18" stroke="#C4622D" stroke-opacity="0.45"/><text x="198" y="106" fill="#8A421B">26AW</text>
   </g>
-  <text x="20" y="138" font-size="9" fill="#8a8a8f">참여 시즌 9개 아카이브</text>
+  <text x="20" y="138" font-size="9" fill="#767676">참여 시즌 9개 아카이브</text>
 </svg>`,
 career: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="38" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">7년 3개월</text>
   <text x="20" y="60" font-size="9" font-weight="700" fill="#4a443c">VENUS</text>
   <rect x="20" y="66" width="150" height="14" rx="7" fill="#C4622D" fill-opacity="0.35"/>
-  <text x="176" y="77" font-size="8.5" fill="#8a8a8f">4.3y</text>
+  <text x="176" y="77" font-size="8.5" fill="#767676">4.3y</text>
   <text x="20" y="98" font-size="9" font-weight="700" fill="#4a443c">CJ 프레시원</text>
   <rect x="20" y="104" width="94" height="14" rx="7" fill="#6d6459" fill-opacity="0.28"/>
-  <text x="120" y="115" font-size="8.5" fill="#8a8a8f">2.8y</text>
+  <text x="120" y="115" font-size="8.5" fill="#767676">2.8y</text>
   <text x="20" y="136" font-size="9" font-weight="700" fill="#4a443c">트리아</text>
   <rect x="20" y="142" width="16" height="14" rx="7" fill="#6d6459" fill-opacity="0.28"/>
-  <text x="42" y="153" font-size="8.5" fill="#8a8a8f">4개월</text>
+  <text x="42" y="153" font-size="8.5" fill="#767676">4개월</text>
 </svg>`,
 skills: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="36" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">4 AREAS</text>
-  <rect x="20" y="46" width="100" height="48" rx="8" fill="#FFF" stroke="#DCD7CF"/><text x="34" y="68" font-size="9.5" font-weight="700" fill="#4a443c">상품기획·원가</text><text x="34" y="83" font-size="8" fill="#8a8a8f">BOM · 판가</text>
+  <rect x="20" y="46" width="100" height="48" rx="8" fill="#FFF" stroke="#DCD7CF"/><text x="34" y="68" font-size="9.5" font-weight="700" fill="#4a443c">상품기획·원가</text><text x="34" y="83" font-size="8" fill="#767676">BOM · 판가</text>
   <rect x="130" y="46" width="100" height="48" rx="8" fill="#C4622D" fill-opacity="0.14" stroke="#C4622D" stroke-opacity="0.4"/><text x="144" y="68" font-size="9.5" font-weight="700" fill="#8A421B">데이터 분석</text><text x="144" y="83" font-size="8" fill="#8A421B">SQL · Tableau</text>
-  <rect x="20" y="100" width="100" height="48" rx="8" fill="#FFF" stroke="#DCD7CF"/><text x="34" y="122" font-size="9.5" font-weight="700" fill="#4a443c">시스템 운영</text><text x="34" y="137" font-size="8" fill="#8a8a8f">ERP · SAP</text>
-  <rect x="130" y="100" width="100" height="48" rx="8" fill="#FFF" stroke="#DCD7CF"/><text x="144" y="122" font-size="9.5" font-weight="700" fill="#4a443c">기록 · 협업</text><text x="144" y="137" font-size="8" fill="#8a8a8f">Notion 3중 DB</text>
+  <rect x="20" y="100" width="100" height="48" rx="8" fill="#FFF" stroke="#DCD7CF"/><text x="34" y="122" font-size="9.5" font-weight="700" fill="#4a443c">시스템 운영</text><text x="34" y="137" font-size="8" fill="#767676">ERP · SAP</text>
+  <rect x="130" y="100" width="100" height="48" rx="8" fill="#FFF" stroke="#DCD7CF"/><text x="144" y="122" font-size="9.5" font-weight="700" fill="#4a443c">기록 · 협업</text><text x="144" y="137" font-size="8" fill="#767676">Notion 3중 DB</text>
 </svg>`
 };
 
@@ -983,8 +987,11 @@ const cases = {
     eyebrow:'Case Study 02',
     title:'데이터 속 "선택 기준의 부재"에서 기회를 보다',
     period:'25AW – 26SS · 기획 주도',
-    images:[ { label:'S-FIT 3단계 라인업', src:'images/case2-lineup.jpg' } ],
-    colors:['#EAEEF4'],
+    images:[
+      { label:'스캔바이미 체형 데이터 분석', src:'images/case2-bodydata.jpg' },
+      { label:'S-FIT 3단계 라인업', src:'images/case2-lineup.jpg' }
+    ],
+    colors:['#EAEEF4','#E7ECF2'],
     narrative:`
       <div class="lb-sec">
         <div class="lb-sec-label">Situation — 다 편한데, 뭐가 다른지 모르겠다</div>
@@ -1189,9 +1196,9 @@ const cases = {
         <div class="lb-sec-label">신영와코루 (VENUS) · 국내사업부 영업1부1과 · 계장 — 2022.05 ~ 재직중 (4년 3개월)</div>
         <div class="lb-body">시즌 상품 기획, 데이터 기반 트렌드 분석, BOM 원가 관리 및 생산 프로세스 운영을 담당합니다.</div>
         <ul class="lb-ul">
-          <li><b>스캔바이미 O2O 상품군 운영</b> — 연매출 96억 규모, 체험 고객 구매 전환 12% → 45%(연계 직후) → 63.0%(최근 실측) <span style="color:#8a8a8f">(Case 01)</span></li>
-          <li><b>S-FIT 3단계 핏 큐레이션 기획</b> — SKU 5→16종, 출시 3개월 2.78억 · 전년 대비 169.9% 신장 <span style="color:#8a8a8f">(Case 02)</span></li>
-          <li><b>신소재 기반 브랜드 리포지셔닝</b> — 신소재 광고 카테고리 내 점유율 35.86% <span style="color:#8a8a8f">(Case 03)</span></li>
+          <li><b>스캔바이미 O2O 상품군 운영</b> — 연매출 96억 규모, 체험 고객 구매 전환 12% → 45%(연계 직후) → 63.0%(최근 실측) <span style="color:#767676">(Case 01)</span></li>
+          <li><b>S-FIT 3단계 핏 큐레이션 기획</b> — SKU 5→16종, 출시 3개월 2.78억 · 전년 대비 169.9% 신장 <span style="color:#767676">(Case 02)</span></li>
+          <li><b>신소재 기반 브랜드 리포지셔닝</b> — 신소재 광고 카테고리 내 점유율 35.86% <span style="color:#767676">(Case 03)</span></li>
         </ul>
       </div>
 
@@ -1300,7 +1307,7 @@ const aboutTopics = [
       <span class="skill-pill">Tableau</span><span class="skill-pill">Salesforce</span><span class="skill-pill">사내 ERP</span>
       <span class="skill-pill">SAP</span><span class="skill-pill">BOM 원가 분석</span><span class="skill-pill">Notion</span>
       <span class="skill-pill">Claude · ChatGPT</span>
-    </div><p style="margin-top:12px;font-size:12px;color:#8a8a8f;line-height:1.7">SAP은 CJ 프레시원 재직 시 사용했고, 신영와코루에서는 사내 ERP와 Salesforce·Tableau 기반 CRM 분석을 사용합니다.</p>` }
+    </div><p style="margin-top:12px;font-size:12px;color:#767676;line-height:1.7">SAP은 CJ 프레시원 재직 시 사용했고, 신영와코루에서는 사내 ERP와 Salesforce·Tableau 기반 CRM 분석을 사용합니다.</p>` }
 ];
 
 /* ============ CAROUSEL ============
