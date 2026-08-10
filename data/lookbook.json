@@ -1,13 +1,18 @@
 {
   "version": 1,
-  "updated": "2026-08-08",
+  "updated": "2026-08-10",
   "intro": "2022년 5월 입사 이후 매 시즌 상품기획에 참여하며 남긴 기록입니다.",
   "seasons": [
     {
       "code": "22AW",
       "title": "",
       "note": "",
-      "photos": []
+      "photos": [
+        {
+          "src": "images/lookbook/22aw-msmjvhxy6ca.webp",
+          "label": "탄탄한 착용감의 스포츠 노와이어 제품으로 트라이앵글 형태의 몰드와 부드러운 면스판 원단으로 데일리한 착용감을 선사함."
+        }
+      ]
     },
     {
       "code": "23SS",
