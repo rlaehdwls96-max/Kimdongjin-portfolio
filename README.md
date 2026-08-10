@@ -1,2 +1,2 @@
 # Kimdongjin-portfolio
-Portfolio for ABLY
+Portfolio for Dorong
