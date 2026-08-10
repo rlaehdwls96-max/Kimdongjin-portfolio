@@ -52,7 +52,7 @@
   }
 
   /* ===== CUSTOM CURSOR ===== */
-  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 500; border-radius: 50%; transform: translate(-50%, -50%); }
+  .cursor-dot, .cursor-ring { position: fixed; top: 0; left: 0; pointer-events: none; z-index: 500; border-radius: 50%; transform: translate(-50%, -50%); will-change: transform; }
   .cursor-dot { width: 6px; height: 6px; background: var(--text); }
   .cursor-ring { width: 34px; height: 34px; border: 1.5px solid var(--text); opacity: 0.35; transition: width 0.35s var(--transition), height 0.35s var(--transition), opacity 0.3s, background 0.2s, border-color 0.2s; }
   .cursor-ring.big { width: 64px; height: 64px; opacity: 0.12; }
@@ -195,6 +195,9 @@
   }
   .season-tile.upcoming { opacity: 0.55; }
   .season-tile.upcoming::before { content: 'Soon'; position: absolute; top: 8px; right: 8px; font-size: 8px; font-weight: 700; color: var(--muted); background: #fff; padding: 2px 6px; border-radius: 8px; }
+  /* 룩북 데이터 fetch 중에는 '준비중'이 아니라 로딩임을 보여줍니다 */
+  .season-tile.pending { animation: pendingPulse 1.3s ease-in-out infinite; cursor: default; }
+  @keyframes pendingPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 0.9; } }
 
   /* ---- Lookbook: photo-backed tiles / gallery ---- */
   .season-tile.has-photo { background-size: cover; background-position: center; border-color: transparent; }
@@ -1499,6 +1502,7 @@ function highlightOf(code) {
    (fetch를 쓰므로 파일을 더블클릭하면 로컬에서는 비어 보입니다.
     GitHub Pages 또는 로컬 서버에서 확인하세요.)                        */
 let lookbook = { seasons: seasons.map(code => ({ code, title:'', note:'', photos: [] })) };
+let lookbookLoaded = false;
 
 function seasonOf(code) {
   return lookbook.seasons.find(x => x.code === code) || { code, title:'', note:'', photos: [] };
@@ -1507,7 +1511,7 @@ function photoCount(code) { return (seasonOf(code).photos || []).length; }
 
 async function loadLookbook() {
   try {
-    const res = await fetch('data/lookbook.json?v=' + Date.now());
+    const res = await fetch('data/lookbook.json');
     if (!res.ok) throw new Error(res.status);
     const data = await res.json();
     if (data && Array.isArray(data.seasons)) {
@@ -1519,10 +1523,12 @@ async function loadLookbook() {
           return found ? { photos: [], highlight:'', ...found } : { code, title:'', note:'', highlight:'', photos: [] };
         })
       };
-      buildMoreGrid();
     }
   } catch (e) {
     console.info('lookbook.json 을 불러오지 못했습니다 — 기본 타일로 표시합니다.', e);
+  } finally {
+    lookbookLoaded = true;
+    buildMoreGrid();
   }
 }
 
@@ -1590,7 +1596,8 @@ function buildMoreGrid() {
             const cover = n ? sn.photos[0].src : '';
             const style = cover ? `background-image:url('${cover}')` : '';
             const hl = highlightOf(code);
-            return `<div class="season-tile ${n ? 'has-photo' : 'upcoming'}" style="${style}"
+            const state = n ? 'has-photo' : (lookbookLoaded ? 'upcoming' : 'pending');
+            return `<div class="season-tile ${state}" style="${style}"
                       title="${code} — ${hl.replace(/"/g, '&quot;')}"
                       onclick="openSeason('${code}')">
                       ${n ? `<div class="season-count">${n}</div>` : ''}
@@ -1649,6 +1656,7 @@ function buildMoreGrid() {
   grid.innerHTML = lookbookBlock + caseBlock + restBlock + dashBlock;
 }
 buildMoreGrid();
+loadLookbook();
 
 const io = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -1861,8 +1869,9 @@ document.getElementById('footerBar').addEventListener('click', function(e) {
 /* ============ CURSOR ============ */
 const dot = document.getElementById('cursorDot'), ring = document.getElementById('cursorRing');
 let mx=0,my=0,rx=0,ry=0;
-window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.left=mx+'px'; dot.style.top=my+'px'; });
-function animRing(){ rx+=(mx-rx)*0.18; ry+=(my-ry)*0.18; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); }
+/* left/top 대신 transform만 갱신해 매 프레임 리플로우 없이 GPU 합성으로 처리합니다 */
+window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; dot.style.transform=`translate3d(${mx}px,${my}px,0) translate(-50%,-50%)`; });
+function animRing(){ rx+=(mx-rx)*0.18; ry+=(my-ry)*0.18; ring.style.transform=`translate3d(${rx}px,${ry}px,0) translate(-50%,-50%)`; requestAnimationFrame(animRing); }
 animRing();
 new MutationObserver(() => {
   document.querySelectorAll('.work-card, .grid-card, .about-tile, .avatar-btn, .footer-bar, .lb-close, .about-close, .f-pill, .season-tile, .dash-widget, .lb-photo, .lb-row-media, .lb-tl-item, .lb-viewtoggle button, .lb-season-pill, .pv-nav, .pv-close').forEach(el => {
@@ -1886,7 +1895,6 @@ document.addEventListener('keydown', e => {
     if (document.getElementById('aboutOverlay').classList.contains('open')) toggleAbout();
   }
 });
-loadLookbook();
 window.addEventListener('load', () => requestAnimationFrame(() => document.body.classList.add('is-ready')));
 </script>
 
