@@ -67,10 +67,12 @@
   /* 타임라인 바 — 라이트박스가 열릴 때 왼쪽부터 그려지듯 채워집니다 */
   @keyframes tlGrow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   .tl-bar { transform-box: fill-box; transform-origin: left center; animation: tlGrow 0.65s var(--transition) both; }
-  .anim-nav, .anim-hero-name, .anim-hero-sub, .anim-hint, .anim-footer { opacity: 0; }
+  .anim-nav, .anim-hero-name, .anim-hero-sub, .anim-hero-bio, .anim-hero-meta, .anim-hint, .anim-footer { opacity: 0; }
   body.is-ready .anim-nav       { animation: fadeIn 0.7s var(--transition) 0.1s forwards; }
   body.is-ready .anim-hero-name { animation: riseIn 0.9s var(--transition) 0.15s forwards; }
-  body.is-ready .anim-hero-sub  { animation: riseIn 0.8s var(--transition) 0.35s forwards; }
+  body.is-ready .anim-hero-sub  { animation: riseIn 0.8s var(--transition) 0.32s forwards; }
+  body.is-ready .anim-hero-bio  { animation: riseIn 0.8s var(--transition) 0.48s forwards; }
+  body.is-ready .anim-hero-meta { animation: riseIn 0.8s var(--transition) 0.62s forwards; }
   body.is-ready .anim-hint      { animation: fadeIn 0.8s var(--transition) 1.2s forwards; }
   body.is-ready .anim-footer    { animation: fadeIn 1s var(--transition) 0.6s forwards; }
 
@@ -88,10 +90,20 @@
   .avatar-btn:active { transform: scale(0.94); }
   .avatar-btn svg { width: 22px; height: 22px; fill: #333; }
 
-  /* ===== HERO ===== */
-  .hero { height: 38vh; min-height: 260px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; text-align: center; padding: 0 40px 14px; position: relative; }
-  .hero-name { font-size: clamp(46px, 7.5vw, 88px); font-weight: 800; letter-spacing: -3px; line-height: 1; }
-  .hero-sub { font-size: 12px; font-weight: 500; color: var(--muted); margin-top: 12px; letter-spacing: 3px; text-transform: uppercase; }
+  /* ===== HERO (Read.cv 계열 — 좌측 정렬 · 여백 중심 · 타이포 위계) ===== */
+  .hero { max-width: 940px; margin: 0 auto; padding: 172px 40px 64px; }
+  .hero-name { font-size: clamp(34px, 4.6vw, 54px); font-weight: 700; letter-spacing: -1.8px; line-height: 1.04; }
+  .hero-name .en { display: block; margin-top: 10px; font-size: 0.30em; font-weight: 500; letter-spacing: 2.4px; text-transform: uppercase; color: var(--muted); }
+  .hero-sub { font-size: 13.5px; font-weight: 500; color: var(--muted); margin-top: 20px; letter-spacing: -0.2px; }
+  .hero-bio { margin-top: 30px; max-width: 640px; font-size: 16.5px; line-height: 1.9; font-weight: 400; color: #3B3B3D; letter-spacing: -0.3px; }
+  .hero-bio + .hero-bio { margin-top: 12px; }
+  .hero-meta { margin-top: 36px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; font-size: 13px; color: var(--muted); }
+  .hero-meta a { color: var(--text); text-decoration: none; cursor: none; border-bottom: 1px solid var(--card-border); padding-bottom: 2px;
+                 transition: border-color 0.3s var(--transition), color 0.3s var(--transition); }
+  .hero-meta a:hover { color: var(--accent); border-color: var(--accent); }
+  .hero-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: #D8D8D4; }
+  .hero-rule { max-width: 940px; margin: 0 auto 10px; padding: 0 40px; }
+  .hero-rule i { display: block; height: 1px; background: var(--card-border); }
 
   /* ===== AUTO-ROTATING CAROUSEL ===== */
   .carousel-area { position: relative; height: 56vh; min-height: 440px; display: flex; align-items: center; overflow: hidden; }
@@ -469,7 +481,11 @@
   @media (max-width: 900px) {
     body { cursor: auto; }
     .top-bar { padding: 20px 24px; }
-    .hero { height: 30vh; min-height: 200px; padding: 0 24px 10px; }
+    .hero { padding: 118px 24px 44px; }
+    .hero-sub { margin-top: 16px; font-size: 12.5px; }
+    .hero-bio { margin-top: 24px; font-size: 15px; line-height: 1.85; }
+    .hero-meta { margin-top: 28px; gap: 9px 13px; font-size: 12.5px; }
+    .hero-rule { padding: 0 24px; }
     .carousel-area { min-height: 340px; }
     .work-card { width: 200px; height: 270px; }
     .lb-box { padding: 26px; border-radius: 20px; }
@@ -512,9 +528,26 @@
 
 <!-- HERO -->
 <section class="hero">
-  <h1 class="hero-name anim-hero-name">김동진</h1>
-  <p class="hero-sub anim-hero-sub">Product Merchandiser · 신영와코루 VENUS · 7년 3개월</p>
+  <h1 class="hero-name anim-hero-name">김동진<span class="en">Dongjin Kim</span></h1>
+  <p class="hero-sub anim-hero-sub">상품기획 MD · 신영와코루 VENUS 국내사업부 · 총 경력 7년 3개월 (MD 4년 3개월)</p>
+  <p class="hero-bio anim-hero-bio">
+    체형 계측 데이터와 CRM 분석을 근거로 시즌 상품을 기획합니다.
+    리피트·단종 판단부터 물량 운영과 채널 배분까지, 시즌이 도는 전 과정을 맡고 있습니다.
+  </p>
+  <p class="hero-bio anim-hero-bio">
+    결과보다 판단의 근거를 먼저 남기는 방식으로 일합니다. 아래는 그 기록입니다.
+  </p>
+  <div class="hero-meta anim-hero-meta">
+    <a href="mailto:rlaehdwls96@gmail.com">Email</a>
+    <span class="dot"></span>
+    <a href="docs/김동진_경력기술서.pdf" target="_blank" rel="noopener">경력기술서</a>
+    <span class="dot"></span>
+    <a href="https://github.com/rlaehdwls96-max/Kimdongjin-portfolio" target="_blank" rel="noopener">GitHub</a>
+    <span class="dot"></span>
+    <span>경기도 고양시 일산서구</span>
+  </div>
 </section>
+<div class="hero-rule anim-hero-meta"><i></i></div>
 
 <!-- AUTO-ROTATING CAROUSEL -->
 <section class="carousel-area" id="carouselArea">
