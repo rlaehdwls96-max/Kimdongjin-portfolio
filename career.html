@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>경력기술서 — 김동진 상품기획 MD</title>
+<meta name="description" content="상품기획 MD 김동진의 경력기술서. 프로젝트별 문제 정의, 수행, 성과와 수치 검증 근거를 정리했습니다.">
+<!-- 재직 중 검색 노출을 막으려면 아래 주석을 해제하세요 -->
+<!-- <meta name="robots" content="noindex, nofollow"> -->
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #FAFAF9;
+    --text: #111214;
+    --muted: #767676;
+    --card-border: #ECECEA;
+    --accent: #C4622D;
+    --accent-soft: #FBF3EC;
+    --accent-line: #EBD3C0;
+    --transition: cubic-bezier(0.22, 1, 0.36, 1);
+    --doc: 1080px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Pretendard Variable', Pretendard, -apple-system, 'Noto Sans KR', sans-serif;
+    background: var(--bg); color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.7;
+  }
+  ::selection { background: var(--text); color: var(--bg); }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  /* ===== TOP BAR ===== */
+  .bar {
+    position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.88);
+    backdrop-filter: saturate(160%) blur(12px); border-bottom: 1px solid var(--card-border);
+  }
+  .bar-in { max-width: var(--doc); margin: 0 auto; padding: 14px 40px; display: flex; align-items: center; gap: 16px; }
+  .back { font-size: 13px; font-weight: 600; color: var(--text); text-decoration: none; display: inline-flex; align-items: center; gap: 7px;
+          transition: color .25s var(--transition); }
+  .back:hover { color: var(--accent); }
+  .back .arw { transition: transform .3s var(--transition); }
+  .back:hover .arw { transform: translateX(-3px); }
+  .bar-title { font-size: 12px; color: var(--muted); letter-spacing: -0.2px; margin-left: 4px; }
+  .bar-sp { flex: 1; }
+  .btn {
+    font-family: inherit; font-size: 12.5px; font-weight: 600; color: var(--text); background: var(--bg);
+    border: 1px solid var(--card-border); border-radius: 999px; padding: 8px 16px; cursor: pointer; text-decoration: none;
+    transition: border-color .25s var(--transition), color .25s var(--transition), background .25s var(--transition);
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  /* ===== LAYOUT ===== */
+  .wrap { max-width: var(--doc); margin: 0 auto; padding: 0 40px 120px; display: grid; grid-template-columns: 1fr; }
+  .doc { min-width: 0; }
+
+  /* ===== DOC HEADER ===== */
+  .doc-head { padding: 76px 0 44px; border-bottom: 1px solid var(--card-border); }
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); }
+  .doc-name { font-size: clamp(32px, 4.4vw, 48px); font-weight: 700; letter-spacing: -1.8px; line-height: 1.05; margin-top: 18px; }
+  .doc-role { font-size: 14.5px; color: var(--muted); margin-top: 14px; letter-spacing: -0.2px; }
+  .doc-contact { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .doc-contact a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--card-border); }
+  .doc-contact a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* ===== SECTION ===== */
+  .sec { padding-top: 64px; }
+  .sec-label { font-size: 11px; font-weight: 700; letter-spacing: 2.4px; text-transform: uppercase; color: var(--muted); }
+  .sec-label b { color: var(--text); font-weight: 700; }
+  .sec-title { font-size: 20px; font-weight: 700; letter-spacing: -0.6px; margin-top: 10px; }
+
+  .summary { margin-top: 22px; font-size: 15.5px; line-height: 1.95; color: #3B3B3D; max-width: 780px; letter-spacing: -0.3px; }
+
+  /* ===== CAREER TABLE ===== */
+  .tbl { margin-top: 28px; border-top: 1px solid var(--text); }
+  .tr { display: grid; grid-template-columns: 172px 232px 1fr; gap: 20px; padding: 18px 2px; border-bottom: 1px solid var(--card-border); align-items: start; }
+  .tr .t-when { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: 1px; }
+  .tr .t-who { font-size: 14px; font-weight: 600; letter-spacing: -0.3px; }
+  .tr .t-who i { display: block; font-style: normal; font-size: 12.5px; font-weight: 500; color: var(--muted); margin-top: 3px; }
+  .tr .t-what { font-size: 13.5px; color: #3B3B3D; letter-spacing: -0.2px; }
+  .tr.now .t-when::after { content: '재직'; margin-left: 8px; font-size: 10px; font-weight: 700; color: var(--accent);
+                           background: var(--accent-soft); border: 1px solid var(--accent-line); border-radius: 999px; padding: 2px 7px; }
+
+  /* ===== EMPLOYER BLOCK ===== */
+  .emp { margin-top: 56px; padding-top: 26px; border-top: 2px solid var(--text); }
+  .emp-name { font-size: 19px; font-weight: 700; letter-spacing: -0.5px; }
+  .emp-meta { font-size: 12.5px; color: var(--muted); margin-top: 6px; }
+
+  /* ===== PROJECT ===== */
+  .prj { margin-top: 40px; }
+  .prj-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .prj-id { font-size: 12px; font-weight: 800; color: var(--accent); letter-spacing: 1px; font-variant-numeric: tabular-nums; }
+  .prj-title { font-size: 17.5px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.4; }
+  .prj-meta { display: flex; flex-wrap: wrap; gap: 6px 8px; margin-top: 12px; }
+  .chip { font-size: 11.5px; color: var(--muted); background: var(--bg-soft); border: 1px solid var(--card-border); border-radius: 999px; padding: 4px 11px; }
+  .chip b { color: var(--text); font-weight: 600; }
+
+  .row { display: grid; grid-template-columns: 92px 1fr; gap: 22px; margin-top: 20px; align-items: start; }
+  .row-k { font-size: 11.5px; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--muted); padding-top: 4px; }
+  .row-v { font-size: 14.5px; line-height: 1.85; color: #3B3B3D; letter-spacing: -0.25px; min-width: 0; }
+  .row-v ul { list-style: none; }
+  .row-v li { position: relative; padding-left: 15px; }
+  .row-v li + li { margin-top: 8px; }
+  .row-v li::before { content: ''; position: absolute; left: 0; top: 12px; width: 5px; height: 1.5px; background: #C9C2B8; }
+  .row-v em { font-style: normal; font-weight: 600; color: var(--text); }
+
+  /* 성과 — 수치가 실려 있는 줄이므로 다른 행보다 무겁게 */
+  .row.result .row-k { color: var(--accent); }
+  .row.result .row-v { font-size: 15.5px; font-weight: 600; color: var(--text); line-height: 1.8; }
+  .row.result .row-v span { color: var(--accent); }
+
+  /* 연결 — 플랫폼 MD 관점 */
+  .row.link .row-v { font-size: 13.5px; color: var(--muted); }
+
+  /* 검증 — 이 문서의 signature. 근거 없는 수치는 쓰지 않는다는 원칙을 형태로 */
+  .verify { margin-top: 20px; margin-left: 114px; background: var(--bg-soft); border: 1px solid var(--card-border);
+            border-left: 2px solid var(--accent); border-radius: 0 12px 12px 0; padding: 18px 22px; }
+  .verify-h { font-size: 10.5px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); }
+  .verify dl { margin-top: 12px; display: grid; grid-template-columns: 86px 1fr; gap: 9px 16px; }
+  .verify dt { font-size: 12px; font-weight: 600; color: var(--text); letter-spacing: -0.2px; }
+  .verify dd { font-size: 12.5px; color: #55534F; line-height: 1.75; letter-spacing: -0.2px; font-variant-numeric: tabular-nums; }
+
+  .tools { margin-top: 18px; margin-left: 114px; font-size: 12px; color: var(--muted); letter-spacing: -0.2px; }
+  .tools b { color: var(--text); font-weight: 600; margin-right: 8px; letter-spacing: 1.2px; font-size: 10.5px; text-transform: uppercase; }
+
+  .always { margin-top: 34px; padding: 18px 20px; border: 1px dashed var(--card-border); border-radius: 12px;
+            font-size: 13px; color: #55534F; line-height: 1.85; letter-spacing: -0.2px; }
+  .always b { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 1.6px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+
+  /* ===== SKILLS ===== */
+  .skills { margin-top: 28px; border-top: 1px solid var(--text); }
+  .sk { display: grid; grid-template-columns: 148px 1fr; gap: 22px; padding: 16px 2px; border-bottom: 1px solid var(--card-border); }
+  .sk dt { font-size: 12.5px; font-weight: 700; letter-spacing: -0.2px; }
+  .sk dd { font-size: 13.5px; color: #3B3B3D; line-height: 1.8; letter-spacing: -0.25px; }
+
+  .note { margin-top: 40px; font-size: 12px; color: var(--muted); line-height: 1.8; padding-top: 20px; border-top: 1px solid var(--card-border); }
+
+  .end { margin-top: 56px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .end .btn { padding: 11px 20px; font-size: 13px; }
+
+  /* ===== ENTRANCE ===== */
+  @keyframes riseIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .anim { opacity: 0; }
+  body.is-ready .anim { animation: riseIn .8s var(--transition) forwards; }
+  body.is-ready .anim.d1 { animation-delay: .10s; }
+  body.is-ready .anim.d2 { animation-delay: .22s; }
+  body.is-ready .anim.d3 { animation-delay: .34s; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .bar-in { padding: 12px 20px; gap: 10px; }
+    .bar-title { display: none; }
+    .wrap { padding: 0 20px 80px; }
+    .doc-head { padding: 44px 0 32px; }
+    .sec { padding-top: 48px; }
+    .tr { grid-template-columns: 1fr; gap: 8px; padding: 16px 2px; }
+    .tr.now .t-when::after { margin-left: 6px; }
+    .row { grid-template-columns: 1fr; gap: 8px; margin-top: 18px; }
+    .row-k { padding-top: 0; }
+    .verify, .tools { margin-left: 0; }
+    .verify dl { grid-template-columns: 1fr; gap: 4px 0; }
+    .verify dd { margin-bottom: 8px; }
+    .sk { grid-template-columns: 1fr; gap: 6px; }
+  }
+
+  /* ===== PRINT — 브라우저 인쇄로 PDF 저장 시 문서 형태 유지 ===== */
+  @media print {
+    @page { size: A4; margin: 14mm 12mm; }
+    body { line-height: 1.55; }
+    .bar, .end, .no-print { display: none !important; }
+    .anim { opacity: 1 !important; animation: none !important; }
+    .wrap { max-width: none; padding: 0; }
+    .doc-head { padding: 0 0 18px; }
+    .doc-name { font-size: 26px; }
+    .sec { padding-top: 24px; }
+    .emp { margin-top: 26px; break-after: avoid; page-break-after: avoid; }
+    .prj { margin-top: 22px; break-inside: avoid; page-break-inside: avoid; }
+    .verify, .always, .tbl, .skills { break-inside: avoid; page-break-inside: avoid; }
+    .row { margin-top: 11px; grid-template-columns: 84px 1fr; gap: 14px; }
+    .row-v, .sk dd { font-size: 11px; line-height: 1.6; }
+    .row.result .row-v { font-size: 11.5px; }
+    .verify, .tools { margin-left: 98px; }
+    .verify { background: #FAFAF9 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .verify dd, .tools, .chip { font-size: 10px; }
+    a { text-decoration: none; color: inherit; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="bar no-print">
+  <div class="bar-in">
+    <a class="back" href="index.html"><span class="arw">←</span> 포트폴리오</a>
+    <span class="bar-title">경력기술서</span>
+    <span class="bar-sp"></span>
+    <button class="btn" onclick="window.print()">PDF로 저장</button>
+  </div>
+</div>
+
+<div class="wrap">
+<div class="doc">
+
+  <!-- HEADER -->
+  <header class="doc-head">
+    <div class="eyebrow anim">경력기술서</div>
+    <h1 class="doc-name anim d1">김동진</h1>
+    <p class="doc-role anim d2">상품기획 MD · 총 경력 7년 3개월 (상품기획 MD 4년 3개월)</p>
+    <p class="doc-contact anim d3">
+      <a href="mailto:rlaehdwls96@gmail.com">rlaehdwls96@gmail.com</a> · 010-3234-4911
+    </p>
+  </header>
+
+  <!-- CAREER SUMMARY -->
+  <section class="sec">
+    <div class="sec-label">Career Summary</div>
+    <h2 class="sec-title">경력 요약</h2>
+    <p class="summary">
+      여성 이너웨어 브랜드에서 상품 라이프사이클 전 구간(기획 · 원가 · 발주 · 공급 · 소진 모니터링 · 리피트/단종)을 4년간 운영해온 상품기획 MD입니다.
+      체형 계측 데이터와 Salesforce · Tableau 기반 CRM 분석을 근거로 판단하는 방식을 훈련해왔으며, 개발자로 커리어를 시작해 SQL을 직접 작성하고 데이터를 추출해 의사결정에 사용합니다.
+    </p>
+
+    <div class="tbl">
+      <div class="tr now">
+        <div class="t-when">2022.05 ~</div>
+        <div class="t-who">신영와코루 VENUS<i>상품기획 MD (계장)</i></div>
+        <div class="t-what">연매출 96억 상품군 운영 / 체험 고객 구매 전환율 12% → 63.0% / 신규 라인 전년 대비 169.9% 신장</div>
+      </div>
+      <div class="tr">
+        <div class="t-when">2019.07 ~ 2022.02</div>
+        <div class="t-who">CJ 프레시원<i>경영지원 (주임)</i></div>
+        <div class="t-what">채권 · 여신 리스크 관리, 신규 유통센터 ERP 통합 전환 지원, M&amp;A 실사 지원</div>
+      </div>
+      <div class="tr">
+        <div class="t-when">2019.02 ~ 2019.05</div>
+        <div class="t-who">(주)트리아<i>개발 (대리)</i></div>
+        <div class="t-what">IFRS17 시스템 프로젝트(금융권), Java · Spring 개발 및 쿼리 작성</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECT EXPERIENCE -->
+  <section class="sec">
+    <div class="sec-label">Project Experience</div>
+    <h2 class="sec-title">프로젝트 상세</h2>
+
+    <!-- ===== 신영와코루 ===== -->
+    <div class="emp">
+      <div class="emp-name">신영와코루 VENUS 국내사업부 · 상품기획 MD (계장)</div>
+      <div class="emp-meta">여성 이너웨어 브랜드 · 연매출 96억 상품군 담당 · 2022.05 ~ 재직 중</div>
+    </div>
+
+    <!-- P1 -->
+    <article class="prj">
+      <div class="prj-head">
+        <span class="prj-id">P1</span>
+        <h3 class="prj-title">오프라인 계측 데이터 기반 온라인 구매 전환 설계 (스캔바이미 O2O)</h3>
+      </div>
+      <div class="prj-meta">
+        <span class="chip"><b>기간</b> 25SS ~ 현재</span>
+        <span class="chip"><b>역할</b> 상품군 운영 · O2O 퍼널 설계 주도 · 행사 연계 운영 지원</span>
+      </div>
+
+      <div class="row">
+        <div class="row-k">문제</div>
+        <div class="row-v">매장 바디 스캐닝 체험 만족도는 높은데 체험 고객의 구매 전환율은 12%에 그쳤습니다. 수집된 체형 데이터가 오프라인 시착에만 쓰이고 온라인에서는 활용되지 않아, 매장 접점과 자사몰이 데이터로 끊겨 있었기 때문입니다.</div>
+      </div>
+      <div class="row">
+        <div class="row-k">수행</div>
+        <div class="row-v"><ul>
+          <li>매장 3D 바디스캐너 계측 결과를 신영 통합멤버십 고객 ID에 적재하고 Salesforce CRM 등급 세그먼트로 분류, 고객 CI 등록 시점을 퍼널 진입점으로 정의</li>
+          <li>체형 데이터를 온라인 상품 추천에 매핑해 <em>Scan → Recommend → Purchase</em> 3단계 퍼널을 설계하고, 등급별 광고 문자 · 자사몰 쿠폰을 차등 집행</li>
+          <li>시즌 캘린더에 O2O 접점을 반영 : 백화점 판촉 행사와 팝업에 브랜드 모델 기용 캠페인을 배치하고, 스타필드 등 행사 매장을 중심으로 스캔바이미 예약 · 운영을 지원</li>
+          <li>계측 · 피팅 결과가 구매로 이어지도록 스캔바이미 전용 상품군 구성에 기획 의견을 반영하고, 같은 시기 S-FIT 3단계 핏 상품군을 큐레이션해 캠페인과 연계</li>
+          <li>CRM으로 확인한 20~30대 구매 성향에 맞춘 전용 패키지를 상시 운영 체계로 전환하고, 매장 · 온라인 조직 간 계측 데이터 활용 기준을 정렬해 채널 간 단절 해소</li>
+          <li>CRM · 판매 데이터 분석으로 추가 발주 방향과 상품 구성을 수립해 연매출 96억 규모 상품군을 운영</li>
+        </ul></div>
+      </div>
+      <div class="row result">
+        <div class="row-k">성과</div>
+        <div class="row-v">체험 고객 구매 전환율 <span>12% → 45% → 63.0%</span> · 연매출 96억 규모 상품군 운영</div>
+      </div>
+      <div class="row link">
+        <div class="row-k">연결</div>
+        <div class="row-v">오프라인 기반 브랜드의 체험 데이터를 앱 구매로 잇고, 시즌 캘린더에 맞춰 행사 · 캠페인 · 상품군을 함께 움직인 경험 — 입점 브랜드 대상 프로모션 기획과 대고객 메시지 실행에 그대로 적용됩니다.</div>
+      </div>
+
+      <div class="verify">
+        <div class="verify-h">검증</div>
+        <dl>
+          <dt>산출 정의</dt><dd>분자 = 계측(체험) 고객의 자사몰 구매 건 / 분모 = 3D 바디스캐너 계측 고객</dd>
+          <dt>시계열</dt><dd>12%(O2O 연계 전) → 45%(연계 직후, 동일 조건 비교) → 63.0%(2026.03~07 실측, 누적 계측 12,568회 중 구매 전환 7,917명) — 세 시점 모두 동일 산식</dd>
+          <dt>고객 구성</dt><dd>신규 고객 87.4% · 20~30대 87.6% (2026.03~07)</dd>
+          <dt>출처</dt><dd>3D 바디스캐너 대시보드 · Salesforce</dd>
+        </dl>
+      </div>
+      <div class="tools"><b>도구</b>Salesforce · Tableau (CRM 세그먼트 분석 · 대시보드) · SQL</div>
+    </article>
+
+    <!-- P2 -->
+    <article class="prj">
+      <div class="prj-head">
+        <span class="prj-id">P2</span>
+        <h3 class="prj-title">착용감 기준 재정의를 통한 신규 라인 기획 (S-FIT)</h3>
+      </div>
+      <div class="prj-meta">
+        <span class="chip"><b>기간</b> 25AW ~ 26SS</span>
+        <span class="chip"><b>역할</b> 선택 기준 설계부터 SKU 구성까지 기획 주도</span>
+      </div>
+
+      <div class="row">
+        <div class="row-k">문제</div>
+        <div class="row-v">“다 편하다는데 뭐가 다른지 모르겠다”는 선택 기준 부재 VOC가 반복됐고, 국내 여성 비만율이 29.5%(2021)까지 오르고 20대 여성은 10년간 1.9배 증가하는 등 체형 분포 자체가 달라져 기존 사이즈 체계와 맞지 않았습니다. 소재 중심 단일 라인 5종 구조로는 다양해진 수요를 받아낼 수 없었습니다.</div>
+      </div>
+      <div class="row">
+        <div class="row-k">수행</div>
+        <div class="row-v"><ul>
+          <li>체형 계측 데이터를 활동 강도 · 보정 수준 축으로 분석해 사이즈 · 소재 중심 선택 구조의 한계를 규명</li>
+          <li><em>Soft · Daily · Support</em> 3단계 핏을 정의하고, 고객이 스스로 고를 수 있는 선택 기준을 상품 구조로 구현</li>
+          <li>3단계 기준에 맞춰 SKU를 5종에서 16종으로 확장하고, 매장 등급별 재고 기준과 행사 아이템 차별화를 운영</li>
+          <li>시즌 전략회의 · 품평회에서 기획안을 발표하고 영업 현장 교육자료를 제작해 판매 조직에 3단계 선택 기준을 정착</li>
+          <li>단계별 판매 분포를 추적해 차기 시즌 사이즈 · 물량 비중에 반영</li>
+        </ul></div>
+      </div>
+      <div class="row result">
+        <div class="row-k">성과</div>
+        <div class="row-v">출시 3개월 매출 2.78억 · <span>전년 대비 169.9% 신장</span> · SKU 5종 → 16종 확장, 가중평균 판매율 50.5%</div>
+      </div>
+      <div class="row link">
+        <div class="row-k">연결</div>
+        <div class="row-v">수요는 있으나 공급이 얇은 축을 찾아 상품 구조를 다시 짜는 일 — 카테고리 내 비어 있는 상품 축 발굴과 신규 브랜드 · 상품 소싱 판단으로 이어집니다.</div>
+      </div>
+
+      <div class="verify">
+        <div class="verify-h">검증</div>
+        <dl>
+          <dt>선택 분포</dt><dd>구매 고객 95%가 3단계 기준 내 선택 (Soft 35% · Daily 40% · Support 20%)</dd>
+          <dt>판매율 정의</dt><dd>품번별 판매율 × 물량 가중평균</dd>
+          <dt>출처</dt><dd>체형 계측 데이터 × 구매 이력 교차 집계 · 사내 ERP 재고 · 판매율 데이터</dd>
+        </dl>
+      </div>
+      <div class="tools"><b>도구</b>사내 ERP (재고 · 판매율) · Salesforce · Tableau · SQL · Excel</div>
+    </article>
+
+    <!-- P3 -->
+    <article class="prj">
+      <div class="prj-head">
+        <span class="prj-id">P3</span>
+        <h3 class="prj-title">신소재 도입 기반 카테고리 리포지셔닝</h3>
+      </div>
+      <div class="prj-meta">
+        <span class="chip"><b>기간</b> 25AW ~ 26SS</span>
+        <span class="chip"><b>역할</b> 상품기획 주도</span>
+      </div>
+
+      <div class="row">
+        <div class="row-k">문제</div>
+        <div class="row-v">D2C 확산으로 편안함 중심 노와이어 시장이 포화되며 자사 점유율이 65%에서 48%로 하락했습니다. 가격 · 감성 차별화로는 되돌릴 수 없는 구조라고 판단하고, 경쟁이 비어 있는 소재 기술 영역을 진입 지점으로 선정했습니다.</div>
+      </div>
+      <div class="row">
+        <div class="row-k">수행</div>
+        <div class="row-v"><ul>
+          <li>CRM 세대별 고객 대시보드로 유입 · 방어 지표를 분리 추적해 이탈 원인을 가격이 아닌 <em>연령대 미스매치</em>로 재정의</li>
+          <li>TPE 몰드 · 티타늄 형상기억 와이어를 도입해 경쟁사가 따라오기 어려운 기술 진입장벽을 구축</li>
+          <li>BOM 기준 소재별 원가 구조 분석과 영업이익률 산출로 신소재 적용 가격대와 판매가 구조를 설계</li>
+          <li>보조택 · 패키징에 소재 정보를 표기해 소비자가 차별점을 직접 확인하도록 설계하고, 자사몰에서 가격 정당성을 기술력으로 전달하는 소구 방식을 구성</li>
+          <li>모델 기용 마케팅과 상품 소구 메시지를 연계해 20~30대 접점을 확대하고, 신소재 라인의 생산 일정 · 납기를 협력사와 조율해 시즌 내 출시 일정 확보</li>
+        </ul></div>
+      </div>
+      <div class="row result">
+        <div class="row-k">성과</div>
+        <div class="row-v">신소재 광고 카테고리 내 <span>점유율 35.86%</span> 확보 · 20~30대 신규 유입 +5.14%p, 30~40대 핵심 고객 비중 +9.97%p</div>
+      </div>
+      <div class="row link">
+        <div class="row-k">연결</div>
+        <div class="row-v">광고 카테고리 안에서 점유율을 만들어 본 경험 — 입점 브랜드의 광고 세일즈 제안과 카테고리 성장 설계의 근거가 됩니다.</div>
+      </div>
+
+      <div class="verify">
+        <div class="verify-h">검증</div>
+        <dl>
+          <dt>점유율 구분</dt><dd>65% → 48%는 노와이어 전체 카테고리 내 자사 점유율 추이, 35.86%는 신소재 광고 카테고리 내 점유율</dd>
+          <dt>세대 비중</dt><dd>CRM 집계 기준 구매 고객 연령대 구성비 변화 (%p)</dd>
+          <dt>원가 검증</dt><dd>BOM 원가 시뮬레이션으로 소재 교체 시 영업이익률 영향 사전 검증</dd>
+          <dt>출처</dt><dd>Salesforce · Tableau · 분기별 경쟁사 · 시장 조사</dd>
+        </dl>
+      </div>
+      <div class="tools"><b>도구</b>사내 ERP (BOM · 원가) · Salesforce · Tableau · Excel</div>
+    </article>
+
+    <!-- P4 -->
+    <article class="prj">
+      <div class="prj-head">
+        <span class="prj-id">P4</span>
+        <h3 class="prj-title">상품 라이프사이클 상시 운영 및 지표 기반 판단</h3>
+      </div>
+      <div class="prj-meta">
+        <span class="chip"><b>기간</b> 2022.05 ~ 현재</span>
+        <span class="chip"><b>역할</b> 담당 카테고리 전 구간 운영</span>
+      </div>
+
+      <div class="row">
+        <div class="row-k">문제</div>
+        <div class="row-v">시즌마다 무엇을 더 넣고 무엇을 뺄지를 반복 판단해야 하며, 판단이 늦으면 재고와 마진에 그대로 반영됩니다.</div>
+      </div>
+      <div class="row">
+        <div class="row-k">수행</div>
+        <div class="row-v"><ul>
+          <li><em>기획 · 원가</em> : 시즌 상품 구성 설계, BOM 생성, 원가 산출 및 품번 단가 등록, 정찰가 책정</li>
+          <li><em>발주 · 생산</em> : 봉제 업체별 생산 배분, 자재 발주 · 비축 관리, 납기 조율 및 선적 수량 확정</li>
+          <li><em>출시 · 공급</em> : 월별 공급계획서 작성, 채널별 초도 물량 배분, 신제품 상판 등록</li>
+          <li><em>모니터링</em> : 사이즈별 실매출 대비 현재고를 월 1회 점검(BR / PT / SL 카테고리별), 소진율 · 판매율 · 이익율 추적</li>
+          <li><em>리피트 · 단종</em> : 실매출 상위 사이즈의 재고 부족 시 리피트 발주, 잔량 과다 사이즈는 차기 발주 비중 축소, C급 편입 품번은 폐기 선별</li>
+        </ul></div>
+      </div>
+      <div class="row result">
+        <div class="row-k">판단 기준</div>
+        <div class="row-v">시즌 경과율 대비 소진율 · 원가 대비 이익율 · 등급별 재고(C급) · 사이즈별 실매출 대비 현재고 (임계치는 사내 기준으로 운영)</div>
+      </div>
+      <div class="row link">
+        <div class="row-k">연결</div>
+        <div class="row-v">플랫폼 MD가 입점사에게 요구하게 될 판단(무엇을 더 넣고 무엇을 뺄지)을 공급자 입장에서 직접 실행해온 구간입니다.</div>
+      </div>
+      <div class="tools"><b>도구</b>사내 ERP (기준재고관리 · 원가 · BOM · 공급계획) · Salesforce · Excel · SQL</div>
+    </article>
+
+    <div class="always">
+      <b>상시 업무</b>
+      물량 운영(주간 판매 사이클 · 재고 소진율 분석) · 원가 · 소싱(신규 협력사 발굴) · 생산 및 납기 통합 관리 · 유통 채널별 기획상품 구성과 물량 · 가격 정책 조정 · 분기별 경쟁사 · 시장 조사 · 시즌 전략회의 자료 작성 및 발표 · 시즌 품평회 운영 · 영업 현장 교육자료 제작
+    </div>
+
+    <!-- ===== CJ 프레시원 ===== -->
+    <div class="emp">
+      <div class="emp-name">CJ 프레시원 · 경영지원 / 영업관리 (주임)</div>
+      <div class="emp-meta">식자재 유통 · 협력사 및 채널 관리 · 2019.07 ~ 2022.02</div>
+    </div>
+
+    <!-- P5 -->
+    <article class="prj">
+      <div class="prj-head">
+        <span class="prj-id">P5</span>
+        <h3 class="prj-title">채권 · 여신 리스크 관리 운영</h3>
+      </div>
+      <div class="prj-meta">
+        <span class="chip"><b>기간</b> 2019.07 ~ 2022.02</span>
+        <span class="chip"><b>역할</b> 여신 관리 · 채권 관리</span>
+      </div>
+
+      <div class="row">
+        <div class="row-k">문제</div>
+        <div class="row-v">다수 협력사의 등록 · 여신 조건이 분산 관리되어 연체 징후를 늦게 발견하면 대손으로 이어지는 구조였습니다.</div>
+      </div>
+      <div class="row">
+        <div class="row-k">수행</div>
+        <div class="row-v"><ul>
+          <li>거래처별 여신 한도를 설정하고 채권 현황을 주기 점검해 연체 발생 거래처를 조기 식별</li>
+          <li>연체 이력 · 거래 규모를 반영해 거래처별 여신 기준을 조정하고 영업 담당자와 회수 일정을 합의</li>
+          <li>영업 현장과 본사 간 업무 조율 창구를 맡아 리스크 발생 시 대응 절차를 신속 가동</li>
+        </ul></div>
+      </div>
+      <div class="row result">
+        <div class="row-k">성과</div>
+        <div class="row-v">연체 거래처 조기 식별 체계 운영으로 대손 리스크 사전 통제 · 거래처 등급별 여신 한도 기준표 운영</div>
+      </div>
+      <div class="row link">
+        <div class="row-k">연결</div>
+        <div class="row-v">다수 협력사의 조건을 조율하고 리스크를 등급으로 관리한 경험 — 입점사 커뮤니케이션과 거래 조건 협의의 기초입니다.</div>
+      </div>
+      <div class="tools"><b>도구</b>SAP / ERP (채권 · 여신) · Excel</div>
+    </article>
+
+    <!-- P6 -->
+    <article class="prj">
+      <div class="prj-head">
+        <span class="prj-id">P6</span>
+        <h3 class="prj-title">신규 유통센터 ERP 통합 전환 지원</h3>
+      </div>
+      <div class="prj-meta">
+        <span class="chip"><b>기간</b> 2019.07 ~ 2022.02</span>
+        <span class="chip"><b>역할</b> 프로세스 진단 · 전환 지원 · 현장 안내</span>
+      </div>
+
+      <div class="row">
+        <div class="row-k">문제</div>
+        <div class="row-v">신규 유통센터의 계약 · 발주가 수기로 운영되어 수주 · 출고 · 반품 데이터가 시스템에 남지 않았고, 실적 집계와 정산에 지연이 발생했습니다.</div>
+      </div>
+      <div class="row">
+        <div class="row-k">수행</div>
+        <div class="row-v"><ul>
+          <li>현장 수기 계약 · 발주 프로세스를 진단하고 ERP 전환을 지원해 수주 · 출고 · 반품 데이터가 시스템에 반영되는 구조 구축</li>
+          <li>ERP 마스터 · 거래처 코드 체계를 정비해 데이터 정합성을 확보</li>
+          <li>DRM 정보보안 도입에 참여해 문서 등급화 기준의 영업 데이터 관리 방식을 정립</li>
+          <li>현장 담당자 대상 전환 절차를 안내해 시스템 정착 과정의 운영 혼선을 최소화</li>
+        </ul></div>
+      </div>
+      <div class="row result">
+        <div class="row-k">성과</div>
+        <div class="row-v">수기 기반 계약 · 발주 프로세스의 ERP 전환으로 수주–출고–반품 데이터 일원화</div>
+      </div>
+      <div class="tools"><b>도구</b>SAP / ERP (마스터 · 거래처 코드) · DRM · Excel</div>
+    </article>
+
+    <div class="always">
+      <b>상시 업무</b>
+      직영점 · 소매점 · 차량판매 등 복수 유통 채널 운영 지원 · 신규 거래처 코드 개설 및 변경 전담 · 채널별 매출 집계 및 경영진 보고용 통합 실적 보고서 정기 작성 · M&amp;A 실사 자료 준비 지원 · 채용 · 근태 등 인사행정
+    </div>
+
+    <!-- ===== 트리아 ===== -->
+    <div class="emp">
+      <div class="emp-name">(주)트리아 · IFRS17 시스템 유지보수 / 개발 (대리)</div>
+      <div class="emp-meta">금융권 시스템 개발 · SI · 2019.02 ~ 2019.05</div>
+    </div>
+
+    <!-- P7 -->
+    <article class="prj">
+      <div class="prj-head">
+        <span class="prj-id">P7</span>
+        <h3 class="prj-title">IFRS17 시스템 유지보수 · 개발 지원 (금융권 대형 고객사)</h3>
+      </div>
+      <div class="prj-meta">
+        <span class="chip"><b>기간</b> 2019.02 ~ 2019.05</span>
+        <span class="chip"><b>역할</b> 시스템 검증 · 개발 지원</span>
+      </div>
+
+      <div class="row">
+        <div class="row-k">문제</div>
+        <div class="row-v">보험 · 금융권 IFRS17 대응 시스템의 개발과 기존 시스템 유지보수가 동시에 필요했습니다.</div>
+      </div>
+      <div class="row">
+        <div class="row-k">수행</div>
+        <div class="row-v"><ul>
+          <li>현대카드 모기지프라임 · 산업은행 · 우리은행 대상 시스템 구동 모니터링과 테스트 데이터 검증 수행</li>
+          <li>처브(Chubb)보험사 개발 지원 업무를 맡아 현업 담당자와 협업하며 개발환경 세팅부터 Java · Spring 기반 개발까지 직접 참여</li>
+          <li>구디아카데미 6개월 과정(Java · Spring · 빅데이터) 수료 직후 투입되어 학습 내용을 실무 검증 프로세스에 즉시 적용</li>
+        </ul></div>
+      </div>
+      <div class="row link">
+        <div class="row-k">연결</div>
+        <div class="row-v">SQL을 읽고 쓰는 능력의 출처 — 데이터를 요청하지 않고 직접 추출할 수 있는 이유</div>
+      </div>
+      <div class="tools"><b>도구</b>Java · Spring · SQL</div>
+    </article>
+  </section>
+
+  <!-- SIDE PROJECT -->
+  <section class="sec">
+    <div class="sec-label">Side Project</div>
+    <h2 class="sec-title">데이터 분석 프로젝트</h2>
+
+    <div class="emp">
+      <div class="emp-name">Olist 이커머스 물류–리텐션 분석</div>
+      <div class="emp-meta">ICB 5기 데이터분석 과정 (4개월) · 팀 프로젝트 1위 · 프로그램 우수 수료생 선정 (80명 중 5인)</div>
+    </div>
+
+    <article class="prj">
+      <div class="prj-head">
+        <span class="prj-id">S1</span>
+        <h3 class="prj-title">물류–리텐션 상관 분석 및 벤더 세그멘테이션</h3>
+      </div>
+      <div class="prj-meta">
+        <span class="chip"><b>기간</b> 4개월 과정</span>
+        <span class="chip"><b>역할</b> 문제 정의 · 전처리 · 가설 검증 · 대시보드 구현</span>
+      </div>
+
+      <div class="row">
+        <div class="row-k">문제</div>
+        <div class="row-v">재구매율 하락 원인 규명을 목표로 했으나 트래픽 · 유저 식별이 불가한 데이터 구조적 한계가 있어, 고객 평점을 재구매율의 선행 지표(Proxy)로 재설계했습니다.</div>
+      </div>
+      <div class="row">
+        <div class="row-k">수행</div>
+        <div class="row-v"><ul>
+          <li>셀러 3,095개사 · 구매 고객 95,420명 규모의 원천 데이터를 정제해 배송 소요일 · 지역 좌표 · 평점 · 카테고리 축으로 분석 테이블 재구성</li>
+          <li><em>가설①</em> 공급자 지역 편중 → 셀러 히트맵으로 상파울루(SP) 70% 과밀집 · 수요 전국 분산 구조 확인</li>
+          <li><em>가설②</em> 배송 지연이 이탈 원인 → 회귀분석으로 10일 초과 시 평점 3점 미만 급락 임계점 도출(장거리 배송 비율 63.82%)</li>
+          <li><em>가설③</em> 정상 배송 경험의 충성 전환 효과 → 지연 · 정상 배송군 평점 분포 비교 / <em>가설④</em> 특정 벤더군의 리텐션 악화 주도 → 벤더 생존 퍼널 설계 후 Toxic 셀러 112개사 블랙리스트화</li>
+          <li>검증 결과를 인터랙티브 대시보드로 시각화하고 OKR(악성 벤더 비중 10% 이하, 장거리 배송 지연율 전년 대비 30% 개선)로 구조화해 팀 최종 제안안 완성</li>
+        </ul></div>
+      </div>
+      <div class="row result">
+        <div class="row-k">성과</div>
+        <div class="row-v"><span>팀 프로젝트 1위 · 우수 수료생 선정(80명 중 5인)</span> · 벤더 세그멘테이션 Zombie 1,500 / Active 933 / Newbie 315 / Power 235 / Toxic 112</div>
+      </div>
+      <div class="row link">
+        <div class="row-k">연결</div>
+        <div class="row-v">셀러를 생존 퍼널로 5등급 분류하고 악성 벤더를 선별한 구조 — 플랫폼의 입점사 등급 관리 · 브랜드 포트폴리오 판단과 같은 문제입니다.</div>
+      </div>
+      <div class="tools"><b>도구</b>Python (전처리 · 상관 · 회귀분석) · SQL · 지리공간 히트맵 · 인터랙티브 대시보드</div>
+    </article>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="sec">
+    <div class="sec-label">Skills &amp; Credentials</div>
+    <h2 class="sec-title">역량 및 자격</h2>
+
+    <dl class="skills">
+      <div class="sk"><dt>데이터</dt><dd>SQL (MySQL) · Python · Tableau — 직접 추출 및 대시보드 구축 (우대사항 BigQuery는 동일 SQL 계열로 즉시 적응 가능)</dd></div>
+      <div class="sk"><dt>CRM · 분석</dt><dd>Salesforce · Tableau — CRM 세그먼트 분석과 대시보드를 직접 구축해 상품 · 발주 의사결정에 사용</dd></div>
+      <div class="sk"><dt>기간 시스템</dt><dd>신영와코루 사내 ERP (원가 · BOM · 재고 · 공급계획 · 기준재고관리 전 모듈) / SAP ERP (CJ 프레시원 재직 시 채권 · 여신 · 마스터 운영)</dd></div>
+      <div class="sk"><dt>상품기획</dt><dd>BOM 원가 구조 분석 · 영업이익률 산출 · 체형 계측 데이터 기반 상품 구조 설계</dd></div>
+      <div class="sk"><dt>AI 활용</dt><dd>Notion으로 MD 업무 아카이브를 자체 설계 · 운영 (일일 업무–프로젝트–성과 3중 관계형 DB). Claude · ChatGPT로 반복 집계와 문서 작업을 자동화하고, 성과 기록에 검증 근거 필드를 두어 수치 정합을 관리</dd></div>
+      <div class="sk"><dt>자격</dt><dd>유통관리사 (2026.06) · 정보처리산업기사 (2019)</dd></div>
+      <div class="sk"><dt>학력</dt><dd>서울사이버대학교 온라인커머스 학사 (재직 중 취득)</dd></div>
+    </dl>
+
+    <p class="note">※ 기재된 성과 수치는 사내 판매 · CRM 데이터 및 팀 프로젝트 분석 결과 기준이며, 상세 근거는 포트폴리오에서 확인 가능합니다.</p>
+
+    <div class="end no-print">
+      <a class="btn" href="index.html">← 포트폴리오 보기</a>
+      <button class="btn" onclick="window.print()">PDF로 저장</button>
+      <a class="btn" href="mailto:rlaehdwls96@gmail.com">이메일 보내기</a>
+    </div>
+  </section>
+
+</div>
+</div>
+
+<script>
+  window.addEventListener('load', function () { document.body.classList.add('is-ready'); });
+  setTimeout(function () { document.body.classList.add('is-ready'); }, 600);
+</script>
+</body>
+</html>
