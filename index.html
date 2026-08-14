@@ -499,6 +499,23 @@
   .mock-pipe-node.hi { background: #F3EDE7; }
   .mock-pipe-node.hi b { color: #8A421B; }
 
+  /* ===== KPI 대시보드 목업 ===== */
+  .mock-kpi { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+  .mock-kpi-w { background: #ECEFF4; border-radius: 6px; padding: 8px 9px; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
+  .mock-kpi-w b { font-size: 13px; font-weight: 800; color: #46536b; letter-spacing: -0.3px; }
+  .mock-kpi-w span { font-size: 7.5px; color: #767676; line-height: 1.3; }
+  .mock-kpi-bars { display: flex; align-items: flex-end; gap: 3px; height: 26px; }
+  .mock-kpi-bars i { flex: 1; background: #8FA8C9; border-radius: 2px 2px 0 0; }
+  .mock-kpi-w.hi { background: #F3EDE7; }
+  .mock-kpi-w.hi b { color: #8A421B; }
+  /* 지표 → 판단 매핑 표 */
+  .lb-rules { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12.5px; }
+  .lb-rules th { text-align: left; font-size: 10px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase; color: var(--accent); padding: 0 10px 8px 0; border-bottom: 1px solid var(--card-border); }
+  .lb-rules td { padding: 11px 10px 11px 0; border-bottom: 1px solid var(--card-border); vertical-align: top; line-height: 1.65; color: #4a4a4a; }
+  .lb-rules td:first-child { font-weight: 700; color: var(--text); white-space: nowrap; }
+  .lb-rules td b { color: var(--text); }
+  .lb-rules tr:last-child td { border-bottom: none; }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     body { cursor: auto; }
@@ -513,6 +530,10 @@
     .lb-box { padding: 26px; border-radius: 20px; }
     .lb-images { grid-template-columns: 1fr; }
     .lb-diff { grid-template-columns: 1fr; }
+    .lb-rules, .lb-rules tbody, .lb-rules tr, .lb-rules td { display: block; width: 100%; }
+    .lb-rules thead { display: none; }
+    .lb-rules td { padding: 4px 0; border: none; }
+    .lb-rules tr { padding: 10px 0; border-bottom: 1px solid var(--card-border); }
     .lb-figure.half { grid-column: 1 / -1; }
     .lb-shot img, .lb-shot.span2 img { max-height: 300px; }
     .lb-gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -565,7 +586,9 @@
     <span class="dot"></span>
     <a href="career.html">경력기술서</a>
     <span class="dot"></span>
-    <a href="#" onclick="event.preventDefault(); openCase('ai');">AI 활용 프로젝트</a>
+    <a href="#" onclick="event.preventDefault(); openCase('kpi');">AI 활용 · KPI 대시보드</a>
+    <span class="dot"></span>
+    <a href="#" onclick="event.preventDefault(); openCase('ai');">AI 활용 · 발주 자동화</a>
     <span class="dot"></span>
     <a href="https://github.com/rlaehdwls96-max/Kimdongjin-portfolio" target="_blank" rel="noopener">GitHub</a>
     <span class="dot"></span>
@@ -584,7 +607,7 @@
 <section class="more-work">
   <div class="more-work-head" id="moreWorkHead">
     <h2>All Work</h2>
-    <span>9개 항목 · 케이스 3건 · 사이드 프로젝트 2건</span>
+    <span>10개 항목 · 케이스 3건 · AI 활용 2건</span>
   </div>
   <div class="more-grid" id="moreGrid"></div>
 </section>
@@ -601,7 +624,8 @@
         <a href="mailto:rlaehdwls96@gmail.com" class="f-pill">Email</a>
         <a href="https://github.com/rlaehdwls96-max/Kimdongjin-portfolio" target="_blank" rel="noopener" class="f-pill">GitHub</a>
         <a href="career.html" class="f-pill">경력기술서</a>
-        <a href="#" class="f-pill" onclick="event.preventDefault(); expandFooterKeep(); openCase('ai');">AI 활용 프로젝트</a>
+        <a href="#" class="f-pill" onclick="event.preventDefault(); expandFooterKeep(); openCase('kpi');">AI · KPI 대시보드</a>
+        <a href="#" class="f-pill" onclick="event.preventDefault(); expandFooterKeep(); openCase('ai');">AI · 발주 자동화</a>
       </div>
       <div class="footer-copy">Portfolio · 2026 © Dongjin Kim</div>
     </div>
@@ -642,6 +666,87 @@
    사진 확보가 어려운 항목(일하는 구조 / 경력 / 보유기술 / 데이터 / 룩북)은
    인포그래픽 SVG로 대체합니다. 텍스트가 아니라 벡터라 확대해도 깨지지 않습니다. */
 const FIG = {
+
+kpiflow: `<svg viewBox="0 0 920 330" xmlns="http://www.w3.org/2000/svg" font-family="inherit" role="img" aria-label="KPI 대시보드 구조">
+  <text x="22" y="24" font-size="13" font-weight="700" fill="#111214">부서 KPI 대시보드 — 무엇을 보고, 무엇을 결정하는가</text>
+  <text x="898" y="24" font-size="11" fill="#767676" text-anchor="end">Streamlit · Plotly · SQLite</text>
+
+  <text x="22" y="56" font-size="10" font-weight="800" letter-spacing="1.2" fill="#C4622D">데이터 소스</text>
+  <rect x="22" y="66" width="216" height="60" rx="11" fill="#FFFFFF" stroke="#E6E1DA"/>
+  <text x="40" y="92" font-size="12" font-weight="700" fill="#111214">주간 군별 실매출</text>
+  <text x="40" y="111" font-size="10" fill="#6d6459">월중 누적 스냅샷 구조</text>
+  <rect x="22" y="134" width="216" height="60" rx="11" fill="#FFFFFF" stroke="#E6E1DA"/>
+  <text x="40" y="160" font-size="12" font-weight="700" fill="#111214">월별 공급계획 · 상판</text>
+  <text x="40" y="179" font-size="10" fill="#6d6459">신제품 · 리피트 분리 적재</text>
+  <rect x="22" y="202" width="216" height="60" rx="11" fill="#FFFFFF" stroke="#E6E1DA"/>
+  <text x="40" y="228" font-size="12" font-weight="700" fill="#111214">REPEAT 재고 · 판매</text>
+  <text x="40" y="247" font-size="10" fill="#6d6459">품번 × 색상 단위</text>
+
+  <path d="M246 96 l16 0 m-6 -5 l6 5 -6 5" stroke="#C9C2B8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M246 164 l16 0 m-6 -5 l6 5 -6 5" stroke="#C9C2B8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+  <path d="M246 232 l16 0 m-6 -5 l6 5 -6 5" stroke="#C9C2B8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+
+  <text x="270" y="56" font-size="10" font-weight="800" letter-spacing="1.2" fill="#C4622D">대시보드 뷰</text>
+  <rect x="270" y="66" width="330" height="60" rx="11" fill="#F4F1EC" stroke="#E6E1DA"/>
+  <text x="290" y="92" font-size="12.5" font-weight="800" fill="#111214">군별 목표 대비 달성률</text>
+  <text x="290" y="111" font-size="10" fill="#6d6459">VBR · VPT · HBR · HPT · VFS · VDW · VHS 7개 군</text>
+  <rect x="270" y="134" width="330" height="60" rx="11" fill="#F4F1EC" stroke="#E6E1DA"/>
+  <text x="290" y="160" font-size="12.5" font-weight="800" fill="#111214">주간 실적 추이 · 전년 대비</text>
+  <text x="290" y="179" font-size="10" fill="#6d6459">누적 스냅샷 차감으로 실제 주간 증분 산출</text>
+  <rect x="270" y="202" width="330" height="60" rx="11" fill="#F4F1EC" stroke="#E6E1DA"/>
+  <text x="290" y="228" font-size="12.5" font-weight="800" fill="#111214">재고 소진 분석</text>
+  <text x="290" y="247" font-size="10" fill="#6d6459">소진 예상 개월 · 리드타임 대비 발주 상태</text>
+
+  <path d="M608 164 l16 0 m-6 -5 l6 5 -6 5" stroke="#C9C2B8" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+
+  <text x="632" y="56" font-size="10" font-weight="800" letter-spacing="1.2" fill="#C4622D">SKU 판단</text>
+  <rect x="632" y="66" width="263" height="196" rx="12" fill="#FBF3EC" stroke="#EBD3C0"/>
+  <text x="652" y="96" font-size="13" font-weight="800" fill="#111214">군 단위로 보고, SKU로 실행</text>
+  <text x="652" y="122" font-size="11" fill="#8A421B">· 달성 미달군 → 물량 재배분 · 행사 편성</text>
+  <text x="652" y="146" font-size="11" fill="#8A421B">· 증분 하락군 → 노출 · 가격 정책 점검</text>
+  <text x="652" y="170" font-size="11" fill="#8A421B">· 소진 임박 SKU → 리피트 발주 확대</text>
+  <text x="652" y="194" font-size="11" fill="#8A421B">· 판매율 미달 SKU → 단종 · 소진 전환</text>
+  <text x="652" y="228" font-size="10" fill="#6d6459">군별 진단 결과를 품번 단위 액션으로</text>
+  <text x="652" y="245" font-size="10" fill="#6d6459">연결하는 것이 이 대시보드의 목적</text>
+
+  <text x="22" y="296" font-size="11" font-weight="700" fill="#111214">핵심 설계 — 원본은 &quot;월중 누적&quot; 스냅샷이라 그대로 쓰면 주간 실적이 아니다</text>
+  <text x="22" y="316" font-size="10.5" fill="#6d6459">연속된 두 스냅샷을 차감해 실제 주간 증분을 계산하고, 월이 바뀌는 시점에는 누적이 초기화되는 것을 따로 처리</text>
+</svg>`,
+
+kpigate: `<svg viewBox="0 0 920 300" xmlns="http://www.w3.org/2000/svg" font-family="inherit" role="img" aria-label="지표별 판단 기준">
+  <text x="22" y="24" font-size="13" font-weight="700" fill="#111214">지표 → 판단 기준 — 대시보드에서 무엇을 보고 무엇을 정하는가</text>
+  <line x1="22" y1="40" x2="898" y2="40" stroke="#E6E1DA"/>
+  <text x="34" y="60" font-size="10" font-weight="800" letter-spacing="1" fill="#C4622D">지표</text>
+  <text x="250" y="60" font-size="10" font-weight="800" letter-spacing="1" fill="#C4622D">보는 값</text>
+  <text x="560" y="60" font-size="10" font-weight="800" letter-spacing="1" fill="#C4622D">판단 · 액션</text>
+  <line x1="22" y1="70" x2="898" y2="70" stroke="#E6E1DA"/>
+
+  <text x="34" y="96" font-size="12" font-weight="700" fill="#111214">목표 대비 달성률</text>
+  <text x="250" y="96" font-size="11.5" fill="#4a4a4a">군별 누적 실매출 ÷ 목표</text>
+  <text x="560" y="96" font-size="11.5" fill="#4a4a4a">미달 군 → 물량 재배분 · 행사 아이템 편성</text>
+  <line x1="22" y1="112" x2="898" y2="112" stroke="#EFEBE5"/>
+
+  <text x="34" y="138" font-size="12" font-weight="700" fill="#111214">주간 실매출 증분</text>
+  <text x="250" y="138" font-size="11.5" fill="#4a4a4a">스냅샷 차감 실제 증분</text>
+  <text x="560" y="138" font-size="11.5" fill="#4a4a4a">연속 하락 군 → 노출 · 가격 정책 점검</text>
+  <line x1="22" y1="154" x2="898" y2="154" stroke="#EFEBE5"/>
+
+  <text x="34" y="180" font-size="12" font-weight="700" fill="#111214">소진 예상 개월</text>
+  <text x="250" y="180" font-size="11.5" fill="#4a4a4a">현재고 ÷ 월평균 판매</text>
+  <text x="560" y="180" font-size="11.5" fill="#4a4a4a">리드타임 미만 → 즉시 발주 대상으로 분류</text>
+  <line x1="22" y1="196" x2="898" y2="196" stroke="#EFEBE5"/>
+
+  <text x="34" y="222" font-size="12" font-weight="700" fill="#111214">가중평균 판매율</text>
+  <text x="250" y="222" font-size="11.5" fill="#4a4a4a">시즌 경과 대비 소진</text>
+  <text x="560" y="222" font-size="11.5" fill="#4a4a4a">기준 미달 → 단종 · 소진 전환 검토</text>
+  <line x1="22" y1="238" x2="898" y2="238" stroke="#EFEBE5"/>
+
+  <text x="34" y="264" font-size="12" font-weight="700" fill="#111214">전년 동기 대비</text>
+  <text x="250" y="264" font-size="11.5" fill="#4a4a4a">군별 YoY 신장률</text>
+  <text x="560" y="264" font-size="11.5" fill="#4a4a4a">역신장 군 → 차기 시즌 라인업 우선 재검토</text>
+  <line x1="22" y1="280" x2="898" y2="280" stroke="#E6E1DA"/>
+  <text x="34" y="296" font-size="10" fill="#767676">임계치는 사내 기준으로 관리합니다.</text>
+</svg>`,
 
 aipipe: `<svg viewBox="0 0 920 310" xmlns="http://www.w3.org/2000/svg" font-family="inherit" role="img" aria-label="REPEAT 발주 자동화 파이프라인">
   <text x="22" y="24" font-size="13" font-weight="700" fill="#111214">REPEAT 발주 자동화 — 처리 파이프라인</text>
@@ -995,6 +1100,26 @@ lookbook: `<svg viewBox="0 0 920 250" xmlns="http://www.w3.org/2000/svg" font-fa
 
 /* 캐러셀 카드용 축약 인포그래픽 — 사진이 없는 항목의 대표 비주얼 */
 const MINI = {
+kpi: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
+  <text x="20" y="30" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">군별 · 실적 · 재고</text>
+  <rect x="20" y="40" width="100" height="44" rx="7" fill="#ECEFF4"/>
+  <text x="32" y="60" font-size="14" font-weight="800" fill="#46536b">7개 군</text>
+  <text x="32" y="75" font-size="7.5" fill="#767676">달성률 실시간 집계</text>
+  <rect x="130" y="40" width="100" height="44" rx="7" fill="#F3EDE7"/>
+  <text x="142" y="60" font-size="14" font-weight="800" fill="#8A421B">주간 증분</text>
+  <text x="142" y="75" font-size="7.5" fill="#8A421B">스냅샷 차감 산출</text>
+  <rect x="20" y="92" width="210" height="44" rx="7" fill="#ECEFF4"/>
+  <g>
+    <rect x="32" y="104" width="12" height="24" rx="2" fill="#8FA8C9"/>
+    <rect x="49" y="112" width="12" height="16" rx="2" fill="#8FA8C9"/>
+    <rect x="66" y="100" width="12" height="28" rx="2" fill="#8FA8C9"/>
+    <rect x="83" y="116" width="12" height="12" rx="2" fill="#C4622D" fill-opacity="0.6"/>
+    <rect x="100" y="108" width="12" height="20" rx="2" fill="#8FA8C9"/>
+  </g>
+  <text x="124" y="115" font-size="8.5" font-weight="700" fill="#46536b">소진 임박 군 식별</text>
+  <text x="124" y="127" font-size="7.5" fill="#767676">→ SKU 단위 발주 판단</text>
+  <text x="20" y="152" font-size="8.5" fill="#767676">Streamlit · Plotly 대시보드</text>
+</svg>`,
 ai: `<svg viewBox="0 0 250 160" xmlns="http://www.w3.org/2000/svg" font-family="inherit" aria-hidden="true">
   <text x="20" y="34" font-size="9" font-weight="800" letter-spacing="1.2" fill="#C4622D">RAW → 발주 판단</text>
   <g>
@@ -1102,6 +1227,7 @@ const workCards = [
   { key:'case2', badge:'Case 02', v:'v2', label:'S-FIT', title:'S-FIT 3단계 핏 큐레이션', desc:'고객이 스스로 고르는 선택 기준 설계', stat:'전년 대비 169.9% 신장' },
   { key:'case3', badge:'Case 03', v:'v3', label:'소재', title:'신소재 브랜드 리포지셔닝', desc:'모방 불가능한 기술 진입장벽 구축', stat:'광고 카테고리 점유율 35.86%' },
   { key:'system', badge:'Working System', v:'v8', label:'SYSTEM', title:'일하는 구조', desc:'리피트·단종 판단 게이트 · 공급계획 · 아카이브', stat:'5단계 판단 게이트' },
+  { key:'kpi', badge:'AI 활용', v:'v2', label:'KPI', title:'AI 활용 — KPI 대시보드', desc:'군별 실적·재고를 한 화면에서 보고 SKU 단위로 결정', stat:'7개 군 · 주간 단위 판단' },
   { key:'ai', badge:'AI 활용', v:'v5', label:'AI', title:'AI 활용 — 발주 자동화', desc:'엑셀 원본 파싱부터 발주 시점 역산까지 직접 구현', stat:'품번·색상 1,300여 건 자동 판별' },
   { key:'data', badge:'Side Project', v:'v4', label:'DATA', title:'Olist 이커머스 분석', desc:'ICB 5기 BA 팀 프로젝트 2건 · 전원 1위', stat:null },
   { key:'lookbook', badge:'Lookbook', v:'v5', label:'22AW–26AW', title:'시즌 기획 아카이브', desc:'입사 이후 참여한 시즌 기록', stat:null },
@@ -1292,6 +1418,89 @@ const cases = {
       {num:'5단계',desc:'리피트·단종 판단 게이트'},
       {num:'월 1회',desc:'공급계획 갱신 주기'},
       {num:'3중 DB',desc:'업무·프로젝트·성과 연결'}
+    ]
+  },
+
+  /* ─────────── AI 활용 — KPI 대시보드 ─────────── */
+  kpi: {
+    eyebrow:'AI 활용 · Side Project',
+    title:'부서가 매주 보는 숫자를, 한 화면에서 판단까지',
+    period:'2026 · 개인 프로젝트 · 기획 · 설계 · 구현 전담',
+    images:[ { fig:'kpiflow' }, { fig:'kpigate' } ],
+    colors:['#EAEEF4','#F0ECF4'],
+    narrative:`
+      <div class="lb-sec">
+        <div class="lb-sec-label">Situation — 숫자는 있는데, 판단까지 가는 데 시간이 걸렸다</div>
+        <div class="lb-body">군별 실매출, 월별 공급계획, 재고 현황이 <strong>각각 다른 파일</strong>에 있었습니다. 주간 회의를 준비하려면 매번 파일을 열어 옮겨 붙이고, 어느 군이 왜 밀리는지는 그 다음에야 확인할 수 있었습니다. 숫자를 모으는 데 시간이 들어가니, 정작 <strong>판단에 쓸 시간이 남지 않는 구조</strong>였습니다.</div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Action 01 — 원본이 &quot;주간 실적&quot;이 아니라는 것부터</div>
+        <div class="lb-body">가장 먼저 걸린 문제는 원본 구조였습니다. 주간 실매출 파일은 그 주의 실적이 아니라 <strong>월중 누적 스냅샷</strong>이라, 그대로 그리면 매주 우상향하는 그래프만 나옵니다. 실제 주간 실적을 보려면 연속된 두 스냅샷을 차감해야 했고, 월이 바뀌며 누적이 초기화되는 지점은 따로 처리해야 했습니다.</div>
+        <div class="lb-code">
+          <div class="lb-code-head">누적 스냅샷 → 실제 주간 증분</div>
+          <pre><span class="c"># 원본은 월중 누적값 — 연속 스냅샷을 차감해야 그 주의 실적이 나온다</span>
+df = df.sort_values([<span class="s">"군"</span>, <span class="s">"snapshot_date"</span>])
+df[<span class="s">"주간_실매출"</span>] = df.groupby(<span class="s">"군"</span>)[<span class="s">"누적_실매출"</span>].diff()
+
+<span class="c"># 월이 바뀌면 누적이 0부터 다시 쌓이므로, 그 주는 누적값 자체가 곧 주간 실적</span>
+first_of_month = df[<span class="s">"snapshot_date"</span>].dt.month != df.groupby(<span class="s">"군"</span>)[<span class="s">"snapshot_date"</span>].shift().dt.month
+df.loc[first_of_month, <span class="s">"주간_실매출"</span>] = df.loc[first_of_month, <span class="s">"누적_실매출"</span>]
+df[<span class="s">"주간_실매출"</span>] = df[<span class="s">"주간_실매출"</span>].fillna(df[<span class="s">"누적_실매출"</span>])</pre>
+        </div>
+        <div class="lb-note">군 정의도 함께 정리했습니다. 시즌마다 표기가 달라지는 항목(씸레스·부인용·L-FIT 등)까지 매핑해 <b>미매핑 0건</b>으로 맞췄고, 시트 끝의 중복 요약 섹션은 이중 집계를 막기 위해 파싱에서 제외했습니다. 최종 집계값은 원본 자료와 직접 대조해 일치를 확인했습니다.</div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Action 02 — 무엇을 보고 무엇을 정할지 먼저 고정</div>
+        <div class="lb-body">대시보드를 만들기 전에 <strong>지표별 판단 기준부터 정리</strong>했습니다. 화면에 그래프를 늘리는 대신, 각 지표가 어떤 액션으로 이어지는지를 먼저 못 박아 두는 편이 실제 회의에서 쓰이기 때문입니다.</div>
+        <table class="lb-rules">
+          <thead><tr><th>지표</th><th>보는 값</th><th>판단 · 액션</th></tr></thead>
+          <tbody>
+            <tr><td>목표 대비 달성률</td><td>군별 누적 실매출 ÷ 목표</td><td>미달 군 → 물량 재배분 · 행사 아이템 편성</td></tr>
+            <tr><td>주간 실매출 증분</td><td>스냅샷 차감으로 얻은 실제 증분</td><td>연속 하락 군 → 노출 · 가격 정책 점검</td></tr>
+            <tr><td>소진 예상 개월</td><td>현재고 ÷ 월평균 판매</td><td>리드타임 미만 → 즉시 발주 대상 분류</td></tr>
+            <tr><td>가중평균 판매율</td><td>시즌 경과 대비 소진 정도</td><td>기준 미달 → 단종 · 소진 전환 검토</td></tr>
+            <tr><td>전년 동기 대비</td><td>군별 YoY 신장률</td><td>역신장 군 → 차기 시즌 라인업 우선 재검토</td></tr>
+          </tbody>
+        </table>
+        <div class="lb-note">임계치는 사내 기준으로 관리합니다. 판단 기준을 코드에 상수로 두고 화면에도 같이 표기해, 보는 사람마다 기준이 달라지지 않도록 했습니다.</div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Action 03 — 군 단위 진단을 SKU 액션으로 연결</div>
+        <div class="lb-body">군별로 &quot;어디가 밀리는지&quot;를 본 다음, 같은 대시보드 안에서 해당 군의 품번·색상 단위로 내려가 발주 상태를 확인합니다. 회의에서 나온 결론이 곧바로 <strong>품번 단위 실행</strong>으로 이어지게 만드는 것이 목적이었습니다.</div>
+        <div class="lb-code">
+          <div class="lb-code-head">소진 예상 개월 → 발주 상태 판정</div>
+          <pre><span class="c"># 재고가 몇 개월 버티는지 → 브랜드별 리드타임과 비교해 상태를 매긴다</span>
+view[<span class="s">"소진예상개월"</span>] = view[<span class="s">"현재고"</span>] / view[<span class="s">"월평균판매"</span>]
+
+<span class="k">def</span> order_status(row):
+    m, lead = row[<span class="s">"소진예상개월"</span>], row[<span class="s">"리드타임_개월"</span>]
+    <span class="k">if</span> m &lt;= lead:              <span class="c"># 지금 발주해도 공백이 생기는 구간</span>
+        <span class="k">return</span> <span class="s">"즉시발주 필요"</span>
+    <span class="k">if</span> m &lt;= lead + 0.5:        <span class="c"># 안전 마진 안으로 들어온 구간</span>
+        <span class="k">return</span> <span class="s">"발주 준비"</span>
+    <span class="k">return</span> <span class="s">"여유"</span>
+
+view[<span class="s">"발주상태"</span>] = view.apply(order_status, axis=1)</pre>
+        </div>
+      </div>
+
+      <div class="lb-sec">
+        <div class="lb-sec-label">Result</div>
+        <div class="lb-body">군별 달성률 · 주간 증분 · 재고 소진을 한 화면에서 확인하고, 그 자리에서 품번 단위 발주 상태까지 내려가는 구조를 만들었습니다. 매주 파일을 옮겨 붙이던 준비 과정이 사라지고, <strong>같은 지표를 같은 기준으로 보는 상태</strong>가 되면서 논의가 &quot;숫자 확인&quot;이 아니라 &quot;무엇을 할 것인가&quot;에서 시작하게 됐습니다.</div>
+        <div class="lb-tags">
+          <span class="lb-tag">Streamlit</span><span class="lb-tag">Plotly</span><span class="lb-tag">Pandas</span><span class="lb-tag">SQLite</span><span class="lb-tag">스냅샷 차감 설계</span><span class="lb-tag">지표 · 판단 기준 정의</span>
+        </div>
+        <div class="lb-note">비공개 저장소로 관리 중입니다. 실제 목표·실매출·재고 수치는 회사 보안 정책상 공개하지 않으며, 위 코드는 구조를 보여주기 위한 실제 구현부입니다.</div>
+      </div>`,
+    quote:'그래프를 늘리는 것보다, 어떤 숫자가 어떤 결정으로 이어지는지를 먼저 정하는 편이 실제로 쓰이게 만듭니다.',
+    metrics:[
+      {num:'7개 군',desc:'단일 기준으로 통합 집계'},
+      {num:'주 1회',desc:'실적 진단 주기'},
+      {num:'0건',desc:'군 매핑 누락'},
+      {num:'3개 뷰',desc:'실적 · 추이 · 재고'}
     ]
   },
 
@@ -1804,6 +2013,16 @@ function mockPreview(type) {
         <div class="mock-gate"><i style="height:74%"></i><span>이익률</span></div>
         <div class="mock-gate"><i style="height:92%"></i><span>등급</span></div>
       </div></div>`;
+  if (type === 'kpi') return `
+    <div class="mock-preview"><div class="mock-dots"><span></span><span></span><span></span></div>
+      <div class="mock-kpi">
+        <div class="mock-kpi-w"><b>7개 군</b><span>목표 대비 달성률</span></div>
+        <div class="mock-kpi-w hi"><b>주간 증분</b><span>스냅샷 차감 산출</span></div>
+        <div class="mock-kpi-w" style="grid-column:1 / -1">
+          <div class="mock-kpi-bars"><i style="height:70%"></i><i style="height:44%"></i><i style="height:88%"></i><i style="height:30%"></i><i style="height:60%"></i><i style="height:52%"></i><i style="height:76%"></i></div>
+          <span>군별 실적 · 재고 소진 → SKU 단위 발주 판단</span>
+        </div>
+      </div></div>`;
   if (type === 'pipeline') return `
     <div class="mock-preview"><div class="mock-dots"><span></span><span></span><span></span></div>
       <div class="mock-tag card-stat" style="position:static;align-self:flex-end;margin-bottom:2px;">1,300여 건 자동 판별</div>
@@ -1884,7 +2103,7 @@ function buildMoreGrid() {
       </div>
     </div>`;
 
-  const mockTypes = { case1:'funnel', case2:'growth', case3:'share', system:'gates', ai:'pipeline', career:'timeline', skills:'radar' };
+  const mockTypes = { case1:'funnel', case2:'growth', case3:'share', system:'gates', kpi:'kpi', ai:'pipeline', career:'timeline', skills:'radar' };
   const cardHtml = key => {
     const c = workCards.find(x => x.key === key); if (!c) return '';
     return `
@@ -1896,7 +2115,7 @@ function buildMoreGrid() {
 
   /* 배치 순서: 애니메이션 바 → 룩북 → 케이스 소개 → 일하는 구조·경력·툴 → 데이터 사이드 프로젝트(맨 끝) */
   const caseBlock = ['case1','case2','case3'].map(cardHtml).join('');
-  const restBlock = ['system','ai','career','skills'].map(cardHtml).join('');
+  const restBlock = ['system','kpi','ai','career','skills'].map(cardHtml).join('');
 
   grid.innerHTML = lookbookBlock + caseBlock + restBlock + dashBlock;
 }
